@@ -8,7 +8,8 @@ export default function Home() {
 
         <div>
 
-        There&apos;s definitely a few wee UI bugs floating around, and I&apos;ve hidden the emails in the memberlist. 
+        There&apos;s definitely a few wee UI bugs floating around (I&apos;ve been trying to get everything working before making it pretty!).
+        I&apos;ve hidden the emails in the memberlist -
         I&apos;d suggest including a question in the next newsletter you send out asking whether members are ok with their details being shared, add that Yes/No to the airtable, and we can just add a check in the logic to only fetch the people who&apos;ve responded. 
         </div>
         <p>

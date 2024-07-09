@@ -39,6 +39,7 @@ const MarkerWithInfoWindow: React.FC<MarkerAndInfoProps> = ({
           anchor={marker}
           onClose={onClose}
           shouldFocus={false}
+
         >
           <p className="">{cluster}</p>
           <p>{contact}</p>

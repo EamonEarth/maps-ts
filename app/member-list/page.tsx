@@ -84,68 +84,27 @@ const MemberPage: React.FC = () => {
   const [expandedRecord, setExpandedRecord] =
     useState<MemberRecord>(defaultRecord);
 
-    const airtableApiKey = process.env.AIRTABLE_API_KEY
-
-  useEffect(() => {
-    const fetchAllRecords = async () => {
-      const baseUrl =
-        "https://api.airtable.com/v0/appUeDvcFLgQAJBVj/tblUDr7zpyO8IxAGm";
-      const headers = {
-        Authorization:
-          `Bearer ${airtableApiKey}`,
-        "Content-Type": "application/json",
-      };
-
-      let allRecords: MemberRecord[] = [];
-      let offset;
-
-      do {
-        const params = new URLSearchParams();
-        if (offset) {
-          params.append("offset", offset);
-        }
-        params.append("pageSize", "100"); // Maximum page size
-        params.append("sort[0][field]", "Name"); // Sort by Stakeholders field
-        params.append("sort[0][direction]", "asc"); // Sort direction (ascending)
-
-        const url = `${baseUrl}?${params.toString()}`;
-
+    useEffect(() => {
+      const fetchData = async () => {
         try {
-          console.log("current url", url);
-          const response = await fetch(url, { headers });
+          const response = await fetch('/api/fetchMemberList');
           if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
           }
-
-          const result = await response.json();
-          allRecords = [...allRecords, ...result.records];
-          offset = result.offset; // Get the offset for the next page, if any
-        } catch (err: any) {
-          console.log("caught");
-          console.error(err.message);
-          break; // Exit the loop in case of an error
+  
+          const fullRecords: MemberRecord[] = await response.json();
+          setRecords(fullRecords);
+          setFilteredRecords(fullRecords); // Initialize filtered records
+          setExpandedRecord(fullRecords[0]); // Initialize expandedRecord to the first record
+          setLoading(false);
+        } catch (error: any) {
+          setError(error.message);
+          setLoading(false);
         }
-      } while (offset); // Continue fetching if there's an offset
-
-      return allRecords;
-    };
-
-    const fetchData = async () => {
-      try {
-        const fullRecords: MemberRecord[] = await fetchAllRecords();
-
-        setRecords(fullRecords);
-        setFilteredRecords(fullRecords); // Initialize filtered records
-        setExpandedRecord(fullRecords[0]); // Initialize expandedRecord to the first record
-        setLoading(false);
-      } catch (error: any) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+      };
+  
+      fetchData();
+    }, []);
 
   useEffect(() => {
     console.log(records);

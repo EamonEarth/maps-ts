@@ -93,7 +93,6 @@ const MemberList: React.FC<MemberListProps> = ({
       "South/Perth Metro": "South West",
       "Perth metro": "Perth Metro",
       "Perth Metro": "Perth Metro",
-      // Add more mappings as needed
     };
 
     // Filter function
@@ -140,7 +139,7 @@ const MemberList: React.FC<MemberListProps> = ({
     nameFilter,
     districtFilter,
     setFilteredRecords,
-  ]); // Ensure all dependencies are included
+  ]); 
 
   const handleClick = (record: MemberRecord) => {
     setExpandedRecord(record);
@@ -195,23 +194,23 @@ const MemberList: React.FC<MemberListProps> = ({
             {record.fields["Coastal region"] && (
               <span className="px-12 flex justify-between items-center bg-[#54abdd]/80 p-1">
                 <p className="text-sm font-semibold">Coastal Regions: </p>
-                <p className="text-sm rounded   flex flex-col gap-y-1 text-end">
+                <div className="text-sm rounded   flex flex-col gap-y-1 text-end">
                   {" "}
                   {record.fields["Coastal region"].map((thing) => (
                     <p key={`${thing}+coast`}>{thing}</p>
                   ))}
-                </p>
+                </div>
               </span>
             )}
             {record.fields["Land regions"] && (
               <span className="px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
                 <p className="text-sm font-semibold">Land Regions: </p>
-                <p className="text-sm rounded  flex flex-col gap-y-1 text-end">
+                <div className="text-sm rounded  flex flex-col gap-y-1 text-end">
                   {" "}
                   {record.fields["Land regions"].map((thing) => (
                     <p key={`${thing}+land`}>{thing}</p>
                   ))}{" "}
-                </p>
+                </div>
               </span>
             )}
             {record.fields["Town/City"] && (

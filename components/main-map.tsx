@@ -20,6 +20,24 @@ const MainMap: React.FC<MainMapProps> = ({
   openMarker,
   setOpenMarker,
 }) => {
+
+
+  const [googleApiKey, setGoogleApiKey] = useState<string | null>("");
+
+  useEffect(() => {
+    const fetchGoogleApiKey = async () => {
+      try {
+        const response = await fetch('/api/googleApiKey');
+        const data = await response.json();
+        setGoogleApiKey(data.googleApiKey);
+      } catch (error) {
+        console.error('Error fetching Google API key:', error);
+      }
+    };
+
+    fetchGoogleApiKey();
+  }, []);
+
   function parseLocationString(location: string) {
     const trimmedString = location.trim();
     const jsonString = trimmedString
@@ -63,9 +81,13 @@ const MainMap: React.FC<MainMapProps> = ({
     return null;
   });
 
-  return (
-    <div className="w-full h-[80%] mt-auto">
-      <APIProvider apiKey={googleApiKey!} libraries={["marker", "places"]}>
+  if (!googleApiKey) return <>Loading...</>
+  else {
+
+    
+    return (
+      <div className="w-full h-[80%] mt-auto">
+      <APIProvider apiKey={googleApiKey} libraries={["marker", "places"]}>
         <Map
           id="34a6d58b90841fba"
           mapId={"34a6d58b90841fba"}
@@ -74,12 +96,13 @@ const MainMap: React.FC<MainMapProps> = ({
           defaultZoom={4}
           gestureHandling={"greedy"}
           reuseMaps={true}
-        >
+          >
           {markerCompArray}
         </Map>
       </APIProvider>
     </div>
   );
+}
 };
 
 export default MainMap;
