@@ -9,7 +9,7 @@ import {
 } from "./ui/select";
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
-import { cities, coastalRegions, landRegions, districts } from "../lib/data";
+import { cities, coastalRegions, landRegions, districts, regions } from "../lib/data";
 import { Button } from "./ui/button";
  
 interface FilterSelectProps {
@@ -67,7 +67,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
                 />
               </SelectTrigger>
               <SelectContent>
-                {landRegions.map((region) => (
+                {regions.map((region) => (
                   <SelectItem key={`${region}+land`}value={region}>{region}</SelectItem>
                 ))}
               </SelectContent>

@@ -4,6 +4,20 @@ export const coastalRegions = [
     "South Coast",
     "Gascoyne Coast",
   ];
+
+export const regions = [
+    "Central Coast",
+    "Wheatbelt",
+    "Gascoyne",
+    "Great Southern WA",
+    "Mid-west",
+    "Perth",
+    "SW",
+    "South",
+    "South West",
+    "WA",
+    "Western Australia"
+]
   
   export const landRegions = [
     "Gascoyne",
