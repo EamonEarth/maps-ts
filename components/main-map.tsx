@@ -4,7 +4,6 @@ import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import MarkerWithInfoWindow from "./Marker-With-Info";
 
-const googleApiKey = process.env.GOOGLE_API_KEY
 
 interface MainMapProps {
   stakeholders: AirtableRecord[];
