@@ -6,6 +6,7 @@ import { useMap } from "@vis.gl/react-google-maps";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import StakeholderTable from "./components/stakeholder-table";
 
 export interface AirtableRecord {
   id: string;
@@ -54,6 +55,7 @@ const AirtableComponent: React.FC = () => {
   const [areaFilter, setAreaFilter] = useState<string>("");
   const [nameFilter, setNameFilter] = useState<string>("");
   const [clusterFilter, setClusterFilter] = useState<string>("");
+  const [memberCheck, setMemberCheck] = useState<boolean>(false)
 
   const [openMarker, setOpenMarker] = useState<string | null>(null);
 
@@ -126,15 +128,23 @@ const AirtableComponent: React.FC = () => {
       );
     };
 
+    const filterByMemberCheck = (records: AirtableRecord[]) => {
+      if (!memberCheck) return records
+      return records.filter((record)=>record.fields["CMCN membership? (y/n)"]?.toLowerCase() === "y" )
+    }
+
     const applyFilters = () => {
       let filteredRecords = filterByRegion(areaFilter, records);
       filteredRecords = filterByName(nameFilter, filteredRecords);
       filteredRecords = filterByCluster(clusterFilter, filteredRecords);
+      filteredRecords = filterByMemberCheck(filteredRecords);
       setFilteredRecords(filteredRecords);
     };
 
     applyFilters();
-  }, [clusterFilter, areaFilter, nameFilter, records]);
+
+    console.log("memb", memberCheck)
+  }, [clusterFilter, areaFilter, nameFilter, records, memberCheck]);
 
   // KEY NAVIGATIONS
   useEffect(() => {
@@ -143,8 +153,9 @@ const AirtableComponent: React.FC = () => {
       const currentIndex = filteredRecords.findIndex(
         (record) => record.id === expandedRecord.id
       );
-
+      
       if (event.key === "ArrowUp" && currentIndex > 0) {
+        event.preventDefault()
         const newIndex = currentIndex - 1;
         setExpandedRecord(filteredRecords[newIndex]);
         setOpenMarker(filteredRecords[newIndex].id);
@@ -152,6 +163,7 @@ const AirtableComponent: React.FC = () => {
         event.key === "ArrowDown" &&
         currentIndex < filteredRecords.length - 1
       ) {
+        event.preventDefault()
         const newIndex = currentIndex + 1;
         setExpandedRecord(filteredRecords[newIndex]);
         setOpenMarker(filteredRecords[newIndex].id);
@@ -174,18 +186,7 @@ const AirtableComponent: React.FC = () => {
     }
   }, [expandedRecord]);
 
-  const handleClick = (record: AirtableRecord) => {
-    setExpandedRecord(record);
-    setOpenMarker(record.id);
-    const element = document.getElementById(record.id);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "nearest",
-      });
-    }
-  };
+
 
   
   // ALPH CLICK
@@ -240,7 +241,7 @@ const AirtableComponent: React.FC = () => {
 
   if (loading)
     return (
-      <p className="w-full h-[50%] flex flex-col items-center justify-center text-xl">
+      <p className="w-full h-screen flex flex-col items-center justify-center text-xl">
         <Image
           src="/logo.png"
           alt="Image of WACMN Logo"
@@ -253,9 +254,9 @@ const AirtableComponent: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="w-full flex flex-col md:flex-row relative ">
+    <div className="w-full h-screen flex flex-col md:flex-row relative ">
       {/* ALPH DIV START */}
-      <div className="absolute left-0 h-[90vh] w-[20px] bg-cyan-800  flex flex-col items-center justify-between gap-y-[2px] py-4 items-center z-50 text-white/70 ">
+      <div className="absolute left-0 h-full w-[20px] bg-cyan-800  flex flex-col items-center justify-between gap-y-[2px] py-4  z-50 text-white/70 ">
         {alph.map((char) => (
           <div
             key={char}
@@ -273,59 +274,14 @@ const AirtableComponent: React.FC = () => {
       </div>
       {/* ALPH END */}
       {/* TABLE START */}
-      <div
-        id="table"
-        className="flex flex-col gap-y-6 h-[50vh] md:h-[90vh] overflow-scroll- overflow-y-auto md:p-2  w-[25%] min-w-[250px] border border-r-8 border-r-black/50 relative shrink-0 grow-0"
-      >
-        <h1 className="text-lg font-bold uppercase tracking-tighter ml-auto ">
-          Airtable Stakeholders
-        </h1>
-        {filteredRecords.map((record) => (
-          <div
-            className={cn(
-              "flex flex-col rounded p-4 border-b h-40 pl-5",
-              expandedRecord.id === record.id && "bg-blue-100"
-            )}
-            id={record.id}
-            key={record.id}
-            onClick={() => handleClick(record)}
-          >
-            <h2 className=" text-wrap font-bold pb-2 leading-4">
-              {record.fields.Stakeholders}
-            </h2>
-            <div className="flex flex-col gap-y-1 ">
-              {record.fields.Region && (
-                <span className="flex justify-between items-center">
-                  <div className="text-xs ">Region: </div>
-                  <div className="text-xs rounded bg-blue-300/80 px-1">
-                    {" "}
-                    {record.fields.Region}{" "}
-                  </div>
-                </span>
-              )}
-              {record.fields["Email address"] && (
-                <span className="flex justify-between items-center gap-x-2">
-                  <div className="text-xs">Email: </div>
-                  <div className="text-xs text-ellipsis truncate">
-                    {" "}
-                    {record.fields["Email address"]}
-                  </div>
-                </span>
-              )}
-              {record.fields.Website && (
-                <span className="flex justify-between items-center overflow-hidden gap-x-6">
-                  <div className="text-xs">Website: </div>
-                  <div className="text-xs truncate">
-                    {" "}
-                    {record.fields.Website}
-                  </div>
-                </span>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex flex-col w-[75%] gap-x-12- justify-between shrink-0">
+      <StakeholderTable 
+      filteredRecords={filteredRecords}
+      expandedRecord={expandedRecord}
+      setExpandedRecord={setExpandedRecord}
+      setOpenMarker={setOpenMarker}
+      />
+      
+      <div className="flex flex-col w-[75%] justify-between">
         <InfoContainer
           areaFilter={areaFilter}
           setAreaFilter={setAreaFilter}
@@ -336,6 +292,8 @@ const AirtableComponent: React.FC = () => {
           setClusterFilter={setClusterFilter}
           showMobileFilters={showMobileFilters}
           setShowMobileFilters={setShowMobileFilters}
+          memberCheck={memberCheck}
+          setMemberCheck={setMemberCheck}
         />
         <MainMap
           stakeholders={filteredRecords}

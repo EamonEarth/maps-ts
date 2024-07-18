@@ -153,6 +153,7 @@ const MemberPage: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col md:flex-row- items-center justify-center relative ">
+      
       <h1 className="text-4xl font-bold uppercase text-center py-4">
         Beach Geek Directory
       </h1>

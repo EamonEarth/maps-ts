@@ -15,7 +15,7 @@ interface MainMapProps {
 
 const MainMap: React.FC<MainMapProps> = ({
   stakeholders,
-  setExpandedRecord,
+  setExpandedRecord, 
   openMarker,
   setOpenMarker,
 }) => {
@@ -85,7 +85,7 @@ const MainMap: React.FC<MainMapProps> = ({
 
     
     return (
-      <div className="w-full h-[80%] mt-auto">
+      <div className="w-full h-[80%]">
       <APIProvider apiKey={googleApiKey} libraries={["marker", "places"]}>
         <Map
           id="34a6d58b90841fba"

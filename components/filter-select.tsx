@@ -19,6 +19,8 @@ interface FilterSelectProps {
   setNameFilter: React.Dispatch<SetStateAction<string>>;
   clusterFilter: string;
   setClusterFilter: Dispatch<SetStateAction<string>>;
+  memberCheck: boolean;
+  setMemberCheck: Dispatch<SetStateAction<boolean>>;
 }
 
 const FilterSelect: React.FC<FilterSelectProps> = ({
@@ -28,22 +30,25 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   setNameFilter,
   clusterFilter,
   setClusterFilter,
+  memberCheck,
+  setMemberCheck
 }) => {
 
   const clearAllFilters = () => {
     setAreaFilter("")
     setNameFilter("")
     setClusterFilter("")
+    setMemberCheck(false)
   }
   return (
-    <div className="md:border flex flex-col px-4 py-2 md:w-full  gap-y-2 rounded ">
+    <div className="md:border flex flex-col px-4 py-2 md:w-full  gap-y-2 rounded bg-slate-200">
       <div className="flex items-center justify-between">
 
       <h2 className="font-bold tracking-tight">Filter:</h2>
       <p className="text-xs flex font-bold">Current filters: <span className="flex justify-around font-normal">{areaFilter} {clusterFilter && <span> + {clusterFilter}</span>}</span></p>
       </div>
-      <div className="flex justify-around gap-x-2">
-        <div className="flex flex-col gap-y-2">
+      <div className="grid grid-cols-3 justify-around gap-x-2">
+        <div className="col-span-1 flex flex-col gap-y-2">
           <div className="flex gap-x-2 items-center">
             <Input
               placeholder="Name"
@@ -78,8 +83,8 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
             />
           </div>
         </div>
-        <div className="flex flex-col gap-y-2">
-          <div className="flex gap-x-2 items-center overflow-hidden">
+        <div className="col-span-1 flex flex-col gap-y-2 ">
+          <div className="flex gap-x-2 items-center  overflow-hidden">
             <Select
               onValueChange={(value) => setClusterFilter(value)}
               value={clusterFilter}
@@ -89,7 +94,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="NGO">NGO</SelectItem>
-                <SelectItem value="Local Government">Local Government</SelectItem>
+                <SelectItem value="Local Government">Local Govt.</SelectItem>
                 <SelectItem value="Consultant">Consultants</SelectItem>
                 <SelectItem value="First Peoples">First Peoples</SelectItem>
               </SelectContent>
@@ -99,10 +104,18 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onClick={() => setClusterFilter("")}
             />
           </div>
+          <div className="flex items-center  gap-x-2 text-xl  rounded p-2 h-10">
+            <p className="text-xs">CMCN Member?</p>
+
+          <Checkbox checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
+          </div>
         </div>
+        <div className="flex flex-col col-span-1">
+
         <Button 
-        disabled={!areaFilter && !nameFilter && !clusterFilter}
+        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
         onClick={clearAllFilters}> Clear All Filters </Button>
+        </div>
         
       </div>
     </div>

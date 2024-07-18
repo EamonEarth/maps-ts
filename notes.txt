@@ -1,0 +1,20 @@
+show related stakeholders for each selected stakeholder (SH).
+Relational mapping within Airtable? 
+
+
+How do we protect the creation of relations and new map entries? With a log-in system? 
+
+use shadcn dialog to allow creation of relationships between stakeholders. 
+
+
+THe CreateStakeholderModal will be openable from the Stakeholder map page. 
+(maybe open from elsewhere? Gets complicated with not just inserting my app into their website.)
+
+
+The modal will include the StakeholderRelationForm to create a relationship between the selected
+SH and others. 
+From there, we need a dropdown list of all stakeholders, which will be filterable by name
+Selecting from this list will push to an array (in State?) 
+That array will then be passed to the API route used to create relations in the Airtable. 
+The info container will need an extra section showing relations, 
+and a mapmarker filter option to only show the selected record and its relations. 

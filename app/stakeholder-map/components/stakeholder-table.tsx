@@ -1,0 +1,87 @@
+import { SetStateAction } from "react";
+import { AirtableRecord } from "../page"
+import { cn } from "@/lib/utils";
+
+interface StakeholderTableProps {
+    filteredRecords: AirtableRecord[];
+    expandedRecord: AirtableRecord;
+    setExpandedRecord: React.Dispatch<SetStateAction<AirtableRecord>>;
+    setOpenMarker: React.Dispatch<SetStateAction<string | null>>;
+}
+
+const StakeholderTable: React.FC<StakeholderTableProps> = ({
+    filteredRecords,
+    expandedRecord,
+    setExpandedRecord,
+    setOpenMarker
+}) => {
+
+    const handleClick = (record: AirtableRecord) => {
+        setExpandedRecord(record);
+        setOpenMarker(record.id);
+        const element = document.getElementById(record.id);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest",
+          });
+        }
+      };
+    return (
+        <div
+        id="table"
+        className="flex flex-col gap-y-6 h-[50vh] md:h-full overflow-scroll- overflow-y-auto md:p-2  w-[25%] min-w-[250px] border border-r-8 border-r-black/50 relative shrink-0 grow-0"
+      >
+        <h1 className="text-lg font-bold uppercase text-center ">
+          Stakeholders
+        </h1>
+        {filteredRecords.map((record) => (
+          <div
+            className={cn(
+              "flex flex-col rounded p-4 border border-black h-40 px-5",
+              expandedRecord.id === record.id && "bg-blue-100"
+            )}
+            id={record.id}
+            key={record.id}
+            onClick={() => handleClick(record)}
+          >
+            <h2 className=" text-wrap font-bold pb-2 leading-4">
+              {record.fields.Stakeholders}
+            </h2>
+            <div className="flex flex-col gap-y-1 ">
+              {record.fields.Region && (
+                <span className="flex justify-between items-center">
+                  <div className="text-xs ">Region: </div>
+                  <div className="text-xs rounded bg-blue-300/80 px-1">
+                    {" "}
+                    {record.fields.Region}{" "}
+                  </div>
+                </span>
+              )}
+              {record.fields["Email address"] && (
+                <span className="flex justify-between items-center gap-x-2">
+                  <div className="text-xs">Email: </div>
+                  <div className="text-xs text-ellipsis truncate">
+                    {" "}
+                    {record.fields["Email address"]}
+                  </div>
+                </span>
+              )} 
+              {record.fields.Website && (
+                <span className="flex justify-between items-center overflow-hidden gap-x-6">
+                  <div className="text-xs">Website: </div>
+                  <div className="text-xs truncate">
+                    {" "}
+                    {record.fields.Website}
+                  </div>
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+}
+
+export default StakeholderTable

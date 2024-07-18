@@ -24,6 +24,8 @@ interface InfoContainerProps {
   setClusterFilter: Dispatch<SetStateAction<string>>;
   showMobileFilters: boolean;
   setShowMobileFilters: Dispatch<SetStateAction<boolean>>;
+  memberCheck: boolean;
+  setMemberCheck: Dispatch<React.SetStateAction<boolean>>
 }
 
 const InfoContainer: React.FC<InfoContainerProps> = ({
@@ -34,28 +36,36 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   setNameFilter,
   clusterFilter,
   setClusterFilter,
+  memberCheck,
+  setMemberCheck,
   showMobileFilters,
   setShowMobileFilters,
 }) => {
   return (
-    <div className="w-full flex flex-col md:flex-row gap-y-6 overflow-scroll pl-4- border-t border-b ">
-      <div className="border flex flex-col gap-y-1 relative h-[120px] md:h-auto w-full px-4 overflow-x-hidden">
+    <div className="w-full h-[20%] bg-slate-200 flex flex-col md:flex-row gap-y-6 overflow-scroll pl-4- border-black border">
+      <div className="border-r flex flex-col gap-y-1 relative  md:h-auto w-full px-4 overflow-x-hidden border-black ">
         <h1 className="font-semibold text-lg">{record.fields.Stakeholders}</h1>
         {record.fields.Region && record.fields.City !== "Perth" && (
           <p className="flex items-center gap-x-1 rounded  bg-slate-200">
+            <span className="w-[30px]">
+
             <Image src="/aus-map.svg" alt="map" width={15} height={15} />
+            </span>
             {record.fields.Region}
             {/* <p className="flex gap-x-2 w-full justify-around ">
               <span>{record.fields.latLong.lat}</span>
-
+              
               <span>{record.fields.latLong.long}</span>
-            </p> */}
+              </p> */}
           </p>
         )}
         {record.fields.City && (
           <p className="flex items-center justify-between gap-x-1">
             <span className="flex">
+              <span className="w-[30px]">
+
               <Image src="/pin.png" alt="pin" width={15} height={15} />{" "}
+              </span>
               {record.fields.City}
             </span>
             <span className="flex text-sm rounded bg-blue-200 px-1 max-w-[60%] truncate">
@@ -66,7 +76,10 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         {record.fields["Key Contact"] && (
           <p className="flex items-center justify-between gap-x-1">
             <span className="flex">
+              <span className="w-[30px]">
+
               <Contact2 />
+              </span>
               {record.fields["Key Contact"]}
             </span>
             {record.fields["Email address"] && (
@@ -117,6 +130,8 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         setAreaFilter={setAreaFilter}
         clusterFilter={clusterFilter}
         setClusterFilter={setClusterFilter}
+        memberCheck={memberCheck}
+        setMemberCheck={setMemberCheck}
       />
       {/* </span> */}
     </div>
