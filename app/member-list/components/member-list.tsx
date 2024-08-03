@@ -154,7 +154,7 @@ const MemberList: React.FC<MemberListProps> = ({
   };
 
   return (
-    <div id="table" className="flex flex-col gap-y-12 w-[60%] border relative">
+    <div id="table" className="flex flex-col gap-y-12 w-full md:w-[60%] border relative">
       {noneFoundMessage ? (
         <span className="w-full h-full m-auto bg-red-200 text-center">
           <h2>Unfortunately no members match your search</h2>
@@ -180,7 +180,7 @@ const MemberList: React.FC<MemberListProps> = ({
             </h2>
             {record.fields.Logo && imageLoaded[record.id] !== false && (
               <Image
-                className="rounded bg-white p-1"
+                className="hidden md:block rounded bg-white p-1"
                 alt="logo"
                 src={record.fields.Logo[0].url}
                 width={200}
@@ -231,7 +231,7 @@ const MemberList: React.FC<MemberListProps> = ({
             {record.fields.Affliations && (
               <span className="px-12 flex justify-between items-center bg-slate-200/80 p-1">
                 <p className="text-sm font-semibold">Affiliation: </p>
-                <p className="text-sm rounded px-1 text-end">
+                <p className="text-sm rounded px-1 text-end text-wrap">
                   {" "}
                   {record.fields.Affliations}{" "}
                 </p>

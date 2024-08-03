@@ -9,6 +9,7 @@ import {
 } from "./ui/select";
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface MobileFilterSelectProps {
   areaFilter: string;
@@ -17,6 +18,8 @@ interface MobileFilterSelectProps {
   setNameFilter: React.Dispatch<SetStateAction<string>>;
   clusterFilter: string;
   setClusterFilter: Dispatch<SetStateAction<string>>;
+  memberCheck: boolean;
+  setMemberCheck: Dispatch<SetStateAction<boolean>>;
 }
 
 const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
@@ -26,24 +29,46 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   setNameFilter,
   clusterFilter,
   setClusterFilter,
+  memberCheck,
+  setMemberCheck
+  
 }) => {
+
+  const currFilters: string[] = [];
+
+  if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
+  if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
+  if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
+
+  const clearAllFilters = () => {
+    setAreaFilter("")
+    setNameFilter("")
+    setClusterFilter("")
+    setMemberCheck(false)
+  }
+
   return (
-    <div className="border flex flex-col px-4 py-2 md:w-[40%] gap-y-2 rounded absolute bottom-0">
-      <h2 className="font-bold tracking-tight">Find Stakeholders:</h2>
-      <div className="flex gap-x-2">
+    <div className="h-full w-full border- flex flex-col px-4 py-2 gap-y-2 rounded ">
+      <h2 className="font-bold tracking-tight">Filters:</h2>
+
+      <div className="flex gap-x-2 text-xs flex-wrap">
+          {currFilters.map((filter)=>(<p key={filter} className="max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+      </div>
+      
         <div className="flex flex-col gap-y-2">
-          <p className="flex gap-x-2 items-center">
+          <div className="flex gap-x-2 items-center">
             <Input
               placeholder="Name"
               onChange={(event) => setNameFilter(event.currentTarget.value)}
               value={nameFilter}
+              className="opacity-80"
             />
             <X
               className="opacity-50 size-4"
               onClick={() => setNameFilter("")}
             />
-          </p>
-          <p className="flex gap-x-2 items-center">
+          </div>
+          <div className="flex gap-x-2 items-center">
             <Select
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
@@ -61,16 +86,14 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               className="opacity-50 size-4"
               onClick={() => setAreaFilter("")}
             />
-          </p>
-        </div>
-        <div className="flex flex-col gap-y-2">
-          <p className="flex gap-x-2 items-center overflow-hidden">
+          </div>
+          <div className="flex gap-x-2 items-center">
             <Select
               onValueChange={(value) => setClusterFilter(value)}
               value={clusterFilter}
             >
-              <SelectTrigger className="w-24">
-                <SelectValue className="w-24" placeholder="Type" />
+              <SelectTrigger className="">
+                <SelectValue className="" placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="NGO">NGO</SelectItem>
@@ -83,9 +106,21 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               className="opacity-50 size-4"
               onClick={() => setClusterFilter("")}
             />
-          </p>
         </div>
-      </div>
+        <div className="flex items-center justify-around gap-x-2 text-xl  rounded p-2 ">
+          <span className="flex gap-x-2">
+
+            <p className="text-xs">CMCN Member?</p>
+
+          <Checkbox checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
+          </span>
+          <Button 
+          className="py-2" 
+        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
+        onClick={clearAllFilters}> Clear Filters </Button>
+          </div>
+          
+        </div>
     </div>
   );
 };

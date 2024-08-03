@@ -40,12 +40,22 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
     setClusterFilter("")
     setMemberCheck(false)
   }
+
+  const currFilters: string[] = [];
+
+  if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
+  if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
+  if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
+  // if (memberCheck) currFilters.push("Member checked");
+
   return (
-    <div className="md:border flex flex-col px-4 py-2 md:w-full  gap-y-2 rounded bg-slate-200">
+    <div className="md:border flex flex-col px-4 py-2 w-full  gap-y-2 rounded bg-slate-200">
       <div className="flex items-center justify-between">
 
       <h2 className="font-bold tracking-tight">Filter:</h2>
-      <p className="text-xs flex font-bold">Current filters: <span className="flex justify-around font-normal">{areaFilter} {clusterFilter && <span> + {clusterFilter}</span>}</span></p>
+         <div className="flex gap-x-2 text-xs">
+          {currFilters.map((filter)=>(<p key={filter} className="font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+         </div>
       </div>
       <div className="grid grid-cols-3 justify-around gap-x-2">
         <div className="col-span-1 flex flex-col gap-y-2">

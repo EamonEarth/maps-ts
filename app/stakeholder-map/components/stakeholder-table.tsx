@@ -16,27 +16,39 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
     setOpenMarker
 }) => {
 
-    const handleClick = (record: AirtableRecord) => {
+    const handleClick = (record: AirtableRecord, index: number) => {
         setExpandedRecord(record);
         setOpenMarker(record.id);
-        const element = document.getElementById(record.id);
-        if (element) {
-          element.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-            inline: "nearest",
-          });
+        
+          const element = document.getElementById(record.id);
+          if (element && (window.innerWidth > 768)) {
+            if (index > 1) {
+            element.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "nearest",
+            });
+          } else {
+            element.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+              inline: "nearest",
+            });
+
+          }
+          
         }
+
       };
     return (
         <div
         id="table"
-        className="flex flex-col gap-y-6 h-[50vh] md:h-full overflow-scroll- overflow-y-auto md:p-2  w-[25%] min-w-[250px] border border-r-8 border-r-black/50 relative shrink-0 grow-0"
+        className="flex flex-col gap-y-2 md:gap-y-6 h-[33%] md:h-full overflow-scroll- overflow-y-auto md:p-2  md:w-[25%] min-w-[250px] md:border md:border-r-8 border-r-black/50 relative shrink-0 grow-0"
       >
         <h1 className="text-lg font-bold uppercase text-center ">
           Stakeholders
         </h1>
-        {filteredRecords.map((record) => (
+        {filteredRecords.map((record, index) => (
           <div
             className={cn(
               "flex flex-col rounded p-4 border border-black h-40 px-5",
@@ -44,7 +56,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
             )}
             id={record.id}
             key={record.id}
-            onClick={() => handleClick(record)}
+            onClick={() => handleClick(record, index)}
           >
             <h2 className=" text-wrap font-bold pb-2 leading-4">
               {record.fields.Stakeholders}

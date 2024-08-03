@@ -1,18 +1,8 @@
 import { AirtableRecord } from "@/app/stakeholder-map/page";
 import React, { Dispatch, SetStateAction } from "react";
-import { Checkbox } from "./ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+
 import FilterSelect from "./filter-select";
-import { Check, Contact2, Info, Mail, Pin, TicketCheck } from "lucide-react";
-import Image from "next/image";
-import MobileFilterSelect from "./mobile-filter-select";
-import FilterOptions from "@/app/member-list/components/filter-options";
+import { Check, Contact2, Info, Mail, Map, MapPin, Pin, TicketCheck } from "lucide-react";
 
 interface InfoContainerProps {
   record: AirtableRecord;
@@ -42,14 +32,24 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   setShowMobileFilters,
 }) => {
   return (
-    <div className="w-full h-[20%] bg-slate-200 flex flex-col md:flex-row gap-y-6 overflow-scroll pl-4- border-black border">
+    <div className="w-full h-[20%] bg-slate-200 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border">
       <div className="border-r flex flex-col gap-y-1 relative  md:h-auto w-full px-4 overflow-x-hidden border-black ">
-        <h1 className="font-semibold text-lg">{record.fields.Stakeholders}</h1>
+        <div className="flex flex-wrap justify-between">
+          <h1 className="font-semibold text-lg">{record.fields.Stakeholders}</h1>
+          {record.fields["CMCN membership? (y/n)"] && (
+            <p className="flex items-center gap-x-1 text-xs tracking-tighter py-1">
+            {/* <p className="flex items-center gap-x-1 absolute right-1 top-1 text-xs tracking-tighter"> */}
+              CMCN Member
+              {/* <TicketCheck /> */}
+              <Check className="size-3" />
+            </p>
+          )}
+        </div>
         {record.fields.Region && record.fields.City !== "Perth" && (
           <p className="flex items-center gap-x-1 rounded  bg-slate-200">
             <span className="w-[30px]">
 
-            <Image src="/aus-map.svg" alt="map" width={15} height={15} />
+            <Map />
             </span>
             {record.fields.Region}
             {/* <p className="flex gap-x-2 w-full justify-around ">
@@ -64,11 +64,11 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
             <span className="flex">
               <span className="w-[30px]">
 
-              <Image src="/pin.png" alt="pin" width={15} height={15} />{" "}
+              <MapPin color="#b41412"/>
               </span>
               {record.fields.City}
             </span>
-            <span className="flex text-sm rounded bg-blue-200 px-1 max-w-[60%] truncate">
+            <span className="flex text-sm rounded  border  border-black p-1 max-w-[60%] overflow-scroll">
               {record.fields["Stakeholder cluster"]}
             </span>
           </p>
@@ -90,13 +90,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
             )}
           </p>
         )}
-        {record.fields["CMCN membership? (y/n)"] && (
-          <p className="flex items-center gap-x-1 absolute right-1 top-1 text-xs tracking-tighter">
-            CMCN Member
-            {/* <TicketCheck /> */}
-            <Check className="size-3" />
-          </p>
-        )}
+        
         {record.fields.Website && (
           <p className="flex items-center gap-x-1 text-sm w-[80%]">
             <Info className="shrink-0" />{" "}

@@ -3,10 +3,13 @@ import InfoContainer from "@/components/info-container";
 import MainMap from "@/components/main-map";
 import { cn } from "@/lib/utils";
 import { useMap } from "@vis.gl/react-google-maps";
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import StakeholderTable from "./components/stakeholder-table";
+import { Button } from "@/components/ui/button";
+import FilterSelect from "@/components/filter-select";
+import MobileFilterSelect from "@/components/mobile-filter-select";
 
 export interface AirtableRecord {
   id: string;
@@ -70,7 +73,6 @@ const AirtableComponent: React.FC = () => {
     useState<AirtableRecord>(defaultRecord);
 
     // FETCHING RECORDS
-
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -92,8 +94,6 @@ const AirtableComponent: React.FC = () => {
   
       fetchData();
     }, []);
-
-  
 
   // FILTERS
   useEffect(() => {
@@ -143,8 +143,14 @@ const AirtableComponent: React.FC = () => {
 
     applyFilters();
 
-    console.log("memb", memberCheck)
   }, [clusterFilter, areaFilter, nameFilter, records, memberCheck]);
+
+  const clearAllFilters = () => {
+    setAreaFilter("")
+    setNameFilter("")
+    setClusterFilter("")
+    setMemberCheck(false)
+  }
 
   // KEY NAVIGATIONS
   useEffect(() => {
@@ -156,17 +162,33 @@ const AirtableComponent: React.FC = () => {
       
       if (event.key === "ArrowUp" && currentIndex > 0) {
         event.preventDefault()
+        event.stopPropagation()
         const newIndex = currentIndex - 1;
         setExpandedRecord(filteredRecords[newIndex]);
         setOpenMarker(filteredRecords[newIndex].id);
+        const element = document.getElementById(filteredRecords[newIndex].id);
+        if (element) {
+          if (newIndex > 2) { 
+
+            element.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          } 
+        }
+        
       } else if (
         event.key === "ArrowDown" &&
         currentIndex < filteredRecords.length - 1
       ) {
         event.preventDefault()
+        event.stopPropagation()
         const newIndex = currentIndex + 1;
         setExpandedRecord(filteredRecords[newIndex]);
         setOpenMarker(filteredRecords[newIndex].id);
+        const element = document.getElementById(filteredRecords[newIndex].id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       }
     };
 
@@ -177,14 +199,14 @@ const AirtableComponent: React.FC = () => {
     };
   }, [expandedRecord, filteredRecords]);
 
-  useEffect(() => {
-    if (expandedRecord) {
-      const element = document.getElementById(expandedRecord.id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }
-  }, [expandedRecord]);
+  // useEffect(() => {
+  //   if (expandedRecord) {
+  //     const element = document.getElementById(expandedRecord.id);
+  //     if (element) {
+  //       element.scrollIntoView({ behavior: "smooth", block: "center" });
+  //     }
+  //   }
+  // }, [expandedRecord]);
 
 
 
@@ -239,6 +261,7 @@ const AirtableComponent: React.FC = () => {
     }
   };
 
+
   if (loading)
     return (
       <p className="w-full h-screen flex flex-col items-center justify-center text-xl">
@@ -256,12 +279,11 @@ const AirtableComponent: React.FC = () => {
   return (
     <div className="w-full h-screen flex flex-col md:flex-row relative ">
       {/* ALPH DIV START */}
-      <div className="absolute left-0 h-full w-[20px] bg-cyan-800  flex flex-col items-center justify-between gap-y-[2px] py-4  z-50 text-white/70 ">
+      <div className="hidden md:flex absolute left-0 h-full w-[20px] bg-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4  z-50 text-white/70 ">
         {alph.map((char) => (
           <div
             key={char}
-            // style={{ animation: "transform 0.3s ease-in-out" }}
-            className="bg-black/20 rounded p-1 w-[20px] flex items-center text-center hover:scale-120 hover:bg-black/60 transition-all cursor-pointer text-xs relative left-0 hover:left-2 "
+            className="alph-box bg-black/20 rounded p-1 w-[20px] flex items-center text-center hover:scale-120 hover:bg-black/60 transition-all cursor-pointer text-xs relative left-0 hover:left-2 "
             onClick={() => handleAlphClick(char)}
           >
             <span className="w-[10px] uppercase">
@@ -273,15 +295,65 @@ const AirtableComponent: React.FC = () => {
         ))}
       </div>
       {/* ALPH END */}
+      {/* Mobile Filters */}
+      <div 
+        
+        onClick={()=> setShowMobileFilters(true)}
+        className="absolute md:hidden z-50 text-sm top-0 right-1 flex items-center justify-center opacity-60 bg-primary p-1 text-white rounded border">
+          Filters
+      </div>
+      {showMobileFilters && 
+      <div 
+      style={{
+        // maxHeight: showMobileFilters ? '33vh' : '0vh',
+        // transition: 'max-height 0.5s ease-in-out',
+      }}
+      className={cn("absolute top-0 z-50 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black")}>
+
+        <MobileFilterSelect
+          nameFilter={nameFilter}
+          setNameFilter={setNameFilter}
+          areaFilter={areaFilter}
+          setAreaFilter={setAreaFilter}
+          clusterFilter={clusterFilter}
+          setClusterFilter={setClusterFilter}
+          memberCheck={memberCheck}
+          setMemberCheck={setMemberCheck}
+        />  
+
+      <div 
+        
+        onClick={()=> setShowMobileFilters(false)}
+        className="absolute md:hidden z-50 text-sm top-0 right-0 flex items-center justify-center opacity-60 bg-red-500 p-1 text-white rounded border">
+          Close Filters
+      </div>
+        {/* <Button variant="destructive"
+        className="absolute top-0 right-0"onClick={()=>setShowMobileFilters(false)}>
+          Close Filters
+        </Button> */}
+      </div>
+      } 
       {/* TABLE START */}
+
+      {filteredRecords.length < 1 ? 
+      <div className="flex flex-col justify-center items-center gap-y-2 md:gap-y-6 h-[33%] md:h-full md:p-2  md:w-[25%] min-w-[250px] md:border md:border-r-8 border-r-black/50 relative shrink-0 grow-0"
+>         <p className="text-wrap text-center w-full px-4"> Unfortunately no results match your search</p>
+        <Button 
+        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
+        onClick={clearAllFilters}> Clear Filters </Button>
+
+      </div>
+      
+      : 
       <StakeholderTable 
       filteredRecords={filteredRecords}
       expandedRecord={expandedRecord}
       setExpandedRecord={setExpandedRecord}
       setOpenMarker={setOpenMarker}
       />
+    }
       
-      <div className="flex flex-col w-[75%] justify-between">
+      <div className="flex flex-col h-full md:w-[75%] justify-between">
         <InfoContainer
           areaFilter={areaFilter}
           setAreaFilter={setAreaFilter}

@@ -1,8 +1,9 @@
 "use client";
 import { AirtableRecord } from "@/app/stakeholder-map/page";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { APIProvider, Map, useMap } from "@vis.gl/react-google-maps";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import MarkerWithInfoWindow from "./Marker-With-Info";
+import {Marker, MarkerClusterer} from '@googlemaps/markerclusterer';
 
 
 interface MainMapProps {
@@ -22,7 +23,7 @@ const MainMap: React.FC<MainMapProps> = ({
 
 
   const [googleApiKey, setGoogleApiKey] = useState<string | null>("");
-
+  
   useEffect(() => {
     const fetchGoogleApiKey = async () => {
       try {
@@ -80,12 +81,14 @@ const MainMap: React.FC<MainMapProps> = ({
     return null;
   });
 
+  
+
   if (!googleApiKey) return <>Loading...</>
   else {
 
     
     return (
-      <div className="w-full h-[80%]">
+      <div className="w-full h-full md:h-[80%] border-t-black">
       <APIProvider apiKey={googleApiKey} libraries={["marker", "places"]}>
         <Map
           id="34a6d58b90841fba"
@@ -95,6 +98,8 @@ const MainMap: React.FC<MainMapProps> = ({
           defaultZoom={4}
           gestureHandling={"greedy"}
           reuseMaps={true}
+          fullscreenControl={false}
+          scaleControl={true}
           >
           {markerCompArray}
         </Map>
