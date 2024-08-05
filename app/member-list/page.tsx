@@ -93,14 +93,10 @@ const MemberPage: React.FC = () => {
           }
   
           const fullRecords: MemberRecord[] = await response.json();
-          console.log("full length", fullRecords.length)
-          const approvedRecords: MemberRecord[] = fullRecords.filter((record) =>
-            record?.fields?.["Are you happy for your name, about me and contact details to be shared within the network?"]?.[0] === "Yes"
-        );
-        console.log("approved length", approvedRecords.length)
-          setRecords(approvedRecords);
-          setFilteredRecords(approvedRecords); // Initialize filtered records
-          setExpandedRecord(approvedRecords[0]); // Initialize expandedRecord to the first record
+          
+          setRecords(fullRecords);
+          setFilteredRecords(fullRecords); // Initialize filtered records
+          setExpandedRecord(fullRecords[0]); // Initialize expandedRecord to the first record
           setLoading(false);
         } catch (error: any) {
           setError(error.message);
@@ -144,7 +140,7 @@ const MemberPage: React.FC = () => {
 
   if (loading)
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center text-xl">
+      <div className="w-full h-screen flex flex-col items-center justify-center text-xl">
         <Image
           src="/logo.png"
           alt="Image of WACMN Logo"
@@ -157,7 +153,7 @@ const MemberPage: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="w-full flex flex-col md:flex-row- items-center justify-center relative">
+    <div className="w-full flex flex-col md:flex-row- items-center justify-center relative bg-slate-200">
       
       <h1 
       className="text-4xl font-bold uppercase text-center pt-4 w-full">
@@ -165,7 +161,7 @@ const MemberPage: React.FC = () => {
       </h1>
       <div 
         onClick={()=>setExpandFilters(!expandFilters)}
-        className="flex items-center gap-x-1 mx-auto cursor-pointer">
+        className="flex items-center gap-x-1 mx-auto cursor-pointer pb-2">
         <Search size="20" className="opacity-80"/> {expandFilters ? "Hide Filters" : "Show Filters"}
       </div>
       <div className="w-full flex items-center justify-center">

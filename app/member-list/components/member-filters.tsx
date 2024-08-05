@@ -57,8 +57,9 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
   };
   return (
     <div 
-    style={{transition: "max-height 0.5s ease-in-out,", opacity: "0.5s ease-in-out"}}
-    className={cn("flex min-w-[100%] w-[100%] flex-col items-center justify-center overflow-hidden max-h-0 opacity-0", expandFilters && "max-h-[400px] opacity-100")}>
+    style={{transition: "max-height 0.5s ease-in-out, opacity 0.5s ease-in-out"}}
+    className={cn("flex min-w-[100%] w-[100%] flex-col items-center justify-center overflow-hidden", expandFilters ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+    )}>
       <div className=" flex flex-col md:flex-row gap-y-2 justify-between gap-x-6 p-2">
         <div className="flex flex-col gap-y-2 items-center">
           <div className="flex gap-x-1 items-center justify-end">

@@ -38,7 +38,11 @@ export async function GET(req: NextRequest) {
       offset = response.data.offset; // Get the offset for the next page, if any
     } while (offset); // Continue fetching if there's an offset
 
-    return NextResponse.json(allRecords, { status: 200 });
+    
+    const approvedRecords: MemberRecord[] = allRecords.filter((record) =>
+      record?.fields?.["Are you happy for your name, about me and contact details to be shared within the network?"]?.[0] === "Yes")
+
+    return NextResponse.json(approvedRecords, { status: 200 });
   } catch (error: any) {
     console.error(error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });

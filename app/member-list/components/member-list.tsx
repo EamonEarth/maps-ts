@@ -154,9 +154,9 @@ const MemberList: React.FC<MemberListProps> = ({
   };
 
   return (
-    <div id="table" className="flex flex-col gap-y-12 w-full md:w-[60%] border relative">
+    <div id="table" className="flex flex-col gap-y-12 w-full md:w-[60%] border relative ">
       {/* {noneFoundMessage ? (
-        <span className="w-full h-full m-auto bg-red-200 text-center">
+        <span className="rounded-lg w-full h-full m-auto bg-red-200 text-center">
           <h2>Unfortunately no members match your search</h2>
         </span>
       ) : (
@@ -172,14 +172,14 @@ const MemberList: React.FC<MemberListProps> = ({
       {filteredRecords.map((record) => (
         <div
           className={cn(
-            "flex flex-col rounded border-b h-auto ",
+            "flex flex-col border-b h-auto ",
             expandedRecord.id === record.id && "bg-blue-100"
           )}
           id={record.id}
           key={record.id}
           onClick={() => handleClick(record)}
         >
-          <div className="flex justify-between border-b- py-2 items-center bg-slate-700 text-white px-12">
+          <div className="flex justify-between border-b- py-2 items-center bg-slate-700 text-white px-12 rounded-lg">
             <h2 className="text-lg text-wrap font-bold py-2 leading-4 md:pl-24">
               {record.fields.Name}
             </h2>
@@ -195,9 +195,9 @@ const MemberList: React.FC<MemberListProps> = ({
               />
             )}
           </div>
-          <div className="flex flex-col gap-y-1-  py-4-">
+          <div className="flex flex-col ">
             {record.fields["Coastal region"] && (
-              <span className="px-12 flex justify-between items-center bg-[#54abdd]/80 p-1">
+              <span className="px-12 flex justify-between items-center bg-[#54abdd]/80 p-1 rounded-lg">
                 <p className="text-sm font-semibold">Coastal Regions: </p>
                 <div className="text-sm rounded   flex flex-col gap-y-1 text-end">
                   {" "}
@@ -208,7 +208,7 @@ const MemberList: React.FC<MemberListProps> = ({
               </span>
             )}
             {record.fields["Land regions"] && (
-              <span className="px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
+              <span className="rounded-lg px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
                 <p className="text-sm font-semibold">Land Regions: </p>
                 <div className="text-sm rounded  flex flex-col gap-y-1 text-end">
                   {" "}
@@ -219,7 +219,7 @@ const MemberList: React.FC<MemberListProps> = ({
               </span>
             )}
             {record.fields["Town/City"] && (
-              <span className="px-12 flex justify-between items-center bg-slate-300/80 p-1">
+              <span className="rounded-lg px-12 flex justify-between items-center bg-slate-300/80 p-1">
                 <p className="text-sm font-semibold">Town/City: </p>
                 <p className="text-sm rounded ">
                   {" "}
@@ -228,7 +228,7 @@ const MemberList: React.FC<MemberListProps> = ({
               </span>
             )}
             {record.fields.Region && (
-              <span className="px-12 flex justify-between items-center bg-purple-200/80 p-1">
+              <span className="rounded-lg px-12 flex justify-between items-center bg-purple-200/80 p-1">
                 <p className="text-sm font-semibold">District: </p>
                 <p className="text-sm rounded "> {record.fields.Region} </p>
               </span>
@@ -242,7 +242,7 @@ const MemberList: React.FC<MemberListProps> = ({
               </div>
             )} */}
             {record.fields.Affliations && (
-            <span className="px-12 flex flex-wrap justify-between items-center bg-slate-200/80 p-1">
+            <span className="rounded-lg px-12 flex flex-wrap justify-between items-center bg-slate-200/80 p-1">
               <p className="text-sm font-semibold">Affiliation: </p>
               <div
                 className="text-sm rounded px-1 text-end ml-auto"
@@ -259,7 +259,7 @@ const MemberList: React.FC<MemberListProps> = ({
 )}
 
             {record.fields.Email && (
-              <span className="px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
+              <span className="rounded-lg px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
                 <p className="text-sm font-semibold">Email: </p>
                 <p className="text-sm text-ellipsis uppercase"> Email shown here</p>
                 {/* <p className="text-sm text-ellipsis"> {record.fields.Email}</p> */}

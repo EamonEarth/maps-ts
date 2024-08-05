@@ -47,8 +47,8 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         if (element && (window.innerWidth < 768)) {
           element.scrollIntoView({
             behavior: "instant",
-            block: "center",
-            inline: "nearest"
+            block: "start",
+            inline: "end"
           })
         }
       },[expandedRecord])
@@ -56,7 +56,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
     return (
         <div
         id="table"
-        className="flex flex-col gap-y-2 md:gap-y-6 h-[33%] md:h-full bg-amber-500 overflow-y-auto md:p-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 relative "
+        className="flex flex-col gap-y-2 md:gap-y-6 h-[33%] md:h-full bg-amber-300 overflow-y-auto md:p-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 relative "
       >
         <h1 className="text-lg font-bold uppercase text-center ">
           Stakeholders

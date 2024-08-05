@@ -52,12 +52,6 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
       <div className="flex justify-around items-center">
 
       <h2 className="font-bold tracking-tight">Filters:</h2>
-      <div 
-        
-        onClick={()=> setShowMobileFilters(false)}
-        className="absolute- lg:hidden z-50 text-sm top-0 right-0 flex items-center justify-center opacity-60 bg-red-500 p-1 text-white rounded border cursor-pointer">
-          Close Filters
-      </div>
       </div>
 
       <div className="flex gap-x-2 text-xs flex-wrap">
@@ -126,7 +120,13 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
           <Button 
           className="py-2" 
         disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
-        onClick={clearAllFilters}> Clear Filters </Button>
+        onClick={clearAllFilters}> Clear </Button>
+        <Button 
+          
+          onClick={()=> setShowMobileFilters(false)}
+          className="md:hidden z-30 bg-red-500 py-2 text-white rounded cursor-pointer">
+            Close 
+        </Button>
           </div>
           
         </div>

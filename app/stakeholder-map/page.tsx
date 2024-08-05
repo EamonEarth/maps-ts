@@ -266,7 +266,7 @@ const AirtableComponent: React.FC = () => {
     return (
       <p className="w-full h-screen flex flex-col items-center justify-center text-xl">
         <Image
-          src="/logo.png"
+          src="/logo.png" 
           alt="Image of WACMN Logo"
           width={400}
           height={400}
@@ -303,7 +303,7 @@ const AirtableComponent: React.FC = () => {
       </div>
       {/* ALPH END */}
       {/* Mobile Filters */}
-      <div className="relative lg:hidden z-50 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-500 py-1 border-b border-black">
+      <div className="relative lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-300 py-1 border-b border-black">
       <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
           {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
       </div>
@@ -319,7 +319,7 @@ const AirtableComponent: React.FC = () => {
         // maxHeight: showMobileFilters ? '33vh' : '0vh',
         transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-50 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[33%]")}>
+      className={cn("absolute top-0 z-30 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[33%]")}>
 
         <MobileFilterSelect
           nameFilter={nameFilter}
