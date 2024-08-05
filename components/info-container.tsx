@@ -32,7 +32,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   setShowMobileFilters,
 }) => {
   return (
-    <div className="w-full h-[20%] bg-slate-200 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border">
+    <div className="w-full h-[20%] bg-slate-200 hidden lg:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border border-b-4">
       <div className="border-r flex flex-col gap-y-1 relative  md:h-auto w-full px-4 overflow-x-hidden border-black ">
         <div className="flex flex-wrap justify-between">
           <h1 className="font-semibold text-lg">{record.fields.Stakeholders}</h1>

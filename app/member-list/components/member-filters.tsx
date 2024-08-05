@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -20,7 +20,7 @@ import {
 
 
 
-interface FilterOptionsProps {
+interface MemberFiltersProps {
   landRegionFilter: string;
   setLandRegionFilter: Dispatch<SetStateAction<string>>;
   coastRegionFilter: string;
@@ -31,9 +31,10 @@ interface FilterOptionsProps {
   setNameFilter: Dispatch<SetStateAction<string>>;
   districtFilter: string;
   setDistrictFilter: Dispatch<SetStateAction<string>>;
+  expandFilters: boolean;
 }
 
-const FilterOptions: React.FC<FilterOptionsProps> = ({
+const MemberFilters: React.FC<MemberFiltersProps> = ({
   landRegionFilter,
   setLandRegionFilter,
   coastRegionFilter,
@@ -44,7 +45,9 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
   setNameFilter,
   districtFilter,
   setDistrictFilter,
+  expandFilters
 }) => {
+
   const handleClearAll = () => {
     setLandRegionFilter("");
     setCoastRegionFilter("");
@@ -53,12 +56,13 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
     setDistrictFilter("");
   };
   return (
-    <div className="flex flex-col pb-4">
-      <h2>Filter members by:</h2>
-      <div className="flex justify-between gap-x-6 p-2">
+    <div 
+    style={{transition: "max-height 0.5s ease-in-out,", opacity: "0.5s ease-in-out"}}
+    className={cn("flex min-w-[100%] w-[100%] flex-col items-center justify-center overflow-hidden max-h-0 opacity-0", expandFilters && "max-h-[400px] opacity-100")}>
+      <div className=" flex flex-col md:flex-row gap-y-2 justify-between gap-x-6 p-2">
         <div className="flex flex-col gap-y-2 items-center">
-          <div className="flex gap-x-1 items-center justify-end ">
-            <p className="text-xs opacity-70 mr-auto">Land Region:</p>
+          <div className="flex gap-x-1 items-center justify-end">
+            <div className="text-xs opacity-70 mr-auto">Land Region:</div>
 
             <Select
               onValueChange={(value) => setLandRegionFilter(value)}
@@ -87,7 +91,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
             />
           </div>
           <div className="flex gap-x-1 items-center w-[280px] justify-end ">
-            <p className="text-xs opacity-70 mr-auto">Coastal Region:</p>
+            <div className="text-xs opacity-70 mr-auto">Coastal Region:</div>
 
             <Select
               onValueChange={(value) => setCoastRegionFilter(value)}
@@ -115,7 +119,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
 
           {/* GET LIST OF ALL CITIES */}
           <div className="flex gap-x-1 items-center w-[280px] justify-end ">
-            <p className="text-xs opacity-70 mr-auto">Town/City:</p>
+            <div className="text-xs opacity-70 mr-auto">Town/City:</div>
             <Select
               onValueChange={(value) => setCityFilter(value)}
               value={cityFilter}
@@ -140,7 +144,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
         {/* COLUMN TWO!COLUMN TWO!COLUMN TWO!COLUMN TWO! */}
         <div className="flex flex-col gap-y-2 items-center">
           <div className="flex gap-x-1 items-center w-[280px] justify-end ">
-            <p className="text-xs opacity-70 mr-auto">Name:</p>
+            <div className="text-xs opacity-70 mr-auto">Name:</div>
 
             <Input
               className="w-44 shrink-0"
@@ -154,7 +158,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
             />
           </div>
           <div className="flex gap-x-1 items-center w-[280px] justify-end ">
-            <p className="text-xs opacity-70 mr-auto">District:</p>
+            <div className="text-xs opacity-70 mr-auto">District:</div>
 
             <Select
               onValueChange={(value) => setDistrictFilter(value)}
@@ -178,13 +182,15 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
           </div>
 
           {/* GET LIST OF ALL CITIES */}
+      <span className="w-full flex justify-end">
+        <Button 
+        disabled={!nameFilter && !landRegionFilter && !coastRegionFilter && !cityFilter && !districtFilter}
+        onClick={handleClearAll}>Clear all filters</Button>
+      </span>
         </div>{" "}
       </div>
-      <span className="w-full flex justify-end">
-        <Button onClick={handleClearAll}>Clear all filters</Button>
-      </span>
     </div>
   );
 };
 
-export default FilterOptions;
+export default MemberFilters;

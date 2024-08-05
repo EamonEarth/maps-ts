@@ -1,12 +1,10 @@
 "use client";
-import InfoContainer from "@/components/info-container";
-import MainMap from "@/components/main-map";
 
 import React, { useEffect, useState } from "react";
 import MemberList from "./components/member-list";
-import FilterOptions from "./components/filter-options";
+import MemberFilters from "./components/member-filters";
 import Image from "next/image";
-import { Loader2 } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 
 export interface Thumbnail {
   url: string;
@@ -75,6 +73,8 @@ const MemberPage: React.FC = () => {
   const [nameFilter, setNameFilter] = useState<string>("");
   const [districtFilter, setDistrictFilter] = useState<string>("");
   const [clusterFilter, setClusterFilter] = useState<string>("");
+  const [expandFilters, setExpandFilters] = useState<boolean>(false)
+
 
   const defaultRecord: MemberRecord = {
     id: "",
@@ -157,13 +157,19 @@ const MemberPage: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="w-full flex flex-col md:flex-row- items-center justify-center relative ">
+    <div className="w-full flex flex-col md:flex-row- items-center justify-center relative">
       
-      <h1 className="text-4xl font-bold uppercase text-center py-4">
-        Beach Geek Directory
+      <h1 
+      className="text-4xl font-bold uppercase text-center pt-4 w-full">
+        Member List
       </h1>
-      <div className="w-full flex items-center justify-around">
-        <FilterOptions
+      <div 
+        onClick={()=>setExpandFilters(!expandFilters)}
+        className="flex items-center gap-x-1 mx-auto cursor-pointer">
+        <Search size="20" className="opacity-80"/> {expandFilters ? "Hide Filters" : "Show Filters"}
+      </div>
+      <div className="w-full flex items-center justify-center">
+        <MemberFilters
           landRegionFilter={landRegionFilter}
           setLandRegionFilter={setLandRegionFilter}
           coastRegionFilter={coastRegionFilter}
@@ -174,8 +180,9 @@ const MemberPage: React.FC = () => {
           setNameFilter={setNameFilter}
           districtFilter={districtFilter}
           setDistrictFilter={setDistrictFilter}
+          expandFilters={expandFilters}
         />
-        <div className="flex flex-col gap-y-2 items-center"> Sign up Form</div>
+        {/* <div className="flex flex-col gap-y-2 items-center curs"> Sign up Form (tbc)</div> */}
       </div>
       <MemberList
         records={records}

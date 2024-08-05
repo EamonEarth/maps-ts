@@ -88,7 +88,7 @@ const MainMap: React.FC<MainMapProps> = ({
 
     
     return (
-      <div className="w-full h-full md:h-[80%] border-t-black">
+      <div className="w-full h-full lg:h-[80%] border-t-black">
       <APIProvider apiKey={googleApiKey} libraries={["marker", "places"]}>
         <Map
           id="34a6d58b90841fba"

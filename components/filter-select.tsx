@@ -11,6 +11,7 @@ import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { cities, coastalRegions, landRegions, districts, regions } from "../lib/data";
 import { Button } from "./ui/button";
+import Image from "next/image";
  
 interface FilterSelectProps {
   areaFilter: string;
@@ -49,7 +50,8 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   // if (memberCheck) currFilters.push("Member checked");
 
   return (
-    <div className="md:border flex flex-col px-4 py-2 w-full  gap-y-2 rounded bg-slate-200">
+    <div className="md:border flex flex-col px-4 py-2 w-full  gap-y-2 rounded bg-slate-200 relative">
+      
       <div className="flex items-center justify-between">
 
       <h2 className="font-bold tracking-tight">Filter:</h2>
@@ -123,6 +125,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
         <div className="flex flex-col col-span-1">
 
         <Button 
+        className="text-xs text-wrap"
         disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
         onClick={clearAllFilters}> Clear All Filters </Button>
         </div>

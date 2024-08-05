@@ -155,7 +155,7 @@ const MemberList: React.FC<MemberListProps> = ({
 
   return (
     <div id="table" className="flex flex-col gap-y-12 w-full md:w-[60%] border relative">
-      {noneFoundMessage ? (
+      {/* {noneFoundMessage ? (
         <span className="w-full h-full m-auto bg-red-200 text-center">
           <h2>Unfortunately no members match your search</h2>
         </span>
@@ -163,11 +163,16 @@ const MemberList: React.FC<MemberListProps> = ({
         <h1 className="text-3xl tracking-widest font-bold uppercase text-center  w-full py-4 -mb-12">
           Members
         </h1>
-      )}
+      )} */}
+      <div 
+      onClick={()=>window.scrollTo(0,0)}
+      className="fixed bottom-1 right-1 flex items-center justify-center opacity-60 bg-primary p-1 text-white rounded border cursor-pointer">
+        Return to top
+      </div>
       {filteredRecords.map((record) => (
         <div
           className={cn(
-            "flex flex-col rounded border-b h-auto",
+            "flex flex-col rounded border-b h-auto ",
             expandedRecord.id === record.id && "bg-blue-100"
           )}
           id={record.id}
@@ -175,12 +180,12 @@ const MemberList: React.FC<MemberListProps> = ({
           onClick={() => handleClick(record)}
         >
           <div className="flex justify-between border-b- py-2 items-center bg-slate-700 text-white px-12">
-            <h2 className="text-lg text-wrap font-bold py-2 leading-4 pl-24">
+            <h2 className="text-lg text-wrap font-bold py-2 leading-4 md:pl-24">
               {record.fields.Name}
             </h2>
             {record.fields.Logo && imageLoaded[record.id] !== false && (
               <Image
-                className="hidden md:block rounded bg-white p-1"
+                className="md:block rounded bg-white p-1"
                 alt="logo"
                 src={record.fields.Logo[0].url}
                 width={200}
@@ -228,15 +233,30 @@ const MemberList: React.FC<MemberListProps> = ({
                 <p className="text-sm rounded "> {record.fields.Region} </p>
               </span>
             )}
-            {record.fields.Affliations && (
-              <span className="px-12 flex justify-between items-center bg-slate-200/80 p-1">
+            {/* {record.fields.Affliations && (
+              <div className="px-12 flex justify-between items-center bg-slate-200/80 p-1 text-wrap overflow-wrap">
                 <p className="text-sm font-semibold">Affiliation: </p>
-                <p className="text-sm rounded px-1 text-end text-wrap">
-                  {" "}
-                  {record.fields.Affliations}{" "}
-                </p>
-              </span>
-            )}
+                <div className="text-sm rounded px-1 text-end overflow-wrap break-words max-w-[100%]">
+                  {record.fields.Affliations}
+                </div>
+              </div>
+            )} */}
+            {record.fields.Affliations && (
+            <span className="px-12 flex flex-wrap justify-between items-center bg-slate-200/80 p-1">
+              <p className="text-sm font-semibold">Affiliation: </p>
+              <div
+                className="text-sm rounded px-1 text-end ml-auto"
+                style={{
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal", // Ensures that the text wraps normally
+                  lineHeight: "1.5", // Increases line height for better readability
+                }}
+              >
+                {record.fields.Affliations}
+              </div>
+            </span>
+)}
 
             {record.fields.Email && (
               <span className="px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">

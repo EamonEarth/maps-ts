@@ -41,9 +41,12 @@ const MarkerWithInfoWindow: React.FC<MarkerAndInfoProps> = ({
           shouldFocus={false}
 
         >
+          <div className=" flex flex-col gap-y-1">
+
           <p className="">{cluster}</p>
           <p>{contact}</p>
-          <p>{email}</p>
+          <p className="text-blue-500 font-semibold tracking-wider">{email}</p>
+          </div>
         </InfoWindow>
       )}
     </>

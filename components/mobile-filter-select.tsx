@@ -20,6 +20,8 @@ interface MobileFilterSelectProps {
   setClusterFilter: Dispatch<SetStateAction<string>>;
   memberCheck: boolean;
   setMemberCheck: Dispatch<SetStateAction<boolean>>;
+  setShowMobileFilters: Dispatch<SetStateAction<boolean>>;
+  currentFilters: string[];
 }
 
 const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
@@ -30,15 +32,13 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   clusterFilter,
   setClusterFilter,
   memberCheck,
-  setMemberCheck
+  setMemberCheck,
+  setShowMobileFilters,
+  currentFilters
   
 }) => {
 
-  const currFilters: string[] = [];
-
-  if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
-  if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
-  if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
+  
 
   const clearAllFilters = () => {
     setAreaFilter("")
@@ -48,11 +48,20 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   }
 
   return (
-    <div className="h-full w-full border- flex flex-col px-4 py-2 gap-y-2 rounded ">
+    <div className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded overflow-hidden">
+      <div className="flex justify-around items-center">
+
       <h2 className="font-bold tracking-tight">Filters:</h2>
+      <div 
+        
+        onClick={()=> setShowMobileFilters(false)}
+        className="absolute- lg:hidden z-50 text-sm top-0 right-0 flex items-center justify-center opacity-60 bg-red-500 p-1 text-white rounded border cursor-pointer">
+          Close Filters
+      </div>
+      </div>
 
       <div className="flex gap-x-2 text-xs flex-wrap">
-          {currFilters.map((filter)=>(<p key={filter} className="max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+          {currentFilters.map((filter)=>(<p key={filter} className="max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
       </div>
       
         <div className="flex flex-col gap-y-2">
@@ -107,7 +116,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               onClick={() => setClusterFilter("")}
             />
         </div>
-        <div className="flex items-center justify-around gap-x-2 text-xl  rounded p-2 ">
+        <div className="flex items-center justify-around gap-x-2 text-xl  rounded p-2- ">
           <span className="flex gap-x-2">
 
             <p className="text-xs">CMCN Member?</p>

@@ -276,14 +276,21 @@ const AirtableComponent: React.FC = () => {
     );
   if (error) return <p>Error: {error}</p>;
 
+  const currFilters: string[] = [];
+
+  if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
+  if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
+  if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
+
+
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row relative ">
+    <div className="w-full h-screen min-w-[100%] flex flex-col md:flex-row relative ">
       {/* ALPH DIV START */}
       <div className="hidden md:flex absolute left-0 h-full w-[20px] bg-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4  z-50 text-white/70 ">
         {alph.map((char) => (
           <div
             key={char}
-            className="alph-box bg-black/20 rounded p-1 w-[20px] flex items-center text-center hover:scale-120 hover:bg-black/60 transition-all cursor-pointer text-xs relative left-0 hover:left-2 "
+            className="alph-box bg-black/20 rounded hover:rounded-r-full p-1 w-[20px] flex items-center text-center hover:scale-120 hover:bg-black/60 transition-all cursor-pointer text-xs relative left-0 hover:left-2 "
             onClick={() => handleAlphClick(char)}
           >
             <span className="w-[10px] uppercase">
@@ -296,19 +303,23 @@ const AirtableComponent: React.FC = () => {
       </div>
       {/* ALPH END */}
       {/* Mobile Filters */}
-      <div 
-        
-        onClick={()=> setShowMobileFilters(true)}
-        className="absolute md:hidden z-50 text-sm top-0 right-1 flex items-center justify-center opacity-60 bg-primary p-1 text-white rounded border">
-          Filters
+      <div className="relative lg:hidden z-50 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-500 py-1 border-b border-black">
+      <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
+          {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
       </div>
-      {showMobileFilters && 
+          <div 
+            onClick={()=> setShowMobileFilters(true)}
+            className="ml-auto mr-2 opacity-60 bg-primary px-1 text-white rounded border cursor-pointer">
+          Filters
+          </div>
+      </div>
+      {/* {showMobileFilters &&  */}
       <div 
       style={{
         // maxHeight: showMobileFilters ? '33vh' : '0vh',
-        // transition: 'max-height 0.5s ease-in-out',
+        transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-50 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black")}>
+      className={cn("absolute top-0 z-50 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[33%]")}>
 
         <MobileFilterSelect
           nameFilter={nameFilter}
@@ -319,25 +330,16 @@ const AirtableComponent: React.FC = () => {
           setClusterFilter={setClusterFilter}
           memberCheck={memberCheck}
           setMemberCheck={setMemberCheck}
+          setShowMobileFilters={setShowMobileFilters}
+          currentFilters={currFilters}
         />  
-
-      <div 
-        
-        onClick={()=> setShowMobileFilters(false)}
-        className="absolute md:hidden z-50 text-sm top-0 right-0 flex items-center justify-center opacity-60 bg-red-500 p-1 text-white rounded border">
-          Close Filters
       </div>
-        {/* <Button variant="destructive"
-        className="absolute top-0 right-0"onClick={()=>setShowMobileFilters(false)}>
-          Close Filters
-        </Button> */}
-      </div>
-      } 
+       
       {/* TABLE START */}
 
-      {filteredRecords.length < 1 ? 
+      {(filteredRecords.length < 1 && !showMobileFilters) ? 
       <div className="flex flex-col justify-center items-center gap-y-2 md:gap-y-6 h-[33%] md:h-full md:p-2  md:w-[25%] min-w-[250px] md:border md:border-r-8 border-r-black/50 relative shrink-0 grow-0"
->         <p className="text-wrap text-center w-full px-4"> Unfortunately no results match your search</p>
+>         <div className="text-wrap text-center w-full px-4"> Unfortunately no results match your search</div>
         <Button 
         disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
         onClick={clearAllFilters}> Clear Filters </Button>
