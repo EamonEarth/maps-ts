@@ -12,7 +12,7 @@ import { X } from "lucide-react";
 import { cities, coastalRegions, landRegions, districts, regions } from "../lib/data";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import bgImageRotated from "../public/header-opac-rotated.png"
+import bgImageRotated from "../public/header-opac-rotated-twice.png"
 
  
 interface FilterSelectProps {
@@ -53,11 +53,11 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
 
   return (
     <div 
-  //   style={{
-  //     backgroundImage: `url(${bgImageRotated.src})`,
-  //     backgroundSize: 'repeat', // Adjust as needed
-  //     backgroundPosition: 'center', // Adjust as needed
-  // }}
+    style={{
+      backgroundImage: `url(${bgImageRotated.src})`,
+      backgroundSize: 'repeat', // Adjust as needed
+      backgroundPosition: 'center', // Adjust as needed
+  }}
     className="md:border flex flex-col px-4 py-2 w-full  gap-y-2 rounded bg-slate-900- text-slate-100- relative">
      
       

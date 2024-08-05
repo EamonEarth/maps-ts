@@ -47,7 +47,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
       backgroundSize: 'cover', // Adjust as needed
       backgroundPosition: 'center', // Adjust as needed
       }}
-      className="w-full h-full blur-sm absolute top-0 left-0"/>
+      className="w-full h-full blur-[1px] absolute top-0 left-0"/>
         <div className="flex flex-wrap justify-between">
           <h1 className="font-semibold text-lg">{record.fields.Stakeholders}</h1>
           {record.fields["CMCN membership? (y/n)"] && (
@@ -60,17 +60,12 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
           )}
         </div>
         {record.fields.Region && record.fields.City !== "Perth" && (
-          <p className="flex items-center gap-x-1 rounded  bg-slate-200">
+          <p className="flex items-center gap-x-1 rounded ">
             <span className="w-[30px]">
 
             <Map />
             </span>
             {record.fields.Region}
-            {/* <p className="flex gap-x-2 w-full justify-around ">
-              <span>{record.fields.latLong.lat}</span>
-              
-              <span>{record.fields.latLong.long}</span>
-              </p> */}
           </p>
         )}
         {record.fields.City && (
@@ -82,7 +77,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
               </span>
               {record.fields.City}
             </span>
-            <span className="flex text-sm rounded  border  border-black p-1 max-w-[60%] overflow-scroll">
+            <span className="flex text-sm rounded  border  border-black p-1 max-w-[60%] overflow-scroll backdrop-blur-lg">
               {record.fields["Stakeholder cluster"]}
             </span>
           </p>

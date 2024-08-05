@@ -169,7 +169,13 @@ const MemberPage: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="w-full flex flex-col md:flex-row- items-center justify-center relative bg-slate-200">
+    <div 
+    style={{
+      backgroundImage: `url(${bgImageOpac.src})`,
+      backgroundSize: '100%', // Adjust as needed
+      // backgroundPosition: 'center', // Adjust as needed
+    }}
+    className="w-full flex flex-col md:flex-row- items-center justify-center relative bg-slate-200">
       
       <h1 
       className="text-4xl font-bold uppercase text-center pt-4 w-full">

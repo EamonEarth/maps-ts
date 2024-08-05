@@ -154,9 +154,9 @@ const MemberList: React.FC<MemberListProps> = ({
   };
 
   return (
-    <div id="table" className="flex flex-col gap-y-12 w-full h-full md:w-[60%] border relative bg-slate-200 mb-12">
+    <div id="table" className="flex flex-col gap-y-12 w-full h-full md:w-[60%] border- relative bg-slate-200- mb-12">
       {noneFoundMessage && 
-        <span className="rounded-lg w-full m-auto bg-red-200 text-center mt-12">
+        <span className="rounded-lg w-full m-auto bg-red-200 text-center">
           <h2 className="">Unfortunately no members match your search</h2>
         </span>
       }
@@ -168,8 +168,7 @@ const MemberList: React.FC<MemberListProps> = ({
       {filteredRecords.map((record) => (
         <div
           className={cn(
-            "flex flex-col border-b h-auto ",
-            expandedRecord.id === record.id && "bg-blue-100"
+            "flex flex-col h-auto ",
           )}
           id={record.id}
           key={record.id}
