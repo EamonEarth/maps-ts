@@ -7,6 +7,9 @@ import { debounce } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar";
 import MobileSidebar from "./mobile-sidebar";
+import headerBg from "../public/header-comp.png"
+import headerBgOpac from "/public/header-opac3.png"
+
 
 export const routes = [
   {
@@ -46,7 +49,23 @@ const MainNav = () => {
   }, []);
 
   return (
-    <div className="relative top-0 h-[60px] md:h-[125px] w-full border-b-4 border-black">
+    <div 
+    style={{
+      backgroundImage: `url(${headerBgOpac.src})`,
+      // backgroundImage: `url(${headerBg.src})`,
+      backgroundSize: 'cover', // Adjust as needed
+      backgroundPosition: 'center', // Adjust as needed
+      
+    }}
+        className="relative top-0 h-[60px] md:h-[125px] w-full border-b-4 border-black">
+      <div 
+      style={{
+        backgroundImage: `url(${headerBgOpac.src})`,
+        // backgroundImage: `url(${headerBg.src})`,
+        backgroundSize: 'cover', // Adjust as needed
+        backgroundPosition: 'center', // Adjust as needed
+        
+      }}    className="absolute top-0 h-[60px] md:h-[125px] w-full opacity-50 pointer-events-none -z-50"/>
       <div className="flex items-center h-full justify-around">
         <Image src="/logo.png" alt="logo" width={imageSize.width} height={imageSize.height} />
         <div className="hidden md:flex items-center text-xs md:text-base">

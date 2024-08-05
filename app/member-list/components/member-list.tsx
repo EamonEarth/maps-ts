@@ -154,16 +154,12 @@ const MemberList: React.FC<MemberListProps> = ({
   };
 
   return (
-    <div id="table" className="flex flex-col gap-y-12 w-full md:w-[60%] border relative ">
-      {/* {noneFoundMessage ? (
-        <span className="rounded-lg w-full h-full m-auto bg-red-200 text-center">
-          <h2>Unfortunately no members match your search</h2>
+    <div id="table" className="flex flex-col gap-y-12 w-full h-screen md:w-[60%] border relative bg-slate-200">
+      {noneFoundMessage && 
+        <span className="rounded-lg w-full m-auto bg-red-200 text-center mt-12">
+          <h2 className="">Unfortunately no members match your search</h2>
         </span>
-      ) : (
-        <h1 className="text-3xl tracking-widest font-bold uppercase text-center  w-full py-4 -mb-12">
-          Members
-        </h1>
-      )} */}
+      }
       <div 
       onClick={()=>window.scrollTo(0,0)}
       className="fixed bottom-1 right-1 flex items-center justify-center opacity-60 bg-primary p-1 text-white rounded border cursor-pointer">
@@ -180,7 +176,7 @@ const MemberList: React.FC<MemberListProps> = ({
           onClick={() => handleClick(record)}
         >
           <div className="flex justify-between border-b- py-2 items-center bg-slate-700 text-white px-12 rounded-lg">
-            <h2 className="text-lg text-wrap font-bold py-2 leading-4 md:pl-24">
+            <h2 className="text-lg text-wrap font-bold py-2 leading-6 md:pl-24">
               {record.fields.Name}
             </h2>
             {record.fields.Logo && imageLoaded[record.id] !== false && (

@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction } from "react";
 
 import FilterSelect from "./filter-select";
 import { Check, Contact2, Info, Mail, Map, MapPin, Pin, TicketCheck } from "lucide-react";
+import bgImageRotated from "../public/header-opac-rotated.png"
 
 interface InfoContainerProps {
   record: AirtableRecord;
@@ -32,8 +33,21 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   setShowMobileFilters,
 }) => {
   return (
-    <div className="w-full h-[20%] bg-slate-200 hidden lg:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border border-b-4">
-      <div className="border-r flex flex-col gap-y-1 relative  md:h-auto w-full px-4 overflow-x-hidden border-black ">
+    <div 
+  //   style={{
+  //     backgroundImage: `url(${bgImageRotated.src})`,
+  //     backgroundSize: 'repeat', // Adjust as needed
+  //     backgroundPosition: 'center', // Adjust as needed
+  // }}
+    className="w-full h-[20%] bg-slate-900- hidden lg:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border border-b-4 text-slate-100-">
+      <div className="border-r flex flex-col gap-y-1 relative  md:h-auto w-full px-4 overflow-x-hidden border-black pt-4">
+       <div 
+      style={{
+      backgroundImage: `url(${bgImageRotated.src})`,
+      backgroundSize: 'cover', // Adjust as needed
+      backgroundPosition: 'center', // Adjust as needed
+      }}
+      className="w-full h-full blur-sm absolute top-0 left-0"/>
         <div className="flex flex-wrap justify-between">
           <h1 className="font-semibold text-lg">{record.fields.Stakeholders}</h1>
           {record.fields["CMCN membership? (y/n)"] && (

@@ -303,7 +303,7 @@ const AirtableComponent: React.FC = () => {
       </div>
       {/* ALPH END */}
       {/* Mobile Filters */}
-      <div className="relative lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-300 py-1 border-b border-black">
+      <div className="relative lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
       <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
           {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
       </div>

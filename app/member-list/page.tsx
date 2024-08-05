@@ -5,6 +5,8 @@ import MemberList from "./components/member-list";
 import MemberFilters from "./components/member-filters";
 import Image from "next/image";
 import { Loader2, Search } from "lucide-react";
+import bgImageOpac from "/public/header-opac3.png"
+
 
 export interface Thumbnail {
   url: string;
@@ -107,9 +109,6 @@ const MemberPage: React.FC = () => {
       fetchData();
     }, []);
 
-  useEffect(() => {
-    console.log(records);
-  }, [records]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -138,6 +137,23 @@ const MemberPage: React.FC = () => {
     };
   }, [expandedRecord, filteredRecords]);
 
+  const currFilters: string[] = [];
+  // const [landRegionFilter, setLandRegionFilter] = useState<string>("");
+  // const [coastRegionFilter, setCoastRegionFilter] = useState<string>("");
+  // const [cityFilter, setCityFilter] = useState<string>("");
+  // const [nameFilter, setNameFilter] = useState<string>("");
+  // const [districtFilter, setDistrictFilter] = useState<string>("");
+  // const [clusterFilter, setClusterFilter] = useState<string>("");
+  // const [expandFilters, setExpandFilters] = useState<boolean>(false)
+
+
+  if (landRegionFilter) currFilters.push(`Land region: ${landRegionFilter}`);
+  if (coastRegionFilter) currFilters.push(`Coastal region: ${coastRegionFilter}`);
+  if (cityFilter) currFilters.push(`City: ${cityFilter}`);
+  if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
+  if (districtFilter) currFilters.push(`District: ${districtFilter}`);
+  if (clusterFilter) currFilters.push(`Cluster: ${clusterFilter}`);
+
   if (loading)
     return (
       <div className="w-full h-screen flex flex-col items-center justify-center text-xl">
@@ -164,6 +180,10 @@ const MemberPage: React.FC = () => {
         className="flex items-center gap-x-1 mx-auto cursor-pointer pb-2">
         <Search size="20" className="opacity-80"/> {expandFilters ? "Hide Filters" : "Show Filters"}
       </div>
+      <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%] justify-center px-4">
+          {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+      </div>
+
       <div className="w-full flex items-center justify-center">
         <MemberFilters
           landRegionFilter={landRegionFilter}

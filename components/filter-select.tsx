@@ -12,6 +12,8 @@ import { X } from "lucide-react";
 import { cities, coastalRegions, landRegions, districts, regions } from "../lib/data";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import bgImageRotated from "../public/header-opac-rotated.png"
+
  
 interface FilterSelectProps {
   areaFilter: string;
@@ -50,7 +52,14 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   // if (memberCheck) currFilters.push("Member checked");
 
   return (
-    <div className="md:border flex flex-col px-4 py-2 w-full  gap-y-2 rounded bg-slate-200 relative">
+    <div 
+  //   style={{
+  //     backgroundImage: `url(${bgImageRotated.src})`,
+  //     backgroundSize: 'repeat', // Adjust as needed
+  //     backgroundPosition: 'center', // Adjust as needed
+  // }}
+    className="md:border flex flex-col px-4 py-2 w-full  gap-y-2 rounded bg-slate-900- text-slate-100- relative">
+     
       
       <div className="flex items-center justify-between">
 
@@ -66,6 +75,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               placeholder="Name"
               onChange={(event) => setNameFilter(event.currentTarget.value)}
               value={nameFilter}
+              className="text-black bg-muted"
             />
             <X
               className="opacity-50 size-4"
@@ -77,9 +87,9 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
             >
-              <SelectTrigger className="">
+              <SelectTrigger className="text-black">
                 <SelectValue
-                  className="placeholder-opacity-50"
+                  className="placeholder-opacity-50 text-black placeholder-text-black bg-white"
                   placeholder="Area"
                 />
               </SelectTrigger>
@@ -101,7 +111,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onValueChange={(value) => setClusterFilter(value)}
               value={clusterFilter}
             >
-              <SelectTrigger className="">
+              <SelectTrigger className="text-black">
                 <SelectValue className="" placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
@@ -123,6 +133,10 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
           </div>
         </div>
         <div className="flex flex-col col-span-1">
+          <p>
+            **social media filters etc here**
+          </p>
+
 
         <Button 
         className="text-xs text-wrap"

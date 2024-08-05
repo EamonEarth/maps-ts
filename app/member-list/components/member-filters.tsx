@@ -87,7 +87,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               </SelectContent>
             </Select>
             <X
-              className="opacity-50 size-4"
+              className="opacity-50 size-4 cursor-pointer"
               onClick={() => setLandRegionFilter("")}
             />
           </div>
@@ -113,7 +113,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               </SelectContent>
             </Select>
             <X
-              className="opacity-50 size-4"
+              className="opacity-50 size-4 cursor-pointer"
               onClick={() => setCoastRegionFilter("")}
             />
           </div>
@@ -137,7 +137,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               </SelectContent>
             </Select>
             <X
-              className="opacity-50 size-4"
+              className="opacity-50 size-4 cursor-pointer"
               onClick={() => setCityFilter("")}
             />
           </div>
@@ -154,8 +154,8 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
             />
 
             <X
-              className="opacity-50 size-4"
-              onClick={() => setLandRegionFilter("")}
+              className="opacity-50 size-4 cursor-pointer"
+              onClick={() => setNameFilter("")}
             />
           </div>
           <div className="flex gap-x-1 items-center w-[280px] justify-end ">
@@ -177,8 +177,8 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               </SelectContent>
             </Select>
             <X
-              className="opacity-50 size-4"
-              onClick={() => setCoastRegionFilter("")}
+              className="opacity-50 size-4 cursor-pointer"
+              onClick={() => setDistrictFilter("")}
             />
           </div>
 

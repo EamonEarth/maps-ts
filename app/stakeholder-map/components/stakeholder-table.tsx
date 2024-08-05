@@ -2,6 +2,9 @@
 import { SetStateAction, useEffect } from "react";
 import { AirtableRecord } from "../page"
 import { cn } from "@/lib/utils";
+import headerBg from "/public/header-comp.png"
+import headerBgOpac from "/public/header-opac3.png"
+
 
 interface StakeholderTableProps {
     filteredRecords: AirtableRecord[];
@@ -56,16 +59,23 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
     return (
         <div
         id="table"
-        className="flex flex-col gap-y-2 md:gap-y-6 h-[33%] md:h-full bg-amber-300 overflow-y-auto md:p-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 relative "
+        className=" flex flex-col gap-y-2 md:gap-y-6 h-[33%] md:h-full bg-slate-200 overflow-y-auto md:p-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 relative overflow-hidden "
+        style={{
+          backgroundImage: `url(${headerBgOpac.src})`,
+          backgroundSize: 'repeat', // Adjust as needed
+          // backgroundPosition: 'center', // Adjust as needed
+          
+        }}
       >
-        <h1 className="text-lg font-bold uppercase text-center ">
+       
+        <h1 className="text-lg font-bold uppercase text-center pt-2">
           Stakeholders
         </h1>
         {filteredRecords.map((record, index) => (
           <div
             className={cn(
-              "flex flex-col rounded p-4 border border-black h-40 px-5",
-              expandedRecord.id === record.id && "bg-blue-100"
+              "flex flex-col rounded p-4 border border-black h-40 px-5 backdrop-blur-md",
+              expandedRecord.id === record.id && "bg-slate-100"
             )}
             id={record.id}
             key={record.id}

@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { routes } from "./main-nav";
 import { X } from "lucide-react";
 import Link from "next/link";
+import headerBgOpac from "/public/header-opac3.png"
 
 const MobileSidebar: React.FC = () => {
   const { isOpen, toggleSidebar } = useMobileSidebar();
@@ -21,9 +22,11 @@ const MobileSidebar: React.FC = () => {
 
       {/* Sidebar */}
       <div
-        style={{ transition: "transform 0.5s ease-in-out" }}
+        style={{ 
+          backgroundImage: `url(${headerBgOpac.src})`,
+          transition: "transform 0.5s ease-in-out" }}
         className={cn(
-          "fixed -right-1 top-0 h-screen w-[70%] max-w-[300px] bg-orange-400/90 p-4 flex flex-col z-50",
+          "fixed -right-1 top-0 h-screen w-[70%] max-w-[300px] bg-orange-400 p-4 flex flex-col z-50",
           "transform-gpu",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
