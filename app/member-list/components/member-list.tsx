@@ -154,7 +154,7 @@ const MemberList: React.FC<MemberListProps> = ({
   };
 
   return (
-    <div id="table" className="flex flex-col gap-y-12 w-full h-screen md:w-[60%] border relative bg-slate-200">
+    <div id="table" className="flex flex-col gap-y-12 w-full h-full md:w-[60%] border relative bg-slate-200 mb-12">
       {noneFoundMessage && 
         <span className="rounded-lg w-full m-auto bg-red-200 text-center mt-12">
           <h2 className="">Unfortunately no members match your search</h2>
