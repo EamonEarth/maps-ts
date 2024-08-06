@@ -1,5 +1,5 @@
 "use client";
-import { AirtableRecord } from "@/app/stakeholder-map/page";
+import { AirtableRecord } from '@/app/page';
 import { APIProvider, Map, useMap } from "@vis.gl/react-google-maps";
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import MarkerWithInfoWindow from "./Marker-With-Info";

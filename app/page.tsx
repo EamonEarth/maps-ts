@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import StakeholderTable from "./components/stakeholder-table";
+import StakeholderTable from "@/components/stakeholder-table";
 import { Button } from "@/components/ui/button";
 import MobileFilterSelect from "@/components/mobile-filter-select";
 

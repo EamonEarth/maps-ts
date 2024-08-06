@@ -1,6 +1,6 @@
 // pages/api/fetchAirtableRecords.ts
 import axios from 'axios';
-import { AirtableRecord } from '@/app/stakeholder-map/page';
+import { AirtableRecord } from '@/app/page'; 
 import { NextRequest, NextResponse } from 'next/server';
 
 

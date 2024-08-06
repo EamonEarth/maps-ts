@@ -1,4 +1,4 @@
-import { AirtableRecord } from "@/app/(stakeholder-map)/page";
+import { AirtableRecord } from '@/app/page';
 import React, { Dispatch, SetStateAction } from "react";
 
 import FilterSelect from "./filter-select";

@@ -1,8 +1,8 @@
 "use client"
 import { SetStateAction, useEffect } from "react";
-import { AirtableRecord } from "../page"
 import { cn } from "@/lib/utils";
-import oceanVert from"../../../public/ocean-vert.jpg"
+import oceanVert from"/public/ocean-vert.jpg"
+import { AirtableRecord } from "../app/page";
  
 
 interface StakeholderTableProps {
