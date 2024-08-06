@@ -62,7 +62,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
     )}>
       <div className=" flex flex-col md:flex-row gap-y-2 justify-between gap-x-6 p-2">
         <div className="flex flex-col gap-y-2 items-center">
-          <div className="flex gap-x-1 items-center justify-end">
+          <div className="flex gap-x-1 items-center w-[280px] justify-end">
             <div className="text-xs opacity-70 mr-auto">Land Region:</div>
 
             <Select
