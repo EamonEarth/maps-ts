@@ -1,4 +1,4 @@
-import { AirtableRecord } from "@/app/stakeholder-map/page";
+import { AirtableRecord } from "@/app/(stakeholder-map)/page";
 import React, { Dispatch, SetStateAction } from "react";
 
 import FilterSelect from "./filter-select";
@@ -34,11 +34,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 }) => {
   return (
     <div 
-  //   style={{
-  //     backgroundImage: `url(${bgImageRotated.src})`,
-  //     backgroundSize: 'repeat', // Adjust as needed
-  //     backgroundPosition: 'center', // Adjust as needed
-  // }}
+  
     className="w-full h-[20%] bg-slate-900- hidden lg:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border border-b-4 text-slate-100-">
       <div className="border-r flex flex-col gap-y-1 relative  md:h-auto w-full px-4 overflow-x-hidden border-black pt-4">
        <div 

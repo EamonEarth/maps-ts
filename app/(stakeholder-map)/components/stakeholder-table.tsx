@@ -2,9 +2,8 @@
 import { SetStateAction, useEffect } from "react";
 import { AirtableRecord } from "../page"
 import { cn } from "@/lib/utils";
-import headerBg from "/public/header-comp.png"
-import headerBgOpac from "/public/header-opac3.png"
-
+import oceanVert from"../../../public/ocean-vert.jpg"
+ 
 
 interface StakeholderTableProps {
     filteredRecords: AirtableRecord[];
@@ -26,7 +25,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         
           const element = document.getElementById(record.id);
           if (element && (window.innerWidth > 768)) {
-            if (index > 1) {
+            if (index > 3) {
             element.scrollIntoView({
               behavior: "smooth",
               block: "center",
@@ -38,9 +37,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
               block: "start",
               inline: "nearest",
             });
-
           }
-          
         }
       };
 
@@ -48,6 +45,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         let currRecord = expandedRecord
         let element = document.getElementById(currRecord.id)
         if (element && (window.innerWidth < 768)) {
+          console.log(element)
           element.scrollIntoView({
             behavior: "instant",
             block: "start",
@@ -59,22 +57,21 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
     return (
         <div
         id="table"
-        className=" flex flex-col gap-y-2 md:gap-y-6 h-[33%] md:h-full bg-slate-200 overflow-y-auto md:p-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 relative overflow-hidden "
+        className="relative -left-[1px] flex flex-col gap-y-2 md:gap-y-6 h-[50%]  md:h-full bg-slate-200- overflow-y-auto md:pr-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 overflow-hidden z-10"
         style={{
-          backgroundImage: `url(${headerBgOpac.src})`,
-          backgroundSize: 'repeat', // Adjust as needed
-          // backgroundPosition: 'center', // Adjust as needed
-          
+          backgroundImage: `url(${oceanVert.src})`,
+          backgroundSize: 'cover'
         }}
       >
-       
+    
         <h1 className="text-lg font-bold uppercase text-center pt-2">
           Stakeholders
         </h1>
+        
         {filteredRecords.map((record, index) => (
           <div
             className={cn(
-              "flex flex-col rounded p-4 border border-black h-40 px-5 backdrop-blur-md",
+              "flex flex-col rounded-r p-4 border-t border-b border-r border-black h-40 px-5 backdrop-blur-md",
               expandedRecord.id === record.id && "bg-slate-100"
             )}
             id={record.id}

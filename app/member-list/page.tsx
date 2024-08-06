@@ -6,6 +6,8 @@ import MemberFilters from "./components/member-filters";
 import Image from "next/image";
 import { Loader2, Search } from "lucide-react";
 import bgImageOpac from "/public/header-opac3.png"
+import memberListBackground from "/public/member-list-background.jpg"
+import Footer from "@/components/footer";
 
 
 export interface Thumbnail {
@@ -154,6 +156,16 @@ const MemberPage: React.FC = () => {
   if (districtFilter) currFilters.push(`District: ${districtFilter}`);
   if (clusterFilter) currFilters.push(`Cluster: ${clusterFilter}`);
 
+
+  const handleTopScroll = () => {
+    window.scrollTo({top: 0, left: 0, behavior: "smooth"})
+    let element = document.getElementById("table")
+    if (element) {
+      element.scrollTo({top: 0, left: 0, behavior: "smooth"})
+    }
+  }
+
+
   if (loading)
     return (
       <div className="w-full h-screen flex flex-col items-center justify-center text-xl">
@@ -218,6 +230,12 @@ const MemberPage: React.FC = () => {
         nameFilter={nameFilter}
         districtFilter={districtFilter}
       />
+      <div 
+      onClick={handleTopScroll}
+      className="fixed bottom-1 right-1 md:right-4 flex items-center justify-center opacity-60 bg-primary p-1 text-white rounded border cursor-pointer z-50">
+        Return to top
+      </div>
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -11,7 +11,6 @@ import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { cities, coastalRegions, landRegions, districts, regions } from "../lib/data";
 import { Button } from "./ui/button";
-import Image from "next/image";
 import bgImageRotated from "../public/header-opac-rotated-twice.png"
 
  

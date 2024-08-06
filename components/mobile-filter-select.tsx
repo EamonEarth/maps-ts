@@ -10,6 +10,7 @@ import {
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
+import bgImage from "/public/header-opac3.png"
 
 interface MobileFilterSelectProps {
   areaFilter: string;
@@ -48,7 +49,12 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   }
 
   return (
-    <div className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded overflow-hidden">
+    <div 
+    style={{
+      backgroundImage: `url(${bgImage.src})`,
+      backgroundSize: "100%"
+    }}
+    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded overflow-hidden">
       <div className="flex justify-around items-center">
 
       <h2 className="font-bold tracking-tight">Filters:</h2>

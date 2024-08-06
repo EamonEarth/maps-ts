@@ -2,13 +2,11 @@
 import InfoContainer from "@/components/info-container";
 import MainMap from "@/components/main-map";
 import { cn } from "@/lib/utils";
-import { useMap } from "@vis.gl/react-google-maps";
-import { Loader2, X } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import StakeholderTable from "./components/stakeholder-table";
 import { Button } from "@/components/ui/button";
-import FilterSelect from "@/components/filter-select";
 import MobileFilterSelect from "@/components/mobile-filter-select";
 
 export interface AirtableRecord {
@@ -39,12 +37,6 @@ export interface AirtableRecord {
     lat?: number;
     lng?: number;
   };
-}
-
-interface Coordinates {
-  name: string;
-  lat: number | null;
-  lng: number | null;
 }
 
 const AirtableComponent: React.FC = () => {
@@ -199,17 +191,6 @@ const AirtableComponent: React.FC = () => {
     };
   }, [expandedRecord, filteredRecords]);
 
-  // useEffect(() => {
-  //   if (expandedRecord) {
-  //     const element = document.getElementById(expandedRecord.id);
-  //     if (element) {
-  //       element.scrollIntoView({ behavior: "smooth", block: "center" });
-  //     }
-  //   }
-  // }, [expandedRecord]);
-
-
-
   
   // ALPH CLICK
   const alph = "abcdefghijklmnopqrtuvwxyz".split("");
@@ -277,16 +258,17 @@ const AirtableComponent: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   const currFilters: string[] = [];
-
   if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
   if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
   if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
 
 
   return (
-    <div className="w-full h-screen min-w-[100%] flex flex-col md:flex-row relative ">
+    <div 
+    
+    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row relative ">
       {/* ALPH DIV START */}
-      <div className="hidden md:flex absolute left-0 h-full w-[20px] bg-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4  z-50 text-white/70 ">
+      <div className="hidden md:flex relative left-0 h-full w-[20px] bg-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4 z-50 text-white/70 ">
         {alph.map((char) => (
           <div
             key={char}
@@ -294,29 +276,25 @@ const AirtableComponent: React.FC = () => {
             onClick={() => handleAlphClick(char)}
           >
             <span className="w-[10px] uppercase">
-
             {char}
             </span>
-            
           </div>
         ))}
       </div>
       {/* ALPH END */}
       {/* Mobile Filters */}
       <div className="relative lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
-      <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
+        <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
           {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+        </div>
+         <div 
+          onClick={()=> setShowMobileFilters(true)}
+          className="ml-auto mr-2 opacity-60 bg-primary px-1 text-white rounded border cursor-pointer">
+              Filters
+        </div>
       </div>
-          <div 
-            onClick={()=> setShowMobileFilters(true)}
-            className="ml-auto mr-2 opacity-60 bg-primary px-1 text-white rounded border cursor-pointer">
-          Filters
-          </div>
-      </div>
-      {/* {showMobileFilters &&  */}
       <div 
       style={{
-        // maxHeight: showMobileFilters ? '33vh' : '0vh',
         transition: 'max-height 0.5s ease-in-out',
       }}
       className={cn("absolute top-0 z-30 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[33%]")}>
@@ -339,13 +317,14 @@ const AirtableComponent: React.FC = () => {
 
       {(filteredRecords.length < 1 && !showMobileFilters) ? 
       <div className="flex flex-col justify-center items-center gap-y-2 md:gap-y-6 h-[33%] md:h-full md:p-2  md:w-[25%] min-w-[250px] md:border md:border-r-8 border-r-black/50 relative shrink-0 grow-0"
->         <div className="text-wrap text-center w-full px-4"> Unfortunately no results match your search</div>
-        <Button 
-        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
-        onClick={clearAllFilters}> Clear Filters </Button>
-
+>         <div className="text-wrap text-center w-full px-4"> 
+            Unfortunately no results match your search
+          </div>
+          <Button 
+            disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
+            onClick={clearAllFilters}> Clear Filters 
+          </Button>
       </div>
-      
       : 
       <StakeholderTable 
       filteredRecords={filteredRecords}
@@ -354,8 +333,7 @@ const AirtableComponent: React.FC = () => {
       setOpenMarker={setOpenMarker}
       />
     }
-      
-      <div className="flex flex-col h-full md:w-[75%] justify-between">
+      <div className="flex flex-col h-full md:w-[75%] justify-between relative -left-[1px]">
         <InfoContainer
           areaFilter={areaFilter}
           setAreaFilter={setAreaFilter}

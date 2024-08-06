@@ -26,7 +26,7 @@ const MobileSidebar: React.FC = () => {
           backgroundImage: `url(${headerBgOpac.src})`,
           transition: "transform 0.5s ease-in-out" }}
         className={cn(
-          "fixed -right-1 top-0 h-screen w-[70%] max-w-[300px] bg-orange-400 p-4 flex flex-col z-50",
+          "fixed -right-1 top-0 h-screen w-[70%] max-w-[300px] bg-cyan-600 p-4 flex flex-col z-50",
           "transform-gpu",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}

@@ -31,7 +31,6 @@ export async function GET(req: NextRequest) {
       params.append("sort[0][direction]", "asc"); // Sort direction (ascending)
 
       const url = `${baseUrl}?${params.toString()}`;
-      console.log("member list url", url)
       const response = await axios.get(url, { headers });
 
       allRecords = [...allRecords, ...response.data.records];

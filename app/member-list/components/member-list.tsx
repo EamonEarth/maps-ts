@@ -154,41 +154,38 @@ const MemberList: React.FC<MemberListProps> = ({
   };
 
   return (
-    <div id="table" className="flex flex-col gap-y-12 w-full h-full md:w-[60%] border- relative bg-slate-200- mb-12">
+    <div id="table" className="flex flex-col xl:grid xl:grid-cols-2 gap-x-4 gap-y-12 w-full h-screen overflow-scroll md:w-[60%] lg:w-[75%] border- relative bg-slate-200- mb-12 md:px-8">
       {noneFoundMessage && 
         <span className="rounded-lg w-full m-auto bg-red-200 text-center">
           <h2 className="">Unfortunately no members match your search</h2>
         </span>
       }
-      <div 
-      onClick={()=>window.scrollTo(0,0)}
-      className="fixed bottom-1 right-1 flex items-center justify-center opacity-60 bg-primary p-1 text-white rounded border cursor-pointer">
-        Return to top
-      </div>
+      
       {filteredRecords.map((record) => (
         <div
-          className={cn(
-            "flex flex-col h-auto ",
-          )}
-          id={record.id}
-          key={record.id}
-          onClick={() => handleClick(record)}
+        className={cn(
+          "flex flex-col h-auto xl:col-span-1 ",
+        )}
+        id={record.id}
+        key={record.id}
+        onClick={() => handleClick(record)}
         >
-          <div className="flex justify-between border-b- py-2 items-center bg-slate-700 text-white px-12 rounded-lg">
+          <div className="flex justify-between border-b- py-2 items-center text-center bg-slate-700 text-white px-12 rounded-lg xl:min-h-[225px]">
             <h2 className="text-lg text-wrap font-bold py-2 leading-6 md:pl-24">
               {record.fields.Name}
             </h2>
             {record.fields.Logo && imageLoaded[record.id] !== false && (
               <Image
-                className="md:block rounded bg-white p-1"
+              
+              className="md:block rounded bg-white p-1"
                 alt="logo"
                 src={record.fields.Logo[0].url}
                 width={200}
                 height={200}
                 onError={() => handleImageError(record.id)}
                 onLoad={() => handleImageLoad(record.id)}
-              />
-            )}
+                />
+              )}
           </div>
           <div className="flex flex-col ">
             {record.fields["Coastal region"] && (
@@ -247,7 +244,7 @@ const MemberList: React.FC<MemberListProps> = ({
                   whiteSpace: "normal", // Ensures that the text wraps normally
                   lineHeight: "1.5", // Increases line height for better readability
                 }}
-              >
+                >
                 {record.fields.Affliations}
               </div>
             </span>
