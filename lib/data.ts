@@ -6,18 +6,19 @@ export const coastalRegions = [
   ];
 
 export const regions = [
-    "Central Coast",
-    "Wheatbelt",
-    "Gascoyne",
-    "Great Southern WA",
-    "Mid-west",
-    "Perth",
-    "SW",
-    "South",
-    "South West",
-    "WA",
-    "Western Australia"
+  "All - statewide",
+  "Gascoyne",
+  "Goldfields - Esperance",
+  "Great Southern",
+  "Kimberley",
+  "Mid West",
+  "Peel",
+  "Perth",
+  "Pilbara",
+  "South West",
+  "Wheatbelt"
 ]
+
   
   export const landRegions = [
     "Gascoyne",
@@ -92,4 +93,13 @@ export const regions = [
     "Piara Waters",
   ];
 
+  export const stakeholderTypes = [
+    "Commonwealth Government",
+    "State Government",
+    "Local Government",
+    "Private Organisation",
+    "Natural Resource Management Group",
+    "Community and Individual",
+    "Traditional Owner",
+  ]
   

@@ -10,34 +10,25 @@ import { Button } from "@/components/ui/button";
 import MobileFilterSelect from "@/components/mobile-filter-select";
 
 export interface AirtableRecord {
-  id: string;
-  createdTime: string;
-  fields: {
-    "Email address"?: string;
-    Region?: string;
-    "Key Contact"?: string;
-    Stakeholders?: string;
-    "CMCN membership? (y/n)"?: string;
-    Website?: string;
-    City?: string;
-    "Stakeholder cluster"?: string;
-    "Stakeholder subcluster"?: string;
-    "Phone number"?: string;
-    "Environment and Sustainability Capacity Assessment"?: string;
-    "Centre/Service/Program"?: string;
-    "Field 12"?: string;
-    "Field 13"?: string;
-    "Field 14"?: string;
-    "Field 15"?: string;
-    "Field 16"?: string;
-    "Field 17"?: string;
-    "Field 18"?: string;
-    location?: string;
-    latLong?: { lat: number; long: number };
-    lat?: number;
-    lng?: number;
-  };
-}
+    id: string;
+    createdTime: string;
+    fields: {
+        "Stakeholder": string;
+        "StakeholderGroup"?: string;
+        "Region"?: string;
+        "City"?: string;
+        "Location"?: string;
+        "CMCN"?: string;
+        "Website"?: string;
+        "Email1"?: string;
+        "Email2"?: string;
+        "Contact"?: string;
+        "Phone"?: number;
+        "Facebook"?: string;
+        "Instagram"?: string;
+    }
+};
+
 
 const AirtableComponent: React.FC = () => {
   const [records, setRecords] = useState<AirtableRecord[]>([]);
@@ -50,15 +41,15 @@ const AirtableComponent: React.FC = () => {
   const [areaFilter, setAreaFilter] = useState<string>("");
   const [nameFilter, setNameFilter] = useState<string>("");
   const [clusterFilter, setClusterFilter] = useState<string>("");
-  const [memberCheck, setMemberCheck] = useState<boolean>(false)
-
+  const [memberCheck, setMemberCheck] = useState<boolean>(false);
+  const [socialsCheck, setSocialsCheck] = useState<boolean>(false)
   const [openMarker, setOpenMarker] = useState<string | null>(null);
 
   const defaultRecord: AirtableRecord = {
     id: "",
     createdTime: "",
     fields: {
-      latLong: { lat: 0, long: 0 },
+      Stakeholder: ""
     },
   };
   const [expandedRecord, setExpandedRecord] =
@@ -105,7 +96,7 @@ const AirtableComponent: React.FC = () => {
     ): AirtableRecord[] => {
       if (!name) return records;
       return records.filter((record) =>
-        record.fields.Stakeholders?.toLowerCase().includes(name.toLowerCase())
+        record.fields.Stakeholder?.toLowerCase().includes(name.toLowerCase())
       );
     };
     const filterByCluster = (
@@ -114,7 +105,7 @@ const AirtableComponent: React.FC = () => {
     ): AirtableRecord[] => {
       if (!cluster) return records;
       return records.filter((record) =>
-        record.fields["Stakeholder cluster"]
+        record.fields["StakeholderGroup"]
           ?.toLowerCase()
           .includes(cluster.toLowerCase())
       );
@@ -122,7 +113,11 @@ const AirtableComponent: React.FC = () => {
 
     const filterByMemberCheck = (records: AirtableRecord[]) => {
       if (!memberCheck) return records
-      return records.filter((record)=>record.fields["CMCN membership? (y/n)"]?.toLowerCase() === "y" )
+      return records.filter((record)=>record.fields["CMCN"]?.toLowerCase() === "y" )
+    }
+    const filterBySocialsCheck = (records: AirtableRecord[]) => {
+      if (!socialsCheck) return records
+      return records.filter((record)=>(record.fields["Facebook"] || record.fields["Instagram"]))
     }
 
     const applyFilters = () => {
@@ -130,18 +125,20 @@ const AirtableComponent: React.FC = () => {
       filteredRecords = filterByName(nameFilter, filteredRecords);
       filteredRecords = filterByCluster(clusterFilter, filteredRecords);
       filteredRecords = filterByMemberCheck(filteredRecords);
+      filteredRecords = filterBySocialsCheck(filteredRecords)
       setFilteredRecords(filteredRecords);
     };
 
     applyFilters();
 
-  }, [clusterFilter, areaFilter, nameFilter, records, memberCheck]);
+  }, [clusterFilter, areaFilter, nameFilter, records, memberCheck, socialsCheck]);
 
   const clearAllFilters = () => {
     setAreaFilter("")
     setNameFilter("")
     setClusterFilter("")
     setMemberCheck(false)
+    setSocialsCheck(false)
   }
 
   // KEY NAVIGATIONS
@@ -197,8 +194,8 @@ const AirtableComponent: React.FC = () => {
   const handleAlphClick = (char: string) => {
     const matchingRecord = filteredRecords.find(
       (record) =>
-        record.fields.Stakeholders &&
-        record.fields.Stakeholders.toLowerCase().startsWith(char)
+        record.fields.Stakeholder &&
+        record.fields.Stakeholder.toLowerCase().startsWith(char)
     );
 
     if (matchingRecord) {
@@ -222,8 +219,8 @@ const AirtableComponent: React.FC = () => {
         newChar = alph[currentIndex];
         newMatchingRecord = filteredRecords.find(
           (record) =>
-            record.fields.Stakeholders &&
-            record.fields.Stakeholders.toLowerCase().startsWith(newChar)
+            record.fields.Stakeholder &&
+            record.fields.Stakeholder.toLowerCase().startsWith(newChar)
         );
       }
 
@@ -231,10 +228,10 @@ const AirtableComponent: React.FC = () => {
         setExpandedRecord(newMatchingRecord);
         const element = document.getElementById(newMatchingRecord.id);
         if (element) {
-          element.scrollIntoView({
+          element.scrollTo({
             behavior: "smooth",
-            block: "center",
-            inline: "nearest",
+            // block: "center",
+            // inline: "nearest",
           });
         }
         setOpenMarker(newMatchingRecord.id);
@@ -268,11 +265,11 @@ const AirtableComponent: React.FC = () => {
     
     className="w-full h-screen min-w-[100%] flex flex-col md:flex-row relative ">
       {/* ALPH DIV START */}
-      <div className="hidden md:flex relative left-0 h-full w-[20px] bg-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4 z-50 text-white/70 ">
+      <div className="hidden md:flex relative left-0 h-full w-[20px] bg-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4 z-20 text-white/70 ">
         {alph.map((char) => (
           <div
             key={char}
-            className="alph-box bg-black/20 rounded hover:rounded-r-full p-1 w-[20px] flex items-center text-center hover:scale-120 hover:bg-black/60 transition-all cursor-pointer text-xs relative left-0 hover:left-2 "
+            className="alph-box bg-black/20 rounded hover:rounded-r-full p-1 w-[20px] flex items-center text-center  hover:scale-150 hover:bg-black/60 transition-all cursor-pointer text-xs relative "
             onClick={() => handleAlphClick(char)}
           >
             <span className="w-[10px] uppercase">
@@ -283,7 +280,7 @@ const AirtableComponent: React.FC = () => {
       </div>
       {/* ALPH END */}
       {/* Mobile Filters */}
-      <div className="relative lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
+      {/* <div className="relative lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
         <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
           {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
         </div>
@@ -292,12 +289,12 @@ const AirtableComponent: React.FC = () => {
           className="ml-auto mr-2 opacity-60 bg-primary px-1 text-white rounded border cursor-pointer">
               Filters
         </div>
-      </div>
+      </div> */}
       <div 
       style={{
         transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-30 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[33%]")}>
+      className={cn("absolute top-0 z-50 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[33%]")}>
 
         <MobileFilterSelect
           nameFilter={nameFilter}
@@ -309,6 +306,8 @@ const AirtableComponent: React.FC = () => {
           memberCheck={memberCheck}
           setMemberCheck={setMemberCheck}
           setShowMobileFilters={setShowMobileFilters}
+          socialsCheck={socialsCheck}
+          setSocialsCheck={setSocialsCheck}
           currentFilters={currFilters}
         />  
       </div>
@@ -331,9 +330,11 @@ const AirtableComponent: React.FC = () => {
       expandedRecord={expandedRecord}
       setExpandedRecord={setExpandedRecord}
       setOpenMarker={setOpenMarker}
+      setShowMobileFilters={setShowMobileFilters}
+      currFilters={currFilters}
       />
     }
-      <div className="flex flex-col h-full md:w-[75%] justify-between relative -left-[1px]">
+      <div className="flex flex-col h-full md:w-[75%] justify-between relative">
         <InfoContainer
           areaFilter={areaFilter}
           setAreaFilter={setAreaFilter}
@@ -342,10 +343,10 @@ const AirtableComponent: React.FC = () => {
           record={expandedRecord}
           clusterFilter={clusterFilter}
           setClusterFilter={setClusterFilter}
-          showMobileFilters={showMobileFilters}
-          setShowMobileFilters={setShowMobileFilters}
           memberCheck={memberCheck}
           setMemberCheck={setMemberCheck}
+          socialsCheck={socialsCheck}
+          setSocialsCheck={setSocialsCheck}
         />
         <MainMap
           stakeholders={filteredRecords}

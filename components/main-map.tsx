@@ -38,29 +38,32 @@ const MainMap: React.FC<MainMapProps> = ({
     fetchGoogleApiKey();
   }, []);
 
-  function parseLocationString(location: string) {
+  function parseLocationString(location: string, sh: string) {
     const trimmedString = location.trim();
     const jsonString = trimmedString
       .replace(/(\w+):/g, '"$1":')
       .replace(/'/g, '"');
+      
     try {
       const parsedObject = JSON.parse(jsonString);
       return parsedObject;
     } catch (error) {
+      console.log(sh)
+      console.log("locay and trimmed string + json string: ", location, trimmedString, jsonString)
       console.error("Error parsing location string:", error);
       return null;
     }
   }
 
   const markerCompArray = stakeholders.map((place) => {
-    if (place.fields.location) {
-      let parsedLocay = parseLocationString(place.fields.location);
-      const title = place.fields.Stakeholders ? place.fields.Stakeholders : "";
-      const cluster = place.fields["Stakeholder cluster"]
-        ? place.fields["Stakeholder cluster"]
-        : "";
-      const contact = place.fields["Key Contact"] ? place.fields["Key Contact"] : ""
-      const email = place.fields["Email address"] ? place.fields["Email address"] : ""
+    if (place.fields.Location) {
+      let parsedLocay = parseLocationString(place.fields.Location, place.fields.Stakeholder);
+      const title = place.fields.Stakeholder ?? "";
+      const cluster = place.fields["StakeholderGroup"] ?? "";
+      const contact = place.fields["Contact"] ?? ""
+      const email = place.fields["Email1"] ?? ""
+      const facebook = place.fields["Facebook"] ?? ""
+      const insta = place.fields["Instagram"] ?? ""
       return (
         <MarkerWithInfoWindow
           key={place.id}
@@ -68,6 +71,8 @@ const MainMap: React.FC<MainMapProps> = ({
           cluster={cluster}
           contact={contact}
           email={email}
+          facebook={facebook}
+          insta={insta}
           location={parsedLocay}
           isOpen={openMarker === place.id}
           onClick={() => {

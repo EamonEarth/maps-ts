@@ -9,9 +9,9 @@ import {
 } from "./ui/select";
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
-import { cities, coastalRegions, landRegions, districts, regions } from "../lib/data";
 import { Button } from "./ui/button";
 import bgImageRotated from "../public/header-opac-rotated-twice.png"
+import { stakeholderTypes, regions } from "../lib/data";
 
  
 interface FilterSelectProps {
@@ -23,6 +23,8 @@ interface FilterSelectProps {
   setClusterFilter: Dispatch<SetStateAction<string>>;
   memberCheck: boolean;
   setMemberCheck: Dispatch<SetStateAction<boolean>>;
+  socialsCheck: boolean;
+  setSocialsCheck: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FilterSelect: React.FC<FilterSelectProps> = ({
@@ -33,14 +35,17 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   clusterFilter,
   setClusterFilter,
   memberCheck,
-  setMemberCheck
+  setMemberCheck,
+  socialsCheck,
+  setSocialsCheck
 }) => {
-
+  
   const clearAllFilters = () => {
     setAreaFilter("")
     setNameFilter("")
     setClusterFilter("")
     setMemberCheck(false)
+    setSocialsCheck(false)
   }
 
   const currFilters: string[] = [];
@@ -48,7 +53,6 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
   if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
   if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
-  // if (memberCheck) currFilters.push("Member checked");
 
   return (
     <div 
@@ -57,12 +61,12 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
       backgroundSize: 'repeat', // Adjust as needed
       backgroundPosition: 'center', // Adjust as needed
   }}
-    className="md:border flex flex-col px-4 py-2 w-full  gap-y-2 rounded bg-slate-900- text-slate-100- relative">
+    className=" flex flex-col px-4 py-2 w-full  gap-y-2 rounded relative">
      
       
       <div className="flex items-center justify-between">
 
-      <h2 className="font-bold tracking-tight">Filter:</h2>
+      <h2 className="font-bold tracking-normal">Filter:</h2>
          <div className="flex gap-x-2 text-xs">
           {currFilters.map((filter)=>(<p key={filter} className="font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
          </div>
@@ -86,10 +90,10 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
             >
-              <SelectTrigger className="text-black">
+              <SelectTrigger className="text-muted-foreground">
                 <SelectValue
-                  className="placeholder-opacity-50 text-black placeholder-text-black bg-white"
-                  placeholder="Area"
+                  className=""
+                  placeholder="Region"
                 />
               </SelectTrigger>
               <SelectContent>
@@ -110,14 +114,13 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onValueChange={(value) => setClusterFilter(value)}
               value={clusterFilter}
             >
-              <SelectTrigger className="text-black">
-                <SelectValue className="" placeholder="Type" />
+              <SelectTrigger className="text-muted-foreground">
+                <SelectValue className="" placeholder="Org. Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="NGO">NGO</SelectItem>
-                <SelectItem value="Local Government">Local Govt.</SelectItem>
-                <SelectItem value="Consultant">Consultants</SelectItem>
-                <SelectItem value="First Peoples">First Peoples</SelectItem>
+                {stakeholderTypes.map((type)=>(
+                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <X
@@ -125,21 +128,27 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onClick={() => setClusterFilter("")}
             />
           </div>
-          <div className="flex items-center  gap-x-2 text-xl  rounded p-2 h-10">
+          <div className="flex flex-col w-[80%]">
+
+          <div className="flex items-center gap-x-2 text-xl  rounded p-2 justify-between">
             <p className="text-xs">CMCN Member?</p>
 
-          <Checkbox checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
+          <Checkbox color="white" checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
+          </div>
+          <div className="flex items-center  gap-x-2 text-xl  rounded p-2 justify-between">
+            <p className="text-xs">Social Media?</p>
+
+          <Checkbox color="white" checked={socialsCheck} onCheckedChange={()=>setSocialsCheck(!socialsCheck)}/>
+          </div>
           </div>
         </div>
         <div className="flex flex-col col-span-1">
-          <p>
-            **social media filters etc here**
-          </p>
+         
 
 
         <Button 
-        className="text-xs text-wrap"
-        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
+        className="text-xs text-wrap border-slate-200 border"
+        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck && !socialsCheck}
         onClick={clearAllFilters}> Clear All Filters </Button>
         </div>
         

@@ -13,7 +13,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return NextResponse.json({ error: 'AIRTABLE_API_KEY is not defined' }, { status: 500 });
   }
 
-  const baseUrl = "https://api.airtable.com/v0/appUeDvcFLgQAJBVj/tblNvFX0Edz2FtFXQ";
+  const baseUrl = "https://api.airtable.com/v0/appUeDvcFLgQAJBVj/tblQ3RP55KwHJ9Lca";
   const headers = {
     Authorization: `Bearer ${airtableApiKey}`,
     "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         params.append("offset", offset);
       }
       params.append("pageSize", "100"); // Maximum page size
-      params.append("sort[0][field]", "Stakeholders"); // Sort by Stakeholders field
+      params.append("sort[0][field]", "Stakeholder"); // Sort by Stakeholders field
       params.append("sort[0][direction]", "asc"); // Sort direction (ascending)
 
       const url = `${baseUrl}?${params.toString()}`;
@@ -39,11 +39,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       offset = response.data.offset; // Get the offset for the next page, if any
     } while (offset); // Continue fetching if there's an offset
 
-    allRecords = allRecords.filter(
-      (record) =>
-        record.fields.Stakeholders &&
-        (record.fields.Region || record.fields["Email address"])
-    );
+
 
     return NextResponse.json(allRecords, { status: 200 });
   } catch (error: any) {

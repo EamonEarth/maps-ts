@@ -11,6 +11,8 @@ import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import bgImage from "/public/header-opac3.png"
+import { stakeholderTypes, regions } from "../lib/data";
+
 
 interface MobileFilterSelectProps {
   areaFilter: string;
@@ -22,6 +24,8 @@ interface MobileFilterSelectProps {
   memberCheck: boolean;
   setMemberCheck: Dispatch<SetStateAction<boolean>>;
   setShowMobileFilters: Dispatch<SetStateAction<boolean>>;
+  socialsCheck: boolean;
+  setSocialsCheck: Dispatch<React.SetStateAction<boolean>>;
   currentFilters: string[];
 }
 
@@ -35,6 +39,8 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   memberCheck,
   setMemberCheck,
   setShowMobileFilters,
+  socialsCheck,
+  setSocialsCheck,
   currentFilters
   
 }) => {
@@ -46,6 +52,8 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
     setNameFilter("")
     setClusterFilter("")
     setMemberCheck(false)
+    setSocialsCheck(false)
+
   }
 
   return (
@@ -82,13 +90,16 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
             >
-              <SelectTrigger className="">
-                <SelectValue placeholder="Area" />
+              <SelectTrigger className="text-muted-foreground">
+                <SelectValue
+                  className=""
+                  placeholder="Region"
+                />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Perth">Perth</SelectItem>
-                <SelectItem value="Peel">Peel</SelectItem>
-                <SelectItem value="system">Blah blah</SelectItem>
+                {regions.map((region) => (
+                  <SelectItem key={`${region}+land`}value={region}>{region}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <X
@@ -96,36 +107,40 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               onClick={() => setAreaFilter("")}
             />
           </div>
-          <div className="flex gap-x-2 items-center">
+          <div className="flex gap-x-2 items-center  overflow-hidden">
             <Select
               onValueChange={(value) => setClusterFilter(value)}
               value={clusterFilter}
             >
-              <SelectTrigger className="">
-                <SelectValue className="" placeholder="Type" />
+              <SelectTrigger className="text-muted-foreground">
+                <SelectValue className="" placeholder="Org. Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="NGO">NGO</SelectItem>
-                <SelectItem value="Govern">Local Government</SelectItem>
-                <SelectItem value="Consult">Consultants</SelectItem>
-                <SelectItem value="First People">First Peoples</SelectItem>
+                {stakeholderTypes.map((type)=>(
+                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <X
               className="opacity-50 size-4"
               onClick={() => setClusterFilter("")}
             />
-        </div>
+          </div>
         <div className="flex items-center justify-around gap-x-2 text-xl  rounded p-2- ">
-          <span className="flex gap-x-2">
+          <span className="flex gap-x-1">
 
             <p className="text-xs">CMCN Member?</p>
 
-          <Checkbox checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
+          <Checkbox className="border-black" checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
           </span>
+          <div className="flex gap-x-1 ">
+            <p className="text-xs">Social Media?</p>
+
+          <Checkbox className="border-black" checked={socialsCheck} onCheckedChange={()=>setSocialsCheck(!socialsCheck)}/>
+          </div>
           <Button 
           className="py-2" 
-        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
+        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck && !socialsCheck}
         onClick={clearAllFilters}> Clear </Button>
         <Button 
           
