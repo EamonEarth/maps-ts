@@ -13,7 +13,7 @@ const MobileSidebar: React.FC = () => {
       {/* Overlay */}
       <div
         className={cn(
-          "fixed inset-0 bg-black bg-opacity-80 transition-opacity z-40",
+          "fixed inset-0 bg-black bg-opacity-80 transition-opacity z-[99]",
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         onClick={toggleSidebar}
@@ -26,7 +26,7 @@ const MobileSidebar: React.FC = () => {
           backgroundImage: `url(${headerBgOpac.src})`,
           transition: "transform 0.5s ease-in-out" }}
         className={cn(
-          "fixed -right-1 top-0 h-screen w-[70%] max-w-[300px] bg-cyan-600 p-4 flex flex-col z-50",
+          "fixed -right-1 top-0 h-screen w-[70%] max-w-[300px] bg-cyan-600 p-4 flex flex-col z-[100]",
           "transform-gpu",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}

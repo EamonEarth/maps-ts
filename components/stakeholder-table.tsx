@@ -64,10 +64,6 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         backgroundSize: "cover",
       }}
     >
-      <h1 className="text-lg font-bold uppercase text-center pt-2">
-        Stakeholders
-      </h1>
-
       <div className="sticky lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
         <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
           {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
@@ -78,6 +74,10 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
               Filters
         </div>
       </div>
+      <h1 className="text-lg font-bold uppercase text-center pt-2">
+        Stakeholders
+      </h1>
+
 
       {filteredRecords.map((record, index) => {
         const { Stakeholder, Region, Email1, Website } = record.fields;

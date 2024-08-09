@@ -348,13 +348,14 @@ const AirtableComponent: React.FC = () => {
           socialsCheck={socialsCheck}
           setSocialsCheck={setSocialsCheck}
         />
+
         <MainMap
           stakeholders={filteredRecords}
           setExpandedRecord={setExpandedRecord}
           markerCoords={markerCoords}
           openMarker={openMarker}
           setOpenMarker={setOpenMarker}
-        />
+          />
       </div>
     </div>
   );

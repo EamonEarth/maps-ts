@@ -13,8 +13,8 @@ const Banner = () => {
             }}
             className="flex flex-col md:flex-row justify-around items-center py-4"
             >
-                <Image src={whirlpoolImg} alt="Whirlpool logo" height={150} width={300}/>
-                <Image src={departmentLogo} alt="Departmental logo" height={150} width={300}/>
+                <Image src={whirlpoolImg} alt="Whirlpool logo" height={150} width={250}/>
+                <Image src={departmentLogo} alt="Departmental logo" height={150} width={250}/>
 
             </div>
 

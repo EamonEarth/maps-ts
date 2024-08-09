@@ -195,7 +195,7 @@ const MemberPage: React.FC = () => {
       </h1>
       <div 
         onClick={()=>setExpandFilters(!expandFilters)}
-        className="flex items-center gap-x-1 mx-auto cursor-pointer pb-2">
+        className="flex items-center gap-x-1 mx-auto cursor-pointer pb-2 text-xs md:text-sm">
         <Search size="20" className="opacity-80"/> {expandFilters ? "Hide Filters" : "Show Filters"}
       </div>
       <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%] justify-center px-4 pb-1">
