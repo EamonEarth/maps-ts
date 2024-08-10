@@ -45,6 +45,7 @@ const AirtableComponent: React.FC = () => {
   const [socialsCheck, setSocialsCheck] = useState<boolean>(false)
   const [openMarker, setOpenMarker] = useState<string | null>(null);
 
+  
   const defaultRecord: AirtableRecord = {
     id: "",
     createdTime: "",
@@ -158,7 +159,6 @@ const AirtableComponent: React.FC = () => {
         const element = document.getElementById(filteredRecords[newIndex].id);
         if (element) {
           if (newIndex > 2) { 
-
             element.scrollIntoView({ behavior: "smooth", block: "center" });
           } else {
             element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -202,6 +202,7 @@ const AirtableComponent: React.FC = () => {
       setExpandedRecord(matchingRecord);
       const element = document.getElementById(matchingRecord.id);
       if (element) {
+        window.scrollBy(0,-1)
         element.scrollIntoView({
           behavior: "smooth",
           block: "center",
@@ -228,10 +229,11 @@ const AirtableComponent: React.FC = () => {
         setExpandedRecord(newMatchingRecord);
         const element = document.getElementById(newMatchingRecord.id);
         if (element) {
-          element.scrollTo({
+          window.scrollBy(0,-1)
+          element.scrollIntoView({
             behavior: "smooth",
-            // block: "center",
-            // inline: "nearest",
+            block: "center",
+            inline: "nearest",
           });
         }
         setOpenMarker(newMatchingRecord.id);
@@ -258,6 +260,8 @@ const AirtableComponent: React.FC = () => {
   if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
   if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
   if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
+  if (memberCheck) currFilters.push(`CMCN Member ✓`);
+  if (socialsCheck) currFilters.push(`Social Media Presence ✓`);
 
 
   return (
@@ -294,7 +298,7 @@ const AirtableComponent: React.FC = () => {
       style={{
         transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-50 w-full h-[33%] flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[33%]")}>
+      className={cn("absolute top-0 z-[55] w-full h-fit flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[50%]")}>
 
         <MobileFilterSelect
           nameFilter={nameFilter}
@@ -315,8 +319,8 @@ const AirtableComponent: React.FC = () => {
       {/* TABLE START */}
 
       {(filteredRecords.length < 1 && !showMobileFilters) ? 
-      <div className="flex flex-col justify-center items-center gap-y-2 md:gap-y-6 h-[33%] md:h-full md:p-2  md:w-[25%] min-w-[250px] md:border md:border-r-8 border-r-black/50 relative shrink-0 grow-0"
->         <div className="text-wrap text-center w-full px-4"> 
+      <div className="flex flex-col justify-center items-center bg-slate-200 gap-y-2 md:gap-y-6 h-[33%] md:h-full md:p-2  md:w-[25%] min-w-[250px] md:border md:border-r-8 border-r-black/50 relative shrink-0 grow-0"
+>         <div className="text-wrap text-center w-full px-4 "> 
             Unfortunately no results match your search
           </div>
           <Button 

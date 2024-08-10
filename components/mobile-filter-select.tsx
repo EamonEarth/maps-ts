@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
+"use client"
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import {
   Select,
@@ -12,6 +13,7 @@ import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import bgImage from "/public/header-opac3.png"
 import { stakeholderTypes, regions } from "../lib/data";
+import { debounce } from "@/lib/utils";
 
 
 interface MobileFilterSelectProps {
@@ -44,8 +46,18 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   currentFilters
   
 }) => {
+  const [inputValue, setInputValue] = useState<string>(''); // Temporary state for immediate input display
 
-  
+  const debouncedSetNameFilter = debounce((value: string) => {
+    setNameFilter(value);
+  }, 300);
+
+  // Handle input change
+  const handleNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+    setInputValue(value); // Update the input value immediately
+    debouncedSetNameFilter(value); // Debounced update for nameFilter
+  };
 
   const clearAllFilters = () => {
     setAreaFilter("")
@@ -62,7 +74,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
       backgroundImage: `url(${bgImage.src})`,
       backgroundSize: "100%"
     }}
-    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded overflow-hidden">
+    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded overflow-hidden ">
       <div className="flex justify-around items-center">
 
       <h2 className="font-bold tracking-tight">Filters:</h2>
@@ -76,8 +88,8 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
           <div className="flex gap-x-2 items-center">
             <Input
               placeholder="Name"
-              onChange={(event) => setNameFilter(event.currentTarget.value)}
-              value={nameFilter}
+              onChange={handleNameInputChange}
+              value={inputValue}
               className="opacity-80"
             />
             <X
@@ -85,7 +97,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               onClick={() => setNameFilter("")}
             />
           </div>
-          <div className="flex gap-x-2 items-center">
+          <div className="flex gap-x-2 items-center ">
             <Select
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
@@ -96,7 +108,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
                   placeholder="Region"
                 />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent >
                 {regions.map((region) => (
                   <SelectItem key={`${region}+land`}value={region}>{region}</SelectItem>
                 ))}
@@ -145,7 +157,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
         <Button 
           
           onClick={()=> setShowMobileFilters(false)}
-          className="md:hidden z-30 bg-red-500 py-2 text-white rounded cursor-pointer">
+          className="z-30 bg-red-500 py-2 text-white rounded cursor-pointer">
             Close 
         </Button>
           </div>

@@ -8,6 +8,7 @@ import { Loader2, Search } from "lucide-react";
 import bgImageOpac from "/public/header-opac3.png"
 import memberListBackground from "/public/member-list-background.jpg"
 import Footer from "@/components/footer";
+import { useSearchParams } from "next/navigation";
 
 
 export interface Thumbnail {
@@ -87,6 +88,18 @@ const MemberPage: React.FC = () => {
   };
   const [expandedRecord, setExpandedRecord] =
     useState<MemberRecord>(defaultRecord);
+
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      // Extract the query parameter using searchParams.get()
+      const query = searchParams.get('q');
+  
+      if (query) {
+        setCoastRegionFilter(query.replace('-', ' '));
+      }
+    }, [searchParams]);
+  
 
     useEffect(() => {
       const fetchData = async () => {
@@ -235,7 +248,6 @@ const MemberPage: React.FC = () => {
       className="fixed bottom-1 right-1 md:right-4 flex items-center justify-center opacity-60 bg-primary p-1 text-white rounded border cursor-pointer z-50">
         Return to top
       </div>
-      {/* <Footer /> */}
     </div>
   );
 };

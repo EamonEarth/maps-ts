@@ -43,7 +43,7 @@ const MarkerWithInfoWindow: React.FC<MarkerAndInfoProps> = ({
 
       {isOpen && (
         <InfoWindow
-          headerContent={<h2 className="font-bold max-w-[300px] pb-2">{title}</h2>}
+          headerContent={<h2 className="font-bold max-w-[300px]- pb-2">{title}</h2>}
           anchor={marker}
           onClose={onClose}
           shouldFocus={false}
@@ -53,7 +53,7 @@ const MarkerWithInfoWindow: React.FC<MarkerAndInfoProps> = ({
 
             <p className="">{cluster}</p>
             <p>{contact}</p>
-            <p className="text-blue-500 font-semibold tracking-wider">{email}</p>
+            <p className="text-blue-500 font-light tracking-wider-">{email}</p>
             {(facebook || insta) && 
             <div className="flex items-center w-fit gap-x-4 px-2  py-1 border border-slate-400 rounded">
               {facebook && 

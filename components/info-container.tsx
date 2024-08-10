@@ -7,6 +7,7 @@ import Image from 'next/image';
 import facebookIcon from "/public/facebook.svg";
 import instaIcon from "/public/instagram.svg";
 import FilterSelect from './filter-select';
+import FilterSelectCopy from './filter-select copy';
 
 interface InfoContainerProps {
   record: AirtableRecord;
@@ -49,7 +50,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   } = record.fields;
 
   return (
-    <div className="w-full h-[20%] bg-slate-900 hidden lg:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border border-b-4 text-slate-100">
+    <div className="w-full h-[25%] bg-slate-900 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border border-b-4 text-slate-100">
       <div
         className="border-r flex flex-col gap-y-1 relative md:h-auto w-full px-4 overflow-x-hidden border-black pt-4"
         style={{
@@ -61,7 +62,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         <div className="w-full h-full blur-[1px] absolute top-0 left-0" />
         <div className="relative z-10">
           <div className="flex justify-between items-center border-b ">
-            <h1 className="font-semibold text-lg">{Stakeholder}</h1>
+            <h1 className="font-semibold lg:text-lg">{Stakeholder}</h1>
             {CMCN && (
               <p className="flex items-center gap-x-1 text-sm tracking-tighter py-1">
                 CMCN Member
@@ -69,7 +70,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
               </p>
             )}
           </div>
-          <div className="flex pt-2">
+          <div className="flex pt-2 md:text-sm lg:text-base">
             <div className="flex flex-col gap-y-1 w-1/2">
               {Region && (
                 <p className="flex items-center gap-x-1 rounded">
@@ -92,12 +93,12 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
             </div>
             <div className="flex flex-col gap-y-1 w-1/2">
               {StakeholderGroup && (
-                <p className="flex items-center gap-x-1 text-sm rounded border border-slate-200 p-1 max-w-[60%] overflow-scroll backdrop-blur-lg">
+                <p className="hidden lg:flex items-center gap-x-1 text-xs xl:text-sm rounded border border-slate-200 p-1 max-w-[60%] overflow-scroll backdrop-blur-lg">
                   {StakeholderGroup}
                 </p>
               )}
               {Website && (
-                <p className="flex items-center gap-x-1 text-sm">
+                <p className="flex items-center gap-x-1 text-xs xl:text-sm">
                   <Info className="shrink-0" />
                   <a
                     target="_blank"
@@ -109,7 +110,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
                 </p>
               )}
               {Email1 && (
-                <p className="flex items-center gap-x-1 text-sm">
+                <p className="flex items-center gap-x-1 text-xs xl:text-sm">
                   <Mail />
                   {Email1}
                 </p>
@@ -144,6 +145,18 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         socialsCheck={socialsCheck}
         setSocialsCheck={setSocialsCheck}
       />
+      {/* <FilterSelectCopy
+        nameFilter={nameFilter}
+        setNameFilter={setNameFilter}
+        areaFilter={areaFilter}
+        setAreaFilter={setAreaFilter}
+        clusterFilter={clusterFilter}
+        setClusterFilter={setClusterFilter}
+        memberCheck={memberCheck}
+        setMemberCheck={setMemberCheck}
+        socialsCheck={socialsCheck}
+        setSocialsCheck={setSocialsCheck}
+      /> */}
     </div>
   );
 };

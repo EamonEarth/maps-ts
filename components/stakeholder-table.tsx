@@ -27,6 +27,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
 
     const element = document.getElementById(record.id);
     if (element && window.innerWidth > 768) {
+      window.scrollBy(0,1)
       if (index > 3) {
         element.scrollIntoView({
           behavior: "smooth",
@@ -43,28 +44,29 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
     }
   };
 
-  useEffect(() => {
-    let currRecord = expandedRecord;
-    let element = document.getElementById(currRecord.id);
-    if (element && window.innerWidth < 768) {
-      element.scrollIntoView({
-        behavior: "instant",
-        block: "start",
-        inline: "end",
-      });
-    }
-  }, [expandedRecord]);
+  // useEffect(() => {
+  //   let currRecord = expandedRecord;
+  //   let element = document.getElementById(currRecord.id);
+  //   if (element && window.innerWidth < 768) {
+  //     element.scrollIntoView({
+  //       behavior: "instant",
+  //       block: "start",
+  //       inline: "end",
+  //     });
+  //   }
+  // }, [expandedRecord]);
 
   return (
     <div
       id="table"
-      className="relative outline-none border-l-black border-t-black flex flex-col gap-y-2 md:gap-y-6 h-[50%]  md:h-full overflow-y-auto md:pr-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 overflow-hidden z-40"
+      className="relative outline-none border-l-black border-t-black flex flex-col gap-y-2 md:gap-y-6 h-[50%] max-h-screen md:h-full overflow-y-auto md:pr-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 z-40"
       style={{
         backgroundImage: `url(${oceanVert.src})`,
         backgroundSize: "cover",
       }}
     >
-      <div className="sticky lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
+      
+      <div className="sticky md:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
         <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
           {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
         </div>
@@ -92,7 +94,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
             key={record.id}
             onClick={() => handleClick(record, index)}
           >
-            <h2 className="text-wrap font-bold pb-2 leading-4">{Stakeholder}</h2>
+            <h2 className="text-wrap font-bold pb-2 leading-4 text-sm md:text-base ">{Stakeholder}</h2>
             <div className="flex flex-col gap-y-1 ">
               {Region && (
                 <div className="flex justify-between items-center">

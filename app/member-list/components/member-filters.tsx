@@ -120,6 +120,23 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
           </div>
 
           {/* GET LIST OF ALL CITIES */}
+        </div>{" "}
+        {/* COLUMN TWO!COLUMN TWO!COLUMN TWO!COLUMN TWO! */}
+        <div className="flex flex-col gap-y-2 items-center">
+          <div className="flex gap-x-1 items-center w-[280px] justify-end ">
+            <div className="text-xs opacity-70 mr-auto">Name:</div>
+
+            <Input
+              className="w-44 shrink-0"
+              onChange={(event) => setNameFilter(event.currentTarget.value)}
+              value={nameFilter}
+            />
+
+            <X
+              className="opacity-50 size-4 cursor-pointer"
+              onClick={() => setNameFilter("")}
+            />
+          </div>
           <div className="flex gap-x-1 items-center w-[280px] justify-end ">
             <div className="text-xs opacity-70 mr-auto">Town/City:</div>
             <Select
@@ -142,24 +159,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               onClick={() => setCityFilter("")}
             />
           </div>
-        </div>{" "}
-        {/* COLUMN TWO!COLUMN TWO!COLUMN TWO!COLUMN TWO! */}
-        <div className="flex flex-col gap-y-2 items-center">
-          <div className="flex gap-x-1 items-center w-[280px] justify-end ">
-            <div className="text-xs opacity-70 mr-auto">Name:</div>
-
-            <Input
-              className="w-44 shrink-0"
-              onChange={(event) => setNameFilter(event.currentTarget.value)}
-              value={nameFilter}
-            />
-
-            <X
-              className="opacity-50 size-4 cursor-pointer"
-              onClick={() => setNameFilter("")}
-            />
-          </div>
-          <div className="flex gap-x-1 items-center w-[280px] justify-end ">
+          {/* <div className="flex gap-x-1 items-center w-[280px] justify-end ">
             <div className="text-xs opacity-70 mr-auto">District:</div>
 
             <Select
@@ -181,16 +181,16 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               className="opacity-50 size-4 cursor-pointer"
               onClick={() => setDistrictFilter("")}
             />
-          </div>
+          </div> */}
 
           {/* GET LIST OF ALL CITIES */}
-      <span className="w-full flex justify-end">
+        </div>
+      </div>
+      <span className="w-full flex justify-center pb-2 translate-x-[10px] md:translate-x-0">
         <Button 
         disabled={!nameFilter && !landRegionFilter && !coastRegionFilter && !cityFilter && !districtFilter}
         onClick={handleClearAll}>Clear all filters</Button>
       </span>
-        </div>{" "}
-      </div>
     </div>
   );
 };

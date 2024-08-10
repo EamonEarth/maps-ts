@@ -33,7 +33,6 @@ const MainNav = () => {
   useEffect(() => {
 
     const updateImageSize = () => {
-
       if (window.innerWidth > 768) {
         setImageSize({ width: 250, height: 100 });
       } else {
@@ -44,6 +43,7 @@ const MainNav = () => {
     const throttledUpdateImageSize = throttle(updateImageSize, 100); 
   
     window.addEventListener("resize", throttledUpdateImageSize);
+    updateImageSize()
 
     return () => {
       window.removeEventListener("resize", throttledUpdateImageSize);
