@@ -89,16 +89,7 @@ const MemberPage: React.FC = () => {
   const [expandedRecord, setExpandedRecord] =
     useState<MemberRecord>(defaultRecord);
 
-    const searchParams = useSearchParams();
-
-    useEffect(() => {
-      // Extract the query parameter using searchParams.get()
-      const query = searchParams.get('q');
-  
-      if (query) {
-        setCoastRegionFilter(query.replace('-', ' '));
-      }
-    }, [searchParams]);
+    
   
 
     useEffect(() => {
@@ -194,6 +185,8 @@ const MemberPage: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
+    
+    
     <div 
     style={{
       backgroundImage: `url(${bgImageOpac.src})`,

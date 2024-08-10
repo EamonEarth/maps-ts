@@ -1,4 +1,6 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+"use client"
+
+import React, { Dispatch, SetStateAction, Suspense, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -17,6 +19,7 @@ import {
   landRegions,
   districts,
 } from "../../../lib/data";
+import { useSearchParams } from "next/navigation";
 
 
 
@@ -48,6 +51,17 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
   setDistrictFilter,
   expandFilters
 }) => {
+
+  const searchParams = useSearchParams();
+
+    useEffect(() => {
+      // Extract the query parameter using searchParams.get()
+      const query = searchParams.get('q');
+  
+      if (query) {
+        setCoastRegionFilter(query.replace('-', ' '));
+      }
+    }, [searchParams]);
 
   const handleClearAll = () => {
     setLandRegionFilter("");
