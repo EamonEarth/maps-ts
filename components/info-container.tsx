@@ -110,7 +110,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
               )}
               {Email1 && (
                 <p className="flex items-center gap-x-1 text-xs xl:text-sm">
-                  <Mail />
+                  <Mail className="shrink-0"/>
                   {Email1}
                 </p>
               )}
