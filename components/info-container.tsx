@@ -7,7 +7,6 @@ import Image from 'next/image';
 import facebookIcon from "/public/facebook.svg";
 import instaIcon from "/public/instagram.svg";
 import FilterSelect from './filter-select';
-import FilterSelectCopy from './filter-select copy';
 
 interface InfoContainerProps {
   record: AirtableRecord;
@@ -93,7 +92,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
             </div>
             <div className="flex flex-col gap-y-1 w-1/2">
               {StakeholderGroup && (
-                <p className="hidden lg:flex items-center gap-x-1 text-xs xl:text-sm rounded border border-slate-200 p-1 max-w-[60%] overflow-scroll backdrop-blur-lg">
+                <p className="hidden lg:flex items-center gap-x-1 !text-[10px] xl:text-sm rounded border border-slate-200 p-1 max-w-[60%] overflow-scroll backdrop-blur-lg">
                   {StakeholderGroup}
                 </p>
               )}
@@ -145,18 +144,6 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         socialsCheck={socialsCheck}
         setSocialsCheck={setSocialsCheck}
       />
-      {/* <FilterSelectCopy
-        nameFilter={nameFilter}
-        setNameFilter={setNameFilter}
-        areaFilter={areaFilter}
-        setAreaFilter={setAreaFilter}
-        clusterFilter={clusterFilter}
-        setClusterFilter={setClusterFilter}
-        memberCheck={memberCheck}
-        setMemberCheck={setMemberCheck}
-        socialsCheck={socialsCheck}
-        setSocialsCheck={setSocialsCheck}
-      /> */}
     </div>
   );
 };

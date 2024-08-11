@@ -13,6 +13,7 @@ import Image from 'next/image';
 interface MarkerAndInfoProps {
   location: { lat: number; lng: number };
   title: string;
+  website: string;
   cluster: string;
   contact: string;
   email: string;
@@ -26,6 +27,7 @@ interface MarkerAndInfoProps {
 const MarkerWithInfoWindow: React.FC<MarkerAndInfoProps> = ({
   location,
   title,
+  website,
   cluster,
   contact,
   email,
@@ -43,7 +45,7 @@ const MarkerWithInfoWindow: React.FC<MarkerAndInfoProps> = ({
 
       {isOpen && (
         <InfoWindow
-          headerContent={<h2 className="font-bold max-w-[300px]- pb-2">{title}</h2>}
+          headerContent={website ? <Link href={website} target='_blank'><h2 className="font-bold max-w-[300px]- pb-2 hover:text-blue-400">{title}</h2></Link> : <h2 className="font-bold max-w-[300px]- pb-2">{title}</h2>}
           anchor={marker}
           onClose={onClose}
           shouldFocus={false}

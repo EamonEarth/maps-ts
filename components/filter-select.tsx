@@ -84,7 +84,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
 
       <h2 className="font-light tracking-normal">Filter:</h2>
          <div className="flex gap-x-2 text-xs">
-          {currFilters.map((filter)=>(<p key={filter} className="font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+          {currFilters.map((filter)=>(<p key={filter} className="font-extralight opacity-80 border border-slate-200 rounded p-1">{filter}</p>))}
          </div>
       </div>
       <div className="grid grid-cols-3 justify-around gap-x-2">
@@ -94,7 +94,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               placeholder="Name"
               onChange={handleNameInputChange}
               value={inputValue}
-              className="text-black bg-muted"
+              className="text-black bg-muted text-xs"
             />
             <X
               className="opacity-50 size-4"
@@ -106,7 +106,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
             >
-              <SelectTrigger className="text-muted-foreground">
+              <SelectTrigger className="text-muted-foreground text-xs">
                 <SelectValue
                   className=""
                   placeholder="Region"
@@ -130,7 +130,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onValueChange={(value) => setClusterFilter(value)}
               value={clusterFilter}
             >
-              <SelectTrigger className="text-muted-foreground">
+              <SelectTrigger className="text-muted-foreground text-xs">
                 <SelectValue className="" placeholder="Org. Type" />
               </SelectTrigger>
               <SelectContent>

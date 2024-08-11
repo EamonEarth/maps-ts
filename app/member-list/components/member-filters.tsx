@@ -55,7 +55,6 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
   const searchParams = useSearchParams();
 
     useEffect(() => {
-      // Extract the query parameter using searchParams.get()
       const query = searchParams.get('q');
   
       if (query) {
@@ -113,7 +112,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               onValueChange={(value) => setCoastRegionFilter(value)}
               value={coastRegionFilter}
             >
-              <SelectTrigger className="w-44 shrink-0">
+              <SelectTrigger  className="w-44 shrink-0">
                 <SelectValue
                   className="placeholder-opacity-50"
                   placeholder="-"

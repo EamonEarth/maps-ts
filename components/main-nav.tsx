@@ -57,14 +57,16 @@ const MainNav = () => {
       backgroundSize: 'cover', 
       backgroundPosition: 'center', 
       }}
-      className="relative top-0 h-[60px] md:h-[125px] w-full border-b-4 border-black py-2">
+      className="relative top-0 h-[60px] md:h-[125px] w-full border-b-2 border-black py-2">
     
       <div className="flex items-center h-full justify-around">
         <Image src="/logo.png" alt="logo" width={imageSize.width} height={imageSize.height} />
         <div className="hidden md:flex items-center text-xs md:text-base">
           {routes.map((route) => (
             <Link href={route.href} key={route.href}>
-              <Button className="text-xs md:text-base text-slate-200"variant="ghost">{route.title}</Button>
+              <Button 
+              
+               className="text-xs md:text-base text-slate-200" variant="ghost">{route.title}</Button>
             </Link>
           ))}
         </div>

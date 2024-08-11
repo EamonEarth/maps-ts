@@ -42,7 +42,7 @@ const MainMap: React.FC<MainMapProps> = ({
     fetchGoogleApiKey();
   }, []);
 
-  function parseLocationString(location: string, sh: string) {
+  function parseLocationString(location: string) {
     const trimmedString = location.trim();
     const jsonString = trimmedString
       .replace(/(\w+):/g, '"$1":')
@@ -52,26 +52,38 @@ const MainMap: React.FC<MainMapProps> = ({
       const parsedObject = JSON.parse(jsonString);
       return parsedObject;
     } catch (error) {
-      console.log(sh)
-      console.log("locay and trimmed string + json string: ", location, trimmedString, jsonString)
       console.error("Error parsing location string:", error);
       return null;
     }
   }
 
   const markerCompArray = stakeholders.map((place) => {
+    const {
+      Stakeholder,
+      CMCN,
+      Region,
+      City,
+      StakeholderGroup,
+      Contact,
+      Email1,
+      Website,
+      Facebook,
+      Instagram,
+    } = place.fields; 
     if (place.fields.Location) {
-      let parsedLocay = parseLocationString(place.fields.Location, place.fields.Stakeholder);
-      const title = place.fields.Stakeholder ?? "";
-      const cluster = place.fields["StakeholderGroup"] ?? "";
-      const contact = place.fields["Contact"] ?? ""
-      const email = place.fields["Email1"] ?? ""
-      const facebook = place.fields["Facebook"] ?? ""
-      const insta = place.fields["Instagram"] ?? ""
+      let parsedLocay = parseLocationString(place.fields.Location);
+      const title = Stakeholder ?? "";
+      const cluster = StakeholderGroup ?? "";
+      const contact = Contact ?? ""
+      const email = Email1 ?? ""
+      const facebook = Facebook ?? ""
+      const insta = Instagram ?? ""
+      const website = Website ?? ""
       return (
         <MarkerWithInfoWindow
           key={place.id}
           title={title}
+          website={website}
           cluster={cluster}
           contact={contact}
           email={email}
@@ -130,6 +142,9 @@ const MainMap: React.FC<MainMapProps> = ({
           mapTypeControl={false}
           fullscreenControl={false}
           scaleControl={true}
+          zoomControl={false}
+          streetViewControl={false}
+          
           >
           {markerCompArray}
         </Map>

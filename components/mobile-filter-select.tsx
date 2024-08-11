@@ -75,16 +75,16 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
       backgroundSize: "100%"
     }}
     className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded overflow-hidden ">
-      <div className="flex justify-around items-center">
 
-      <h2 className="font-bold tracking-tight">Filters:</h2>
+      <div className="flex justify-around items-center">
+        <h2 className="font-bold tracking-tight">Filters:</h2>
       </div>
 
       <div className="flex gap-x-2 text-xs flex-wrap">
           {currentFilters.map((filter)=>(<p key={filter} className="max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
       </div>
       
-        <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-2">
           <div className="flex gap-x-2 items-center">
             <Input
               placeholder="Name"
@@ -137,32 +137,31 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               className="opacity-50 size-4"
               onClick={() => setClusterFilter("")}
             />
-          </div>
+        </div>
         <div className="flex items-center justify-around gap-x-2 text-xl  rounded p-2- ">
-          <span className="flex gap-x-1">
-
+          <div className="flex gap-x-1">
             <p className="text-xs">CMCN Member?</p>
-
-          <Checkbox className="border-black" checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
-          </span>
+            <Checkbox className="border-black" checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
+          </div>
           <div className="flex gap-x-1 ">
             <p className="text-xs">Social Media?</p>
-
-          <Checkbox className="border-black" checked={socialsCheck} onCheckedChange={()=>setSocialsCheck(!socialsCheck)}/>
+            <Checkbox className="border-black" checked={socialsCheck} onCheckedChange={()=>setSocialsCheck(!socialsCheck)}/>
           </div>
           <Button 
-          className="py-2" 
-        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck && !socialsCheck}
-        onClick={clearAllFilters}> Clear </Button>
-        <Button 
-          
+          className="py-2 text-xs" 
+          disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck && !socialsCheck}
+          onClick={clearAllFilters}> 
+            Reset 
+          </Button>
+
+          <Button 
           onClick={()=> setShowMobileFilters(false)}
-          className="z-30 bg-red-500 py-2 text-white rounded cursor-pointer">
+          className="z-30 bg-red-400 py-2 text-white rounded cursor-pointer text-xs">
             Close 
-        </Button>
-          </div>
-          
+          </Button>
         </div>
+          
+      </div>
     </div>
   );
 };
