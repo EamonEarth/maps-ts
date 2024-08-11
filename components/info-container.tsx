@@ -49,7 +49,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   } = record.fields;
 
   return (
-    <div className="w-full h-[25%] bg-slate-900 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-black border border-b-4 text-slate-100">
+    <div className="w-full h-[25%] bg-slate-900 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-cyan-800 border border-b-4 text-slate-100">
       <div
         className="border-r flex flex-col gap-y-1 relative md:h-auto w-full px-4 overflow-x-hidden border-black pt-4"
         style={{

@@ -283,17 +283,6 @@ const AirtableComponent: React.FC = () => {
         ))}
       </div>
       {/* ALPH END */}
-      {/* Mobile Filters */}
-      {/* <div className="relative lg:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
-        <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
-          {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
-        </div>
-         <div 
-          onClick={()=> setShowMobileFilters(true)}
-          className="ml-auto mr-2 opacity-60 bg-primary px-1 text-white rounded border cursor-pointer">
-              Filters
-        </div>
-      </div> */}
       <div 
       style={{
         transition: 'max-height 0.5s ease-in-out',

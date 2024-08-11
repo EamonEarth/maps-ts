@@ -59,7 +59,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
   return (
     <div
       id="table"
-      className="relative outline-none border-l-black border-t-black flex flex-col gap-y-2 md:gap-y-6 h-[50%] max-h-screen md:h-full overflow-y-auto md:pr-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-black/50 z-40"
+      className="relative outline-none border-l-black border-t-black flex flex-col gap-y-2 md:gap-y-6 h-[50%] max-h-screen md:h-full overflow-y-auto md:pr-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-cyan-800 z-40"
       style={{
         backgroundImage: `url(${oceanVert.src})`,
         backgroundSize: "cover",

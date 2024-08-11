@@ -228,8 +228,6 @@ const MemberPage: React.FC = () => {
         records={records}
         filteredRecords={filteredRecords}
         setFilteredRecords={setFilteredRecords}
-        expandedRecord={expandedRecord}
-        setExpandedRecord={setExpandedRecord}
         landRegionFilter={landRegionFilter}
         coastRegionFilter={coastRegionFilter}
         cityFilter={cityFilter}

@@ -9,8 +9,6 @@ interface MemberListProps {
   records: MemberRecord[];
   filteredRecords: MemberRecord[];
   setFilteredRecords: Dispatch<SetStateAction<MemberRecord[]>>;
-  expandedRecord: MemberRecord;
-  setExpandedRecord: Dispatch<SetStateAction<MemberRecord>>;
   landRegionFilter: string;
   coastRegionFilter: string;
   cityFilter: string;
@@ -22,8 +20,6 @@ const MemberList: React.FC<MemberListProps> = ({
   records,
   filteredRecords,
   setFilteredRecords,
-  expandedRecord,
-  setExpandedRecord,
   landRegionFilter,
   coastRegionFilter,
   cityFilter,
@@ -141,18 +137,7 @@ const MemberList: React.FC<MemberListProps> = ({
     setFilteredRecords,
   ]); 
 
-  const handleClick = (record: MemberRecord) => {
-    setExpandedRecord(record);
-    const element = document.getElementById(record.id);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "nearest",
-      });
-    }
-  };
-
+  
   return (
     <div id="table" className="flex flex-col xl:grid xl:grid-cols-2 gap-x-4 gap-y-12 w-full h-screen overflow-scroll md:w-[60%] lg:w-[75%] border-t-4 border-black relative bg-slate-200- mb-12 md:px-8">
       {noneFoundMessage && 
@@ -162,13 +147,13 @@ const MemberList: React.FC<MemberListProps> = ({
       }
       
       {filteredRecords.map((record) => (
+        
         <div
         className={cn(
           "flex flex-col h-auto xl:col-span-1 ",
         )}
         id={record.id}
         key={record.id}
-        onClick={() => handleClick(record)}
         >
           <div className="flex justify-between border-b- py-2 items-center text-center bg-slate-700 text-white px-12 rounded-lg xl:min-h-[225px]">
             <h2 className="text-lg text-wrap font-bold py-2 leading-6 md:pl-24">
@@ -225,14 +210,6 @@ const MemberList: React.FC<MemberListProps> = ({
                 <p className="text-sm rounded "> {record.fields.Region} </p>
               </span>
             )}
-            {/* {record.fields.Affliations && (
-              <div className="px-12 flex justify-between items-center bg-slate-200/80 p-1 text-wrap overflow-wrap">
-                <p className="text-sm font-semibold">Affiliation: </p>
-                <div className="text-sm rounded px-1 text-end overflow-wrap break-words max-w-[100%]">
-                  {record.fields.Affliations}
-                </div>
-              </div>
-            )} */}
             {record.fields.Affliations && (
             <span className="rounded-lg px-12 flex flex-wrap justify-between items-center bg-slate-200/80 p-1">
               <p className="text-sm font-semibold">Affiliation: </p>
@@ -253,8 +230,7 @@ const MemberList: React.FC<MemberListProps> = ({
             {record.fields.Email && (
               <span className="rounded-lg px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
                 <p className="text-sm font-semibold">Email: </p>
-                <p className="text-sm text-ellipsis uppercase"> Email shown here</p>
-                {/* <p className="text-sm text-ellipsis"> {record.fields.Email}</p> */}
+                <p className="text-xs text-ellipsis"> {record.fields.Email}</p>
               </span>
             )}
           </div>

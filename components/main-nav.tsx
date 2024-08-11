@@ -57,7 +57,7 @@ const MainNav = () => {
       backgroundSize: 'cover', 
       backgroundPosition: 'center', 
       }}
-      className="relative top-0 h-[60px] md:h-[125px] w-full border-b-2 border-black py-2">
+      className="relative top-0 h-[60px] md:h-[125px] w-full border-b border-black py-2">
     
       <div className="flex items-center h-full justify-around">
         <Image src="/logo.png" alt="logo" width={imageSize.width} height={imageSize.height} />
