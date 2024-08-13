@@ -13,7 +13,7 @@ import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import bgImageRotated from "../public/header-opac-rotated-twice.png"
-import { stakeholderTypes, regions } from "../lib/data";
+import { stakeholderTypes, regions, subclusterTypes } from "../lib/data";
 import { debounce } from "@/lib/utils";
 
  
@@ -24,6 +24,9 @@ interface FilterSelectProps {
   setNameFilter: React.Dispatch<SetStateAction<string>>;
   clusterFilter: string;
   setClusterFilter: Dispatch<SetStateAction<string>>;
+  subclusterFilter: string;
+  setSubclusterFilter: Dispatch<SetStateAction<string>>;
+  relevantSubs: string[];
   memberCheck: boolean;
   setMemberCheck: Dispatch<SetStateAction<boolean>>;
   socialsCheck: boolean;
@@ -37,6 +40,9 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   setNameFilter,
   clusterFilter,
   setClusterFilter,
+  subclusterFilter,
+  setSubclusterFilter,
+  relevantSubs,
   memberCheck,
   setMemberCheck,
   socialsCheck,
@@ -50,6 +56,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
     setNameFilter("")
     setInputValue("")
     setClusterFilter("")
+    setSubclusterFilter("")
     setMemberCheck(false)
     setSocialsCheck(false)
   }
@@ -58,7 +65,10 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
 
   if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
   if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
-  if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
+  if (clusterFilter) currFilters.push(`Stakeholder Group: ${clusterFilter}`);
+  if (subclusterFilter) currFilters.push(`Subcluster: ${subclusterFilter}`);
+  if (socialsCheck) currFilters.push(`Socials ✓`);
+
 
   const debouncedSetNameFilter = debounce((value: string) => {
     setNameFilter(value);
@@ -131,7 +141,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               value={clusterFilter}
             >
               <SelectTrigger className="text-muted-foreground text-xs">
-                <SelectValue className="" placeholder="Org. Type" />
+                <SelectValue className="" placeholder="Stakeholder Group" />
               </SelectTrigger>
               <SelectContent>
                 {stakeholderTypes.map((type)=>(
@@ -144,11 +154,32 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onClick={() => setClusterFilter("")}
             />
           </div>
+          {/* ONLY DISPLAY SUBCLUSTERS THAT EXIST UNDER CLUSTER VALUE  */}
+          <div className="flex gap-x-2 items-center  overflow-hidden">
+            <Select
+              onValueChange={(value) => setSubclusterFilter(value)}
+              value={subclusterFilter}
+              disabled={clusterFilter === ""}
+            >
+              <SelectTrigger className="text-muted-foreground text-xs">
+                <SelectValue className="" placeholder="Stakeholder Subcluster" />
+              </SelectTrigger>
+              <SelectContent>
+                {relevantSubs.map((type)=>(
+                  <SelectItem key={`sub+${type}`} value={type}>{type}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <X
+              className="opacity-50 size-4"
+              onClick={() => setSubclusterFilter("")}
+            />
+          </div>
 
-            <div className="flex items-center w-[80%] h-8 gap-x-2 rounded justify-between">
+            {/* <div className="flex items-center w-[80%] h-8 gap-x-2 rounded justify-between">
               <p className="text-xs">CMCN Member?</p>
               <Checkbox color="white" checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
-            </div>
+            </div> */}
 
             
           
@@ -163,7 +194,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
 
         <Button 
         className="text-xs text-wrap border-slate-200 border h-8"
-        disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck && !socialsCheck}
+        disabled={!areaFilter && !nameFilter && !clusterFilter && !subclusterFilter && !memberCheck && !socialsCheck}
         onClick={clearAllFilters}> Reset </Button>
         </div>
         

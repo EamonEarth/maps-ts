@@ -40,7 +40,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     } while (offset); // Continue fetching if there's an offset
 
 
-
     return NextResponse.json(allRecords, { status: 200 });
   } catch (error: any) {
     console.error(error.message);

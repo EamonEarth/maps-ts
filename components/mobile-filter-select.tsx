@@ -23,6 +23,9 @@ interface MobileFilterSelectProps {
   setNameFilter: React.Dispatch<SetStateAction<string>>;
   clusterFilter: string;
   setClusterFilter: Dispatch<SetStateAction<string>>;
+  subclusterFilter: string;
+  setSubclusterFilter: Dispatch<SetStateAction<string>>;
+  relevantSubs: string[];
   memberCheck: boolean;
   setMemberCheck: Dispatch<SetStateAction<boolean>>;
   setShowMobileFilters: Dispatch<SetStateAction<boolean>>;
@@ -33,11 +36,14 @@ interface MobileFilterSelectProps {
 
 const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   areaFilter,
-  setAreaFilter,
+  setAreaFilter, 
   nameFilter,
   setNameFilter,
   clusterFilter,
   setClusterFilter,
+  subclusterFilter,
+  setSubclusterFilter,
+  relevantSubs,
   memberCheck,
   setMemberCheck,
   setShowMobileFilters,
@@ -63,6 +69,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
     setAreaFilter("")
     setNameFilter("")
     setClusterFilter("")
+    setSubclusterFilter("")
     setMemberCheck(false)
     setSocialsCheck(false)
 

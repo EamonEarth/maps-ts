@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import StakeholderTable from "@/components/stakeholder-table";
 import { Button } from "@/components/ui/button";
 import MobileFilterSelect from "@/components/mobile-filter-select";
+import { subclusterTypes } from "@/lib/data";
 
 export interface AirtableRecord {
     id: string;
@@ -15,6 +16,7 @@ export interface AirtableRecord {
     fields: {
         "Stakeholder": string;
         "StakeholderGroup"?: string;
+        "StakeholderSubcluster"?: string;
         "Region"?: string;
         "City"?: string;
         "Location"?: string;
@@ -41,6 +43,9 @@ const AirtableComponent: React.FC = () => {
   const [areaFilter, setAreaFilter] = useState<string>("");
   const [nameFilter, setNameFilter] = useState<string>("");
   const [clusterFilter, setClusterFilter] = useState<string>("");
+  const [subclusterFilter, setSubclusterFilter] = useState<string>("");
+  const [relevantSubs, setRelevantSubs] = useState<string[]>(subclusterTypes)
+
   const [memberCheck, setMemberCheck] = useState<boolean>(false);
   const [socialsCheck, setSocialsCheck] = useState<boolean>(false)
   const [openMarker, setOpenMarker] = useState<string | null>(null);
@@ -56,6 +61,72 @@ const AirtableComponent: React.FC = () => {
   const [expandedRecord, setExpandedRecord] =
     useState<AirtableRecord>(defaultRecord);
 
+    const relevantSubsMap = {
+      "Community and Individual": [
+          "Community Landcare",
+          "Individual",
+          "Nursery",
+          "Research and Education",
+          "Biosecurity",
+          "Pastoralist or Station",
+          "Recreation",
+          "Landcare Conservation District Committee",
+          "Tourism",
+          "Reference or Advisory Group",
+          "Animal Rescue",
+          "Primary Resources",
+          " Peak Body"
+      ],
+      "State Government": [
+          "Reference or Advisory Group",
+          "Research and Education",
+          "Government",
+          "Regional Develpment Commission",
+          "Community Landcare",
+          "Tourism"
+      ],
+      "Private Organisation": [
+          "Consultant",
+          "Mining",
+          " Peak Body",
+          "Tourism",
+          "Research and Education",
+          "Non Government Organisation",
+          "Nursery",
+          "Recreation",
+          "Primary Resources",
+          "Port Authority",
+          "Animal Rescue"
+      ],
+      "Traditional Owner": [
+          "Reference or Advisory Group",
+          "Prescribed Body Corporate",
+          "Aboriginal Corporation",
+          "Native Title Representative Body"
+      ],
+      "Commonwealth Government": [
+          "Research and Education",
+          "Government"
+      ],
+      "Local Government": [
+          "Tourism",
+          "Government"
+      ],
+      "Natural Resource Management Group": [
+          "Community Landcare"
+      ]
+  };
+  
+  useEffect(() => {
+    const relevants = relevantSubsMap[clusterFilter as keyof typeof relevantSubsMap] || [];
+    console.log("relevants", relevants)
+    setRelevantSubs(relevants);
+}, [clusterFilter, setRelevantSubs]);
+
+  useEffect(()=>{
+    setSubclusterFilter("")
+  },[clusterFilter])
+
     // FETCHING RECORDS
     useEffect(() => {
       const fetchData = async () => {
@@ -66,6 +137,7 @@ const AirtableComponent: React.FC = () => {
           }
   
           const fullRecords: AirtableRecord[] = await response.json();
+          console.log(fullRecords)
           setRecords(fullRecords);
           setFilteredRecords(fullRecords); // Initialize filtered records
           setExpandedRecord(fullRecords[0]); // Initialize expandedRecord to the first record
@@ -78,6 +150,9 @@ const AirtableComponent: React.FC = () => {
   
       fetchData();
     }, []);
+
+
+
 
   // FILTERS
   useEffect(() => {
@@ -111,6 +186,17 @@ const AirtableComponent: React.FC = () => {
           .includes(cluster.toLowerCase())
       );
     };
+    const filterBySubcluster = (
+      cluster: string,
+      records: AirtableRecord[]
+    ): AirtableRecord[] => {
+      if (!cluster) return records;
+      return records.filter((record) =>
+        record.fields["StakeholderSubcluster"]
+          ?.toLowerCase()
+          .includes(cluster.toLowerCase())
+      );
+    };
 
     const filterByMemberCheck = (records: AirtableRecord[]) => {
       if (!memberCheck) return records
@@ -125,6 +211,7 @@ const AirtableComponent: React.FC = () => {
       let filteredRecords = filterByRegion(areaFilter, records);
       filteredRecords = filterByName(nameFilter, filteredRecords);
       filteredRecords = filterByCluster(clusterFilter, filteredRecords);
+      filteredRecords = filterBySubcluster(subclusterFilter, filteredRecords);
       filteredRecords = filterByMemberCheck(filteredRecords);
       filteredRecords = filterBySocialsCheck(filteredRecords)
       setFilteredRecords(filteredRecords);
@@ -132,7 +219,7 @@ const AirtableComponent: React.FC = () => {
 
     applyFilters();
 
-  }, [clusterFilter, areaFilter, nameFilter, records, memberCheck, socialsCheck]);
+  }, [clusterFilter, subclusterFilter, areaFilter, nameFilter, records, memberCheck, socialsCheck]);
 
   const clearAllFilters = () => {
     setAreaFilter("")
@@ -259,7 +346,8 @@ const AirtableComponent: React.FC = () => {
   const currFilters: string[] = [];
   if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
   if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
-  if (clusterFilter) currFilters.push(`Org. Type: ${clusterFilter}`);
+  if (clusterFilter) currFilters.push(`Stakeholder Group: ${clusterFilter}`);
+  if (subclusterFilter) currFilters.push(`Subcluster: ${subclusterFilter}`);
   if (memberCheck) currFilters.push(`CMCN Member ✓`);
   if (socialsCheck) currFilters.push(`Social Media Presence ✓`);
 
@@ -296,6 +384,9 @@ const AirtableComponent: React.FC = () => {
           setAreaFilter={setAreaFilter}
           clusterFilter={clusterFilter}
           setClusterFilter={setClusterFilter}
+          subclusterFilter={subclusterFilter}
+          setSubclusterFilter={setSubclusterFilter}
+          relevantSubs={relevantSubs}
           memberCheck={memberCheck}
           setMemberCheck={setMemberCheck}
           setShowMobileFilters={setShowMobileFilters}
@@ -336,6 +427,9 @@ const AirtableComponent: React.FC = () => {
           record={expandedRecord}
           clusterFilter={clusterFilter}
           setClusterFilter={setClusterFilter}
+          subclusterFilter={subclusterFilter}
+          setSubclusterFilter={setSubclusterFilter}
+          relevantSubs={relevantSubs}
           memberCheck={memberCheck}
           setMemberCheck={setMemberCheck}
           socialsCheck={socialsCheck}

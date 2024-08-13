@@ -103,3 +103,25 @@ export const regions = [
     "Traditional Owner",
   ]
   
+  export const subclusterTypes = [
+      'Aboriginal Corporation',
+      'Animal Rescue',
+      'Biosecurity',
+      'Community Landcare',
+      'Consultant',
+      'Government',
+      'Individual',
+      'Landcare Conservation District Committee',
+      'Mining',
+      'Native Title Representative Body',
+      'Non Government Organisation',
+      'Nursery',
+      'Pastoralist or Station',
+      'Peak Body',
+      'Port Authority',
+      'Prescribed Body Corporate',
+      'Primary Resources',
+      'Reference or Advisory Group',
+      'Research and Education',
+      'Tourism'
+  ]

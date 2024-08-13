@@ -16,6 +16,9 @@ interface InfoContainerProps {
   setNameFilter: Dispatch<SetStateAction<string>>;
   clusterFilter: string;
   setClusterFilter: Dispatch<SetStateAction<string>>;
+  subclusterFilter: string;
+  setSubclusterFilter: Dispatch<SetStateAction<string>>;
+  relevantSubs: string[];
   memberCheck: boolean;
   setMemberCheck: Dispatch<React.SetStateAction<boolean>>;
   socialsCheck: boolean;
@@ -30,6 +33,9 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   setNameFilter,
   clusterFilter,
   setClusterFilter,
+  subclusterFilter,
+  setSubclusterFilter,
+  relevantSubs,
   memberCheck,
   setMemberCheck,
   socialsCheck,
@@ -41,6 +47,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
     Region,
     City,
     StakeholderGroup,
+    StakeholderSubcluster,
     Contact,
     Email1,
     Website,
@@ -48,6 +55,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
     Instagram,
   } = record.fields;
 
+  // ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!
   return (
     <div className="w-full h-[25%] bg-slate-900 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-cyan-800 border border-b-4 text-slate-100">
       <div
@@ -139,6 +147,9 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         setAreaFilter={setAreaFilter}
         clusterFilter={clusterFilter}
         setClusterFilter={setClusterFilter}
+        subclusterFilter={subclusterFilter}
+        setSubclusterFilter={setSubclusterFilter}
+        relevantSubs={relevantSubs}
         memberCheck={memberCheck}
         setMemberCheck={setMemberCheck}
         socialsCheck={socialsCheck}
