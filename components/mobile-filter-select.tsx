@@ -92,7 +92,8 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
       </div>
       
       <div className="flex flex-col gap-y-2">
-          <div className="flex gap-x-2 items-center">
+
+          {/* <div className="flex gap-x-2 items-center">
             <Input
               placeholder="Name"
               onChange={handleNameInputChange}
@@ -103,8 +104,48 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               className="opacity-50 size-4"
               onClick={() => setNameFilter("")}
             />
-          </div>
-          <div className="flex gap-x-2 items-center ">
+          </div> */}
+          <div className="flex gap-x-2 items-center  overflow-hidden">
+            <Select
+              onValueChange={(value) => setClusterFilter(value)}
+              value={clusterFilter}
+            >
+              <SelectTrigger className="text-muted-foreground">
+                <SelectValue className="" placeholder="Stakeholder Group" />
+              </SelectTrigger>
+              <SelectContent>
+                {stakeholderTypes.map((type)=>(
+                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <X
+              className="opacity-50 size-4"
+              onClick={() => setClusterFilter("")}
+            />
+        </div>
+        
+          <div className="flex gap-x-2 items-center  overflow-hidden">
+            <Select
+              onValueChange={(value) => setSubclusterFilter(value)}
+              value={subclusterFilter}
+              disabled={clusterFilter==""}
+            >
+              <SelectTrigger className="text-muted-foreground">
+                <SelectValue className="" placeholder="Subcluster" />
+              </SelectTrigger>
+              <SelectContent>
+                {relevantSubs.map((type)=>(
+                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <X
+              className="opacity-50 size-4"
+              onClick={() => setClusterFilter("")}
+            />
+        </div>
+        <div className="flex gap-x-2 items-center ">
             <Select
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
@@ -126,30 +167,11 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
               onClick={() => setAreaFilter("")}
             />
           </div>
-          <div className="flex gap-x-2 items-center  overflow-hidden">
-            <Select
-              onValueChange={(value) => setClusterFilter(value)}
-              value={clusterFilter}
-            >
-              <SelectTrigger className="text-muted-foreground">
-                <SelectValue className="" placeholder="Org. Type" />
-              </SelectTrigger>
-              <SelectContent>
-                {stakeholderTypes.map((type)=>(
-                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <X
-              className="opacity-50 size-4"
-              onClick={() => setClusterFilter("")}
-            />
-        </div>
         <div className="flex items-center justify-around gap-x-2 text-xl  rounded p-2- ">
-          <div className="flex gap-x-1">
+          {/* <div className="flex gap-x-1">
             <p className="text-xs">CMCN Member?</p>
             <Checkbox className="border-black" checked={memberCheck} onCheckedChange={()=>setMemberCheck(!memberCheck)}/>
-          </div>
+          </div> */}
           <div className="flex gap-x-1 ">
             <p className="text-xs">Social Media?</p>
             <Checkbox className="border-black" checked={socialsCheck} onCheckedChange={()=>setSocialsCheck(!socialsCheck)}/>

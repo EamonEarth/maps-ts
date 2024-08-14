@@ -21,8 +21,8 @@ export const routes = [
     href: "/member-list",
   },
   {
-    title: "WACMN Home",
-    href: "https://wacmn.net/",
+    title: "Back to WACMN",
+    href: "https://wacmn.net/resource-hub",
   },
 ];
 
@@ -71,7 +71,6 @@ const MainNav = () => {
           ))}
         </div>
         <span className="block md:hidden">
-
           <Menu className="text-slate-200"onClick={toggleSidebar}/>
         </span>
           <MobileSidebar />

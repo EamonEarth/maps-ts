@@ -23,6 +23,7 @@ interface InfoContainerProps {
   setMemberCheck: Dispatch<React.SetStateAction<boolean>>;
   socialsCheck: boolean;
   setSocialsCheck: Dispatch<React.SetStateAction<boolean>>;
+  currFilters: string[];
 }
 
 const InfoContainer: React.FC<InfoContainerProps> = ({
@@ -39,7 +40,8 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
   memberCheck,
   setMemberCheck,
   socialsCheck,
-  setSocialsCheck
+  setSocialsCheck,
+  currFilters
 }) => {
   const {
     Stakeholder,
@@ -57,19 +59,19 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 
   // ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!
   return (
-    <div className="w-full h-[25%] bg-slate-900 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-cyan-800 border border-b-4 text-slate-100">
+    <div className="w-full h-[25%] bg-slate-900 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-slate-900 border border-b-4 text-slate-100">
       <div
         className="border-r flex flex-col gap-y-1 relative md:h-auto w-full px-4 overflow-x-hidden border-black pt-4"
-        style={{
-          backgroundImage: `url(${bgImageRotated.src})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        // style={{
+        //   backgroundImage: `url(${bgImageRotated.src})`,
+        //   backgroundSize: 'cover',
+        //   backgroundPosition: 'center',
+        // }}
       >
         <div className="w-full h-full blur-[1px] absolute top-0 left-0" />
         <div className="relative z-10">
           <div className="flex justify-between items-center border-b ">
-            <h1 className="font-semibold lg:text-lg">{Stakeholder}</h1>
+            <h1 className="font-light lg:text-lg">{Stakeholder}</h1>
             {CMCN && (
               <p className="flex items-center gap-x-1 text-sm tracking-tighter py-1">
                 CMCN Member
@@ -154,6 +156,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
         setMemberCheck={setMemberCheck}
         socialsCheck={socialsCheck}
         setSocialsCheck={setSocialsCheck}
+        currFilters={currFilters}
       />
     </div>
   );

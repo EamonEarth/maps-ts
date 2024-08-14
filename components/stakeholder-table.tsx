@@ -59,18 +59,18 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
   return (
     <div
       id="table"
-      className="relative outline-none border-l-black border-t-black flex flex-col gap-y-2 md:gap-y-6 h-[50%] max-h-screen md:h-full overflow-y-auto md:pr-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-cyan-800 z-40"
+      className="relative outline-none border-l-black- border-t-black flex flex-col gap-y-2 md:gap-y-6 h-[50%] max-h-screen md:h-full overflow-y-auto md:pr-2 w-full md:w-[25%] min-w-[250px] md:border md:border-r-8 border-b-4 border-b-black/50 border-r-cyan-800 z-40"
       style={{
         backgroundImage: `url(${oceanVert.src})`,
         backgroundSize: "cover",
       }}
     >
       
-      <div className="sticky md:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-black">
+      <div className="sticky md:hidden z-30 text-sm top-0  flex flex-wrap items-center justify-around w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-slate-900">
         <div className="flex gap-x-2 text-xs flex-wrap max-w-[100%]">
           {currFilters.map((filter)=>(<p key={filter} className="max-w-[50vw] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
         </div>
-         <div 
+         <div
           onClick={()=> setShowMobileFilters(true)}
           className="ml-auto mr-2 opacity-60 bg-primary px-1 text-white rounded border cursor-pointer">
               Filters
@@ -87,14 +87,14 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         return (
           <div
             className={cn(
-              "flex flex-col rounded-r p-4 border-t border-b border-r border-black h-40 px-5 backdrop-blur-md",
-              expandedRecord.id === record.id && "bg-slate-100"
+              "flex flex-col rounded-r p-2 md:p-4 border-t border-b border-r border-black h-40 px-5 backdrop-blur-md",
+              expandedRecord.id === record.id && "bg-cyan-100"
             )}
             id={record.id}
             key={record.id}
             onClick={() => handleClick(record, index)}
           >
-            <h2 className="text-wrap font-bold pb-2 leading-4 text-sm md:text-base ">{Stakeholder}</h2>
+            <h2 className="text-wrap font-bold pb-1 md:pb-2 leading-4 text-sm md:text-base ">{Stakeholder}</h2>
             <div className="flex flex-col gap-y-1 ">
               {Region && (
                 <div className="flex justify-between items-center">

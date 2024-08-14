@@ -8,7 +8,8 @@ import React, { useEffect, useState } from "react";
 import StakeholderTable from "@/components/stakeholder-table";
 import { Button } from "@/components/ui/button";
 import MobileFilterSelect from "@/components/mobile-filter-select";
-import { subclusterTypes } from "@/lib/data";
+import { relevantSubsMap, subclusterTypes } from "@/lib/data";
+import { useSearchParams } from "next/navigation";
 
 export interface AirtableRecord {
     id: string;
@@ -50,6 +51,7 @@ const AirtableComponent: React.FC = () => {
   const [socialsCheck, setSocialsCheck] = useState<boolean>(false)
   const [openMarker, setOpenMarker] = useState<string | null>(null);
 
+
   
   const defaultRecord: AirtableRecord = {
     id: "",
@@ -61,65 +63,10 @@ const AirtableComponent: React.FC = () => {
   const [expandedRecord, setExpandedRecord] =
     useState<AirtableRecord>(defaultRecord);
 
-    const relevantSubsMap = {
-      "Community and Individual": [
-          "Community Landcare",
-          "Individual",
-          "Nursery",
-          "Research and Education",
-          "Biosecurity",
-          "Pastoralist or Station",
-          "Recreation",
-          "Landcare Conservation District Committee",
-          "Tourism",
-          "Reference or Advisory Group",
-          "Animal Rescue",
-          "Primary Resources",
-          " Peak Body"
-      ],
-      "State Government": [
-          "Reference or Advisory Group",
-          "Research and Education",
-          "Government",
-          "Regional Develpment Commission",
-          "Community Landcare",
-          "Tourism"
-      ],
-      "Private Organisation": [
-          "Consultant",
-          "Mining",
-          " Peak Body",
-          "Tourism",
-          "Research and Education",
-          "Non Government Organisation",
-          "Nursery",
-          "Recreation",
-          "Primary Resources",
-          "Port Authority",
-          "Animal Rescue"
-      ],
-      "Traditional Owner": [
-          "Reference or Advisory Group",
-          "Prescribed Body Corporate",
-          "Aboriginal Corporation",
-          "Native Title Representative Body"
-      ],
-      "Commonwealth Government": [
-          "Research and Education",
-          "Government"
-      ],
-      "Local Government": [
-          "Tourism",
-          "Government"
-      ],
-      "Natural Resource Management Group": [
-          "Community Landcare"
-      ]
-  };
+  
   
   useEffect(() => {
     const relevants = relevantSubsMap[clusterFilter as keyof typeof relevantSubsMap] || [];
-    console.log("relevants", relevants)
     setRelevantSubs(relevants);
 }, [clusterFilter, setRelevantSubs]);
 
@@ -152,6 +99,14 @@ const AirtableComponent: React.FC = () => {
     }, []);
 
 
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const query = searchParams.get('q');
+      if (query) {
+        setClusterFilter(query.replace('-', ' '));
+      }
+    }, [searchParams]);
 
 
   // FILTERS
@@ -310,6 +265,7 @@ const AirtableComponent: React.FC = () => {
             record.fields.Stakeholder &&
             record.fields.Stakeholder.toLowerCase().startsWith(newChar)
         );
+
       }
 
       if (newMatchingRecord) {
@@ -348,8 +304,8 @@ const AirtableComponent: React.FC = () => {
   if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
   if (clusterFilter) currFilters.push(`Stakeholder Group: ${clusterFilter}`);
   if (subclusterFilter) currFilters.push(`Subcluster: ${subclusterFilter}`);
-  if (memberCheck) currFilters.push(`CMCN Member ✓`);
-  if (socialsCheck) currFilters.push(`Social Media Presence ✓`);
+  // if (memberCheck) currFilters.push(`CMCN Member ✓`);
+  if (socialsCheck) currFilters.push(`Socials ✓`);
 
 
   return (
@@ -357,14 +313,14 @@ const AirtableComponent: React.FC = () => {
     
     className="w-full h-screen min-w-[100%] flex flex-col md:flex-row relative ">
       {/* ALPH DIV START */}
-      <div className="hidden md:flex relative left-0 h-full w-[20px] bg-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4 z-20 text-white/70 ">
+      <div className="hidden md:flex relative left-0 h-full w-[20px] bg-gradient-to-b from-cyan-800 via-cyan-900 to-cyan-800  flex-col items-center justify-between gap-y-[2px] py-4 z-[100] text-slate-100 ">
         {alph.map((char) => (
           <div
             key={char}
-            className="alph-box bg-black/20 rounded hover:rounded-r-full p-1 w-[20px] flex items-center text-center  hover:scale-150 hover:bg-black/60 transition-all cursor-pointer text-xs relative "
+            className="alph-box bg-slate-800/90 rounded-xl p-1 w-[20px] flex items-center text-center  hover:scale-150 hover:bg-black/60 transition-all cursor-pointer text-xs relative "
             onClick={() => handleAlphClick(char)}
           >
-            <span className="w-[10px] uppercase">
+            <span className="w-[10px] uppercase text-center">
             {char}
             </span>
           </div>
@@ -375,7 +331,7 @@ const AirtableComponent: React.FC = () => {
       style={{
         transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-[55] w-full h-fit flex flex-col items-center justify-center bg-white overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[50%]")}>
+      className={cn("absolute top-0 z-[55] w-full h-fit flex flex-col items-center justify-center bg-slate-100 overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[50%]")}>
 
         <MobileFilterSelect
           nameFilter={nameFilter}
@@ -434,6 +390,7 @@ const AirtableComponent: React.FC = () => {
           setMemberCheck={setMemberCheck}
           socialsCheck={socialsCheck}
           setSocialsCheck={setSocialsCheck}
+          currFilters={currFilters}
         />
 
         <MainMap

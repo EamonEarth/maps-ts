@@ -56,7 +56,6 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
 
     useEffect(() => {
       const query = searchParams.get('q');
-  
       if (query) {
         setCoastRegionFilter(query.replace('-', ' '));
       }
