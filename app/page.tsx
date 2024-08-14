@@ -99,14 +99,7 @@ const AirtableComponent: React.FC = () => {
     }, []);
 
 
-    const searchParams = useSearchParams();
-
-    useEffect(() => {
-      const query = searchParams.get('q');
-      if (query) {
-        setClusterFilter(query.replace('-', ' '));
-      }
-    }, [searchParams]);
+    
 
 
   // FILTERS

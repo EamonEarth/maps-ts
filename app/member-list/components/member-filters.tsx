@@ -1,6 +1,6 @@
 "use client"
 
-import React, { Dispatch, SetStateAction, Suspense, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import {
   Select,
   SelectContent,

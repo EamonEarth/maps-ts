@@ -1,6 +1,6 @@
 "use client"
 
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import {
   Select,
@@ -15,6 +15,7 @@ import { Button } from "./ui/button";
 import bgImageRotated from "../public/header-opac-rotated-twice.png"
 import { stakeholderTypes, regions, subclusterTypes } from "../lib/data";
 import { debounce } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
  
 interface FilterSelectProps {
@@ -62,6 +63,15 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
     setMemberCheck(false)
     setSocialsCheck(false)
   }
+
+  const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const query = searchParams.get('q');
+      if (query) {
+        setClusterFilter(query.replace('-', ' '));
+      }
+    }, [searchParams]);
 
 
   const debouncedSetNameFilter = debounce((value: string) => {

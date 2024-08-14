@@ -1,5 +1,5 @@
 "use client"
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import {
   Select,
@@ -14,6 +14,7 @@ import { Button } from "./ui/button";
 import bgImage from "/public/header-opac3.png"
 import { stakeholderTypes, regions } from "../lib/data";
 import { debounce } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
 
 interface MobileFilterSelectProps {
@@ -74,6 +75,15 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
     setSocialsCheck(false)
 
   }
+
+  const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const query = searchParams.get('q');
+      if (query) {
+        setClusterFilter(query.replace('-', ' '));
+      }
+    }, [searchParams]);
 
   return (
     <div 
