@@ -60,7 +60,9 @@ const MainNav = () => {
       className="relative top-0 h-[60px] md:h-[125px] w-full border-b border-black py-2">
     
       <div className="flex items-center h-full justify-around">
+        <Link href="/">
         <Image src="/logo.png" alt="logo" width={imageSize.width} height={imageSize.height} />
+        </Link>
         <div className="hidden md:flex items-center text-xs md:text-base">
           {routes.map((route) => (
             <Link href={route.href} key={route.href}>
