@@ -1,10 +1,9 @@
 // app/api/fetchAirtableRecords/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import axios from 'axios';
 import { MemberRecord } from '@/app/member-list/page';
 
-
 const airtableApiKey = process.env.AIRTABLE_API_KEY;
+
 export async function GET(req: NextRequest) {
 
   if (!airtableApiKey) {
@@ -31,15 +30,22 @@ export async function GET(req: NextRequest) {
       params.append("sort[0][direction]", "asc"); // Sort direction (ascending)
 
       const url = `${baseUrl}?${params.toString()}`;
-      const response = await axios.get(url, { headers });
+      const response = await fetch(url, {
+        headers,
+        next: {
+          revalidate: 6900, // 115 minutes revalidation period
+        },
+      });
 
-      allRecords = [...allRecords, ...response.data.records];
-      offset = response.data.offset; // Get the offset for the next page, if any
+      const data = await response.json();
+      allRecords = [...allRecords, ...data.records];
+      offset = data.offset; // Get the offset for the next page, if any
     } while (offset); // Continue fetching if there's an offset
 
-    
     const approvedRecords: MemberRecord[] = allRecords.filter((record) =>
-      record?.fields?.["Are you happy for your name, about me and contact details to be shared within the network?"]?.[0] === "Yes")
+      record?.fields?.["Are you happy for your name, about me and contact details to be shared within the network?"]?.[0] === "Yes"
+    );
+
 
     return NextResponse.json(approvedRecords, { status: 200 });
   } catch (error: any) {
