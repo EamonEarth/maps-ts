@@ -84,7 +84,6 @@ const AirtableComponent: React.FC = () => {
           }
   
           const fullRecords: AirtableRecord[] = await response.json();
-          console.log(fullRecords)
           setRecords(fullRecords);
           setFilteredRecords(fullRecords); // Initialize filtered records
           setExpandedRecord(fullRecords[0]); // Initialize expandedRecord to the first record
