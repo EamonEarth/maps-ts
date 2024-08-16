@@ -1,6 +1,6 @@
 "use client"
 
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import {
   Select,
@@ -66,14 +66,45 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
 
   const searchParams = useSearchParams();
 
-    useEffect(() => {
-      const query = searchParams.get('q');
-      if (query) {
-        setClusterFilter(query.replace('-', ' '));
-      }
-    }, [searchParams]);
+  useEffect(() => {
+    const query = searchParams.get('stakeholder-group');
+    if (query) {
+      const formattedQuery = query
+        .split('-')
+        .map(word => {
+          return word.toLowerCase() === 'and'
+            ? 'and'
+            : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
+        .join(' ');
+      setClusterFilter(formattedQuery);
+    }
+  }, [searchParams, setClusterFilter]);
+  
 
+  const formatForUrl = (text: string) => {
+    return text
+      .split(' ')
+      .map((word) => {
+        return word.toLowerCase() === 'and'
+          ? 'and'
+          : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join('-');
+  };
 
+  useEffect(() => {
+    if (clusterFilter) {
+      const formattedFilter = formatForUrl(clusterFilter);
+      const queryParams = new URLSearchParams(window.location.search);
+      queryParams.set('stakeholder-group', formattedFilter);
+      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+
+      window.history.replaceState(null, '', newUrl);
+    }
+  }, [clusterFilter]);
+  
+  
   const debouncedSetNameFilter = debounce((value: string) => {
     setNameFilter(value);
   }, 300);
@@ -140,19 +171,24 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
         </div>
         <div className="col-span-3 flex flex-col gap-y-2 ">
           <div className="flex gap-x-2 items-center  overflow-hidden">
-            <Select
-              onValueChange={(value) => setClusterFilter(value)}
-              value={clusterFilter}
-            >
-              <SelectTrigger className="text-muted-foreground text-xs">
-                <SelectValue className="" placeholder="Stakeholder Group" />
-              </SelectTrigger>
-              <SelectContent>
-                {stakeholderTypes.map((type)=>(
-                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <Select
+            onValueChange={(value) => {
+              setClusterFilter(value);
+              setSubclusterFilter(""); // Clear dependent filter if needed
+            }}
+            value={clusterFilter}
+          >
+            <SelectTrigger className="text-muted-foreground text-xs">
+              <SelectValue className="" placeholder="Stakeholder Group" />
+            </SelectTrigger>
+            <SelectContent>
+              {stakeholderTypes.map((type) => (
+                <SelectItem key={`type+${type}`} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
             <X
               className="cursor-pointer opacity-50 size-4"
               onClick={() => setClusterFilter("")}

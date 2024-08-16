@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
       const response = await fetch(url, {
         headers,
         next: {
-          revalidate: 6900, // 115 minutes revalidation period
+          revalidate: 3600, // 115 minutes revalidation period
         },
       });
 

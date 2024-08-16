@@ -78,12 +78,43 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
 
   const searchParams = useSearchParams();
 
-    useEffect(() => {
-      const query = searchParams.get('q');
-      if (query) {
-        setClusterFilter(query.replace('-', ' '));
-      }
-    }, [searchParams]);
+  useEffect(() => {
+    const query = searchParams.get('stakeholder-group');
+    if (query) {
+      const formattedQuery = query
+        .split('-')
+        .map(word => {
+          return word.toLowerCase() === 'and'
+            ? 'and'
+            : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
+        .join(' ');
+      setClusterFilter(formattedQuery);
+    }
+  }, [searchParams, setClusterFilter]);
+  
+
+  const formatForUrl = (text: string) => {
+    return text
+      .split(' ')
+      .map((word) => {
+        return word.toLowerCase() === 'and'
+          ? 'and'
+          : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join('-');
+  };
+
+  useEffect(() => {
+    if (clusterFilter) {
+      const formattedFilter = formatForUrl(clusterFilter);
+      const queryParams = new URLSearchParams(window.location.search);
+      queryParams.set('stakeholder-group', formattedFilter);
+      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+
+      window.history.replaceState(null, '', newUrl);
+    }
+  }, [clusterFilter]);
 
   return (
     <div 
@@ -117,6 +148,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
           </div> */}
           <div className="flex gap-x-2 items-center  overflow-hidden">
             <Select
+              key={clusterFilter}
               onValueChange={(value) => setClusterFilter(value)}
               value={clusterFilter}
             >

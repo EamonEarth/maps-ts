@@ -1,7 +1,7 @@
 // pages/api/fetchAirtableRecords.ts
-import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 import { AirtableRecord } from '@/app/page';
+
 
 
 
@@ -33,10 +33,16 @@ export async function GET(req: NextRequest, res: NextResponse) {
       params.append("sort[0][direction]", "asc"); // Sort direction (ascending)
 
       const url = `${baseUrl}?${params.toString()}`;
-      const response = await axios.get(url, { headers });
+      const response = await fetch(url, { 
+        headers,
+        next: {
+          revalidate: 3600
+        } });
+      
+        const data = await response.json()
 
-      allRecords = [...allRecords, ...response.data.records];
-      offset = response.data.offset; // Get the offset for the next page, if any
+      allRecords = [...allRecords, ...data.records];
+      offset = data.offset; // Get the offset for the next page, if any
     } while (offset); // Continue fetching if there's an offset
 
 

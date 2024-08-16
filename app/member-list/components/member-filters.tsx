@@ -54,12 +54,43 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
 
   const searchParams = useSearchParams();
 
-    useEffect(() => {
-      const query = searchParams.get('q');
-      if (query) {
-        setCoastRegionFilter(query.replace('-', ' '));
-      }
-    }, [searchParams]);
+  useEffect(() => {
+    const query = searchParams.get('coast');
+    if (query) {
+      const formattedQuery = query
+        .split('-')
+        .map(word => {
+          return word.toLowerCase() === 'and'
+            ? 'and'
+            : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
+        .join(' ');
+      setCoastRegionFilter(formattedQuery);
+    }
+  }, [searchParams, setCoastRegionFilter]);
+  
+
+  const formatForUrl = (text: string) => {
+    return text
+      .split(' ')
+      .map((word) => {
+        return word.toLowerCase() === 'and'
+          ? 'and'
+          : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join('-');
+  };
+
+  useEffect(() => {
+    if (coastRegionFilter) {
+      const formattedFilter = formatForUrl(coastRegionFilter);
+      const queryParams = new URLSearchParams(window.location.search);
+      queryParams.set('coast', formattedFilter);
+      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+
+      window.history.replaceState(null, '', newUrl);
+    }
+  }, [coastRegionFilter]);
 
   const handleClearAll = () => {
     setLandRegionFilter("");
@@ -108,6 +139,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
             <div className="text-xs opacity-70 mr-auto">Coastal Region:</div>
 
             <Select
+              key={coastRegionFilter}
               onValueChange={(value) => setCoastRegionFilter(value)}
               value={coastRegionFilter}
             >
