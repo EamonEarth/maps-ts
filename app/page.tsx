@@ -222,9 +222,8 @@ const AirtableComponent: React.FC = () => {
     };
   }, [expandedRecord, filteredRecords]);
 
-  
   // ALPH CLICK
-  const alph = "abcdefghijklmnopqrtuvwxyz".split("");
+  const alph = "abcdefghijklmnopqrstuvwxyz".split("");
   const handleAlphClick = (char: string) => {
     const matchingRecord = filteredRecords.find(
       (record) =>
