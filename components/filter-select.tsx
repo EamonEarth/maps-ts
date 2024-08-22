@@ -122,7 +122,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   //     backgroundSize: 'repeat', // Adjust as needed
   //     backgroundPosition: 'center', // Adjust as needed
   // }}
-    className="hidden  md:flex flex-col px-4 pt-5 w-[75%]  gap-y-2 rounded relative border-l border-white">
+    className="hidden  md:flex flex-col px-4 pt-5 w-[75%]  gap-y-2 rounded-lg border-blue-500 relative border-l border-white-">
      
       
       <div className="flex lg:flex-row flex-col items-center justify-between gap-x-1">

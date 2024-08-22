@@ -59,7 +59,23 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 
   // ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!ADD SUBCLUSTER INFO!!!!
   return (
-    <div className="w-full h-[25%] bg-slate-900 hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-slate-900 border border-b-4 text-slate-100">
+    <div className="w-full h-[25%] bg-slate-900- hidden md:flex flex-col md:flex-row gap-y-6 overflow-scroll border-slate-900 border border-b-4 text-slate-900">
+      <FilterSelect
+        nameFilter={nameFilter}
+        setNameFilter={setNameFilter}
+        areaFilter={areaFilter}
+        setAreaFilter={setAreaFilter}
+        clusterFilter={clusterFilter}
+        setClusterFilter={setClusterFilter}
+        subclusterFilter={subclusterFilter}
+        setSubclusterFilter={setSubclusterFilter}
+        relevantSubs={relevantSubs}
+        memberCheck={memberCheck}
+        setMemberCheck={setMemberCheck}
+        socialsCheck={socialsCheck}
+        setSocialsCheck={setSocialsCheck}
+        currFilters={currFilters}
+      />
       <div
         className="border-r flex flex-col gap-y-1 relative md:h-auto w-full px-4 overflow-x-hidden border-black pt-4"
         // style={{
@@ -142,22 +158,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
           </div>
         </div>
       </div>
-      <FilterSelect
-        nameFilter={nameFilter}
-        setNameFilter={setNameFilter}
-        areaFilter={areaFilter}
-        setAreaFilter={setAreaFilter}
-        clusterFilter={clusterFilter}
-        setClusterFilter={setClusterFilter}
-        subclusterFilter={subclusterFilter}
-        setSubclusterFilter={setSubclusterFilter}
-        relevantSubs={relevantSubs}
-        memberCheck={memberCheck}
-        setMemberCheck={setMemberCheck}
-        socialsCheck={socialsCheck}
-        setSocialsCheck={setSocialsCheck}
-        currFilters={currFilters}
-      />
+      
     </div>
   );
 };
