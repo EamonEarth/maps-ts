@@ -14,44 +14,37 @@ import { Search, X } from "lucide-react";
 import { Button } from "./ui/button";
 import bgImageRotated from "../public/header-opac-rotated-twice.png"
 import { stakeholderTypes, regions, subclusterTypes } from "../lib/data";
-import { debounce } from "@/lib/utils";
+import { cn, debounce } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
+import { useFilterValuesStore } from "@/hooks/use-filter-values";
 
  
 interface FilterSelectProps {
-  areaFilter: string;
-  setAreaFilter: React.Dispatch<SetStateAction<string>>;
-  nameFilter: string;
-  setNameFilter: React.Dispatch<SetStateAction<string>>;
-  clusterFilter: string;
-  setClusterFilter: Dispatch<SetStateAction<string>>;
-  subclusterFilter: string;
-  setSubclusterFilter: Dispatch<SetStateAction<string>>;
-  relevantSubs: string[];
-  memberCheck: boolean;
-  setMemberCheck: Dispatch<SetStateAction<boolean>>;
-  socialsCheck: boolean;
-  setSocialsCheck: Dispatch<React.SetStateAction<boolean>>;
-  currFilters: string[];
+  
 }
 
 const FilterSelect: React.FC<FilterSelectProps> = ({
-  areaFilter,
-  setAreaFilter,
-  nameFilter,
-  setNameFilter,
-  clusterFilter,
-  setClusterFilter,
-  subclusterFilter,
-  setSubclusterFilter,
-  relevantSubs,
-  memberCheck,
-  setMemberCheck,
-  socialsCheck,
-  setSocialsCheck,
-  currFilters
+ 
 }) => {
   const [inputValue, setInputValue] = useState<string>(''); // Temporary state for immediate input display
+  const { 
+    areaFilter,
+    setAreaFilter, 
+    nameFilter,
+    setNameFilter,
+    clusterFilter,
+    setClusterFilter,
+    subclusterFilter,
+    setSubclusterFilter,
+    relevantSubs,
+    memberCheck,
+    setMemberCheck,
+    socialsCheck,
+    setSocialsCheck,
+    getCurrFilters
+  } = useFilterValuesStore()
+
+    const currFilters = getCurrFilters()
 
   
   const clearAllFilters = () => {
@@ -94,14 +87,16 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   };
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
     if (clusterFilter) {
       const formattedFilter = formatForUrl(clusterFilter);
-      const queryParams = new URLSearchParams(window.location.search);
       queryParams.set('stakeholder-group', formattedFilter);
-      const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
-
-      window.history.replaceState(null, '', newUrl);
+    } else {
+      queryParams.delete('stakeholder-group'); // Remove the parameter if clusterFilter is empty
     }
+  
+    const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+    window.history.replaceState(null, '', newUrl);
   }, [clusterFilter]);
   
   
@@ -122,16 +117,12 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
   //     backgroundSize: 'repeat', // Adjust as needed
   //     backgroundPosition: 'center', // Adjust as needed
   // }}
-    className="hidden  md:flex flex-col px-4 pt-5 w-[75%]  gap-y-2 rounded-lg border-blue-500 relative border-l border-white-">
+    className="hidden md:flex flex-col p-4 h-auto w-full max-w-[50%] gap-y-2 rounded-xl border border-slate-700 bg-slate-200 relative">
      
       
-      <div className="flex lg:flex-row flex-col items-center justify-between gap-x-1">
 
-      <h2 className="font-light tracking-normal"><Search size="20" className="opacity-80 pb-1"/></h2>
-         <div className="flex gap-x-2 text-[11px]">
-          {currFilters.map((filter)=>(<p key={filter} className="font-extralight opacity-80 border border-slate-200 rounded p-1">{filter}</p>))}
-         </div>
-      </div>
+      <h2 className="flex lg:flex-row flex-col items-center gap-x-1 font-light tracking-normal">Filter Stakeholders by: </h2>
+         
       <div className="grid grid-cols-8 justify-around gap-x-2">
         <div className="col-span-3 flex flex-col gap-y-2">
           <div className="flex gap-x-2 items-center">
@@ -139,11 +130,11 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               placeholder="Name"
               onChange={handleNameInputChange}
               value={inputValue}
-              className="text-black bg-muted text-xs"
+              className="text-black bg-muted text-xs border border-slate-800"
             />
             <X
-              className="cursor-pointer opacity-50 size-4"
-              onClick={() => setNameFilter("")}
+              className={cn("cursor-pointer size-4 opacity-0", nameFilter && "opacity-50")}
+              onClick={() => {setNameFilter(""); setInputValue("")}}
             />
           </div>
           <div className="flex gap-x-2 items-center">
@@ -151,7 +142,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               onValueChange={(value) => setAreaFilter(value)}
               value={areaFilter}
             >
-              <SelectTrigger className="text-muted-foreground text-xs">
+              <SelectTrigger className="border border-slate-800 text-muted-foreground text-xs">
                 <SelectValue
                   className=""
                   placeholder="Region"
@@ -178,7 +169,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
             }}
             value={clusterFilter}
           >
-            <SelectTrigger className="text-muted-foreground text-xs">
+            <SelectTrigger className="border border-slate-800 text-muted-foreground text-xs">
               <SelectValue className="" placeholder="Stakeholder Group" />
             </SelectTrigger>
             <SelectContent>
@@ -201,7 +192,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               value={subclusterFilter}
               disabled={clusterFilter === ""}
             >
-              <SelectTrigger className="text-muted-foreground text-xs">
+              <SelectTrigger className="border border-slate-800 text-muted-foreground text-xs ">
                 <SelectValue className="" placeholder="Stakeholder Subcluster" />
               </SelectTrigger>
               <SelectContent>
@@ -229,7 +220,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
 
             <div className="flex items-center w-[80%] h-8 gap-x-2  rounded p-2 justify-between">
               <p className="text-xs">Social Media?</p>
-              <Checkbox color="white" checked={socialsCheck} onCheckedChange={()=>setSocialsCheck(!socialsCheck)}/>
+              <Checkbox color="black" checked={socialsCheck} onCheckedChange={()=>setSocialsCheck(!socialsCheck)}/>
             </div>
 
         <Button 
@@ -239,6 +230,10 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
         </div>
         
       </div>
+      <div className="flex gap-x-2 text-xs">
+          {currFilters.map((filter)=>(<p key={filter} className="font-extralight opacity-80 border border-slate-500 rounded p-1 max-w-[50%] break-words">{filter}</p>))}
+        </div>
+      
     </div>
   );
 };

@@ -1,4 +1,5 @@
 "use client";
+import Topper from "@/components/topper";
 import MainMap from "@/components/main-map";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
@@ -11,10 +12,6 @@ import { relevantSubsMap, subclusterTypes } from "@/lib/data";
 import { useSearchParams } from "next/navigation";
 import AlphNav from "@/components/alph-nav";
 import { useFilterValuesStore } from "@/hooks/use-filter-values";
-import Topper from "@/components/topper";
-
-import bgImage from "/public/fullBackground.jpg"
-// import bgImage from "/public/header-comp.png"
 
 export interface AirtableRecord {
     id: string;
@@ -81,14 +78,14 @@ const AirtableComponent: React.FC = () => {
 
   
   
-//   useEffect(() => {
-//     const relevants = relevantSubsMap[clusterFilter as keyof typeof relevantSubsMap] || [];
-//     setRelevantSubs(relevants);
-// }, [clusterFilter, setRelevantSubs]);
+  useEffect(() => {
+    const relevants = relevantSubsMap[clusterFilter as keyof typeof relevantSubsMap] || [];
+    setRelevantSubs(relevants);
+}, [clusterFilter, setRelevantSubs]);
 
-//   useEffect(()=>{
-//     setSubclusterFilter("")
-//   },[clusterFilter])
+  useEffect(()=>{
+    setSubclusterFilter("")
+  },[clusterFilter])
 
     // FETCHING RECORDS
     useEffect(() => {
@@ -307,14 +304,14 @@ const AirtableComponent: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div 
-    // style={{
-    //   backgroundImage: `url(${bgImage.src})`,
-    //   backgroundSize: "cover"
-    // }}
-    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row items-center justify-center relative p-6 border-8 border-cyan-800 bg-cyan-800">
+    <div className="w-full h-screen min-w-[100%] flex flex-col md:flex-row relative ">
+      <AlphNav 
+      filteredRecords={filteredRecords}
+      setExpandedRecord={setExpandedRecord}
+      setOpenMarker={setOpenMarker}
+      />
       
-      {/* <div 
+      <div 
       style={{
         transition: 'max-height 0.5s ease-in-out',
       }}
@@ -323,51 +320,42 @@ const AirtableComponent: React.FC = () => {
         <MobileFilterSelect
           setShowMobileFilters={setShowMobileFilters}
         />  
-        </div> */}
+      </div>
        
       {/* TABLE START */}
 
-      <div className="flex flex-col h-full w-full relative">
-        <Topper
-          record={expandedRecord}
-          />
-
-        <div className="flex h-[70%] justify-between gap-x-4">
-              {/* <AlphNav 
-              filteredRecords={filteredRecords}
-              setExpandedRecord={setExpandedRecord}
-              setOpenMarker={setOpenMarker}
-              /> */}
-
-          {(filteredRecords.length < 1 && !showMobileFilters) ? 
-          <div className="flex flex-col justify-center items-center bg-slate-200 gap-y-2 md:gap-y-6 h-[33%] md:h-[50%] md:p-2  md:w-[25%] min-w-[250px] relative shrink-0 grow-0 border border-slate-700 rounded-xl"
-    >         <div className="text-wrap text-center w-full px-4 "> 
-                Unfortunately no results match your search
-              </div>
-              <Button 
-                disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
-                onClick={clearAllFilters}> Clear Filters 
-              </Button>
+      {(filteredRecords.length < 1 && !showMobileFilters) ? 
+      <div className="flex flex-col justify-center items-center bg-slate-200 gap-y-2 md:gap-y-6 h-[33%] md:h-full md:p-2  md:w-[25%] min-w-[250px] md:border md:border-r-8 border-r-black/50 relative shrink-0 grow-0"
+>         <div className="text-wrap text-center w-full px-4 "> 
+            Unfortunately no results match your search
           </div>
-          : 
-          <StakeholderTable 
-          filteredRecords={filteredRecords}
-          expandedRecord={expandedRecord}
-          setExpandedRecord={setExpandedRecord}
-          setOpenMarker={setOpenMarker}
-          setShowMobileFilters={setShowMobileFilters}
-          currFilters={currFilters}
-          />
-          }
+          <Button 
+            disabled={!areaFilter && !nameFilter && !clusterFilter && !memberCheck}
+            onClick={clearAllFilters}> Clear Filters 
+          </Button>
+      </div>
+      : 
+      <StakeholderTable 
+      filteredRecords={filteredRecords}
+      expandedRecord={expandedRecord}
+      setExpandedRecord={setExpandedRecord}
+      setOpenMarker={setOpenMarker}
+      setShowMobileFilters={setShowMobileFilters}
+      currFilters={currFilters}
+      />
+    }
+      <div className="flex flex-col h-full md:w-[75%] justify-between relative">
+        <InfoContainer
+          record={expandedRecord}
+        />
 
-          <MainMap
-            stakeholders={filteredRecords}
-            setExpandedRecord={setExpandedRecord}
-            markerCoords={markerCoords}
-            openMarker={openMarker}
-            setOpenMarker={setOpenMarker}
-            />
-        </div>
+        <MainMap
+          stakeholders={filteredRecords}
+          setExpandedRecord={setExpandedRecord}
+          markerCoords={markerCoords}
+          openMarker={openMarker}
+          setOpenMarker={setOpenMarker}
+          />
       </div>
     </div>
   );

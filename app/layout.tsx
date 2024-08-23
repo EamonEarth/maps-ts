@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Chivo} from "next/font/google";
+import { Inter, Chivo, Manrope} from "next/font/google";
 import "./globals.css";
 import MainNav from "@/components/main-nav";
 import Banner from "@/components/banner";
@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/react"
 // const inter = Inter({ subsets: ["latin"] });
 const chivo = Chivo({subsets:["latin"]})
 
+const manrope = Manrope({subsets: ["latin"]})
 
 export const metadata: Metadata = {
   title: "WACMN Stewards",
@@ -25,10 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={chivo.className}>
+      <body className={manrope.className}>
         <MainNav />
-        <Banner />
         {children}
+        <Banner />
         <Footer />
         <Analytics />
         

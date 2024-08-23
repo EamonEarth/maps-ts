@@ -15,45 +15,34 @@ import bgImage from "/public/header-opac3.png"
 import { stakeholderTypes, regions } from "../lib/data";
 import { debounce } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
+import { useFilterValuesStore } from "@/hooks/use-filter-values";
 
 
 interface MobileFilterSelectProps {
-  areaFilter: string;
-  setAreaFilter: React.Dispatch<SetStateAction<string>>;
-  nameFilter: string;
-  setNameFilter: React.Dispatch<SetStateAction<string>>;
-  clusterFilter: string;
-  setClusterFilter: Dispatch<SetStateAction<string>>;
-  subclusterFilter: string;
-  setSubclusterFilter: Dispatch<SetStateAction<string>>;
-  relevantSubs: string[];
-  memberCheck: boolean;
-  setMemberCheck: Dispatch<SetStateAction<boolean>>;
   setShowMobileFilters: Dispatch<SetStateAction<boolean>>;
-  socialsCheck: boolean;
-  setSocialsCheck: Dispatch<React.SetStateAction<boolean>>;
-  currentFilters: string[];
 }
 
 const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
-  areaFilter,
-  setAreaFilter, 
-  nameFilter,
-  setNameFilter,
-  clusterFilter,
-  setClusterFilter,
-  subclusterFilter,
-  setSubclusterFilter,
-  relevantSubs,
-  memberCheck,
-  setMemberCheck,
-  setShowMobileFilters,
-  socialsCheck,
-  setSocialsCheck,
-  currentFilters
-  
+  setShowMobileFilters,  
 }) => {
   const [inputValue, setInputValue] = useState<string>(''); // Temporary state for immediate input display
+
+  const { areaFilter,
+    setAreaFilter, 
+    nameFilter,
+    setNameFilter,
+    clusterFilter,
+    setClusterFilter,
+    subclusterFilter,
+    setSubclusterFilter,
+    relevantSubs,
+    memberCheck,
+    setMemberCheck,
+    socialsCheck,
+    setSocialsCheck,
+    getCurrFilters} = useFilterValuesStore()
+
+    const currFilters = getCurrFilters()
 
   const debouncedSetNameFilter = debounce((value: string) => {
     setNameFilter(value);
@@ -129,7 +118,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
       </div>
 
       <div className="flex gap-x-2 text-xs flex-wrap">
-          {currentFilters.map((filter)=>(<p key={filter} className="max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+          {currFilters.map((filter)=>(<p key={filter} className="max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
       </div>
       
       <div className="flex flex-col gap-y-2">

@@ -110,7 +110,7 @@ const MainMap: React.FC<MainMapProps> = ({
     return (
       <div 
       style={{transition: "max-height 0.5s ease-in-out"}}
-      className="w-full h-full lg:h-[80%] border-t-black max-h-full relative ">
+      className="w-[90%] overflow-hidden h-full border-slate-700 border rounded-xl max-h-full relative z-40">
       
       <div className="absolute top-[10px] right-1 md:right-4  z-50 flex flex-col w-[60px]">
         
@@ -129,6 +129,7 @@ const MainMap: React.FC<MainMapProps> = ({
 
         </div>
       </div>
+
 
       <APIProvider apiKey={googleApiKey} libraries={["marker", "places"]}>
         <Map

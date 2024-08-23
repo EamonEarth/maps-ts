@@ -28,13 +28,13 @@ export const routes = [
 
 const MainNav = () => {
 
-  const [imageSize, setImageSize] = useState({ width: 250, height: 100 });
+  const [imageSize, setImageSize] = useState({ width: 200, height: 80 });
   const { isOpen, toggleSidebar } = useMobileSidebar();
   useEffect(() => {
 
     const updateImageSize = () => {
       if (window.innerWidth > 768) {
-        setImageSize({ width: 250, height: 100 });
+        setImageSize({ width: 200, height: 80 });
       } else {
         setImageSize({ width: 150, height: 50 });
       }
