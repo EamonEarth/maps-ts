@@ -63,12 +63,14 @@ const MainNav = () => {
         <Link href="/">
         <Image src="/logo.png" alt="logo" width={imageSize.width} height={imageSize.height} />
         </Link>
-        <div className="hidden md:flex items-center text-xs md:text-base">
+        <div className="hidden md:flex items-center text-xs md:text-base gap-x-1">
           {routes.map((route) => (
             <Link href={route.href} key={route.href}>
               <Button 
+              size="sm"
+              // style={{WebkitTextStroke: "1px black"}}
               
-               className="text-xs md:text-base text-slate-200" variant="ghost">{route.title}</Button>
+               className="text-xs md:text-base text-slate-100 px-2 py-1 hover:bg-slate-200- hover:bg-gradient-to-tr from-transparent to-slate-200 to-20% rounded-none rounded-tl-3xl rounded-br-2xl" variant="ghost"><span className="rounded-full backdrop-blur-[1px]">{route.title}</span></Button>
             </Link>
           ))}
         </div>

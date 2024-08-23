@@ -85,3 +85,19 @@
     z-index: -1; 
   }
 
+  .bottom-blur {
+    position: relative;
+  }
+
+  .bottom-blur::after {
+    content: "";
+    position: absolute;
+    bottom: -10px; /* Place the pseudo-element slightly below the container */
+    left: 0;
+    right: 0;
+    height: 30px; /* Height of the blur effect */
+    background: inherit; /* Inherit the background from the parent */
+    filter: blur(30px); /* Apply the blur effect */
+    z-index: 100; /* Ensure it sits on top of other elements */
+    pointer-events: none; /* Ensure it doesn't interfere with clicks */
+  }

@@ -155,7 +155,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               </SelectContent>
             </Select>
             <X
-              className="cursor-pointer opacity-50 size-4"
+              className={cn("cursor-pointer size-4 opacity-0", areaFilter && "opacity-50")}
               onClick={() => setAreaFilter("")}
             />
           </div>
@@ -181,7 +181,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
             </SelectContent>
           </Select>
             <X
-              className="cursor-pointer opacity-50 size-4"
+              className={cn("cursor-pointer size-4 opacity-0", clusterFilter && "opacity-50")}
               onClick={() => setClusterFilter("")}
             />
           </div>
@@ -202,7 +202,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
               </SelectContent>
             </Select>
             <X
-              className="cursor-pointer opacity-50 size-4"
+              className={cn("cursor-pointer size-4 opacity-0", subclusterFilter && "opacity-50")}
               onClick={() => setSubclusterFilter("")}
             />
           </div>

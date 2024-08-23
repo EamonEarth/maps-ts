@@ -8,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import bgImage from "/public/header-opac3.png"
@@ -16,7 +15,6 @@ import { stakeholderTypes, regions } from "../lib/data";
 import { debounce } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { useFilterValuesStore } from "@/hooks/use-filter-values";
-import useOutsideClick from "@/hooks/use-outside-click";
 
 
 interface MobileFilterSelectProps {
