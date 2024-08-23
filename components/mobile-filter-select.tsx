@@ -121,7 +121,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
       </div>
 
       <div className="flex gap-x-2 text-xs flex-wrap">
-          {currFilters.map((filter)=>(<p key={filter} className="text-center max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1 m-[1px]">{filter}</p>))}
+          {currFilters.map((filter)=>(<p key={filter} className="text-center max-w-[90%] truncate font-light opacity-80 border border-black rounded p-1 m-[1px]">{filter}</p>))}
       </div>
       
       <div className="flex flex-col gap-y-2">

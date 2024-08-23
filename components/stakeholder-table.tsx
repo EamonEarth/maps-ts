@@ -66,7 +66,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         style={{transition: "max-height 0.5s ease-in-out, opacity 0.5s ease-in-out"}}
         className={cn("flex gap-x-2 text-xs max-h-0 opacity-0 pb-1", showCurrFilters && "max-h-14 opacity-100")}
         >
-          {currFilters.map((filter)=>(<p key={filter} className="font-extralight opacity-80 border border-slate-500 rounded p-1 max-w-[50%]- break-words">{filter}</p>))}
+          {currFilters.map((filter)=>(<p key={filter} className="font-light opacity-80 border border-slate-500 rounded p-1 max-w-[50%]- break-words">{filter}</p>))}
         </div>
 
         <div className={cn("px-2 flex w-full gap-x-1  text-slate-800  cursor-pointer z-10", currFilters.length > 0 ? "justify-between" : "justify-end")}>
