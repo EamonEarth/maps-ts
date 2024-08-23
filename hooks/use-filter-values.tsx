@@ -18,9 +18,10 @@ interface FilterValuesStore {
   setMemberCheck: (check: boolean) => void;
   setSocialsCheck: (check: boolean) => void;
 
+  clearAllFilters: () => void;
+
   getCurrFilters: () => string[];
 }
-
 
 export const useFilterValuesStore = create<FilterValuesStore>((set, get) => ({
   areaFilter: "",
@@ -43,6 +44,19 @@ export const useFilterValuesStore = create<FilterValuesStore>((set, get) => ({
   setRelevantSubs: (subs) => set({ relevantSubs: subs }),
   setMemberCheck: (check) => set({ memberCheck: check }),
   setSocialsCheck: (check) => set({ socialsCheck: check }),
+
+  // clearAllFilters function added here
+  clearAllFilters: () => {
+    set({
+      areaFilter: "",
+      nameFilter: "",
+      clusterFilter: "",
+      subclusterFilter: "",
+      memberCheck: false,
+      socialsCheck: false,
+      relevantSubs: [],
+    });
+  },
 
   getCurrFilters: () => {
     const {

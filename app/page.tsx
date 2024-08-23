@@ -3,7 +3,7 @@ import MainMap from "@/components/main-map";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import StakeholderTable from "@/components/stakeholder-table";
 import { Button } from "@/components/ui/button";
 import MobileFilterSelect from "@/components/mobile-filter-select";
@@ -14,6 +14,7 @@ import { useFilterValuesStore } from "@/hooks/use-filter-values";
 import Topper from "@/components/topper";
 
 import bgImage from "/public/fullBackground.jpg"
+import useOutsideClick from "@/hooks/use-outside-click";
 // import bgImage from "/public/header-comp.png"
 
 export interface AirtableRecord {
@@ -47,6 +48,7 @@ const AirtableComponent: React.FC = () => {
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
   const [openMarker, setOpenMarker] = useState<string | null>(null);
 
+
   const { 
     areaFilter,
     setAreaFilter, 
@@ -65,7 +67,7 @@ const AirtableComponent: React.FC = () => {
     getCurrFilters
   } = useFilterValuesStore()
 
-    const currFilters = getCurrFilters()
+  
 
 
   
@@ -80,16 +82,6 @@ const AirtableComponent: React.FC = () => {
     useState<AirtableRecord>(defaultRecord);
 
   
-  
-//   useEffect(() => {
-//     const relevants = relevantSubsMap[clusterFilter as keyof typeof relevantSubsMap] || [];
-//     setRelevantSubs(relevants);
-// }, [clusterFilter, setRelevantSubs]);
-
-//   useEffect(()=>{
-//     setSubclusterFilter("")
-//   },[clusterFilter])
-
     // FETCHING RECORDS
     useEffect(() => {
       const fetchData = async () => {
@@ -112,10 +104,6 @@ const AirtableComponent: React.FC = () => {
   
       fetchData();
     }, []);
-
-
-    
-
 
   // FILTERS
   useEffect(() => {
@@ -312,18 +300,18 @@ const AirtableComponent: React.FC = () => {
     //   backgroundImage: `url(${bgImage.src})`,
     //   backgroundSize: "cover"
     // }}
-    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row items-center justify-center relative p-6 border-8 border-cyan-800 bg-cyan-800">
+    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row items-center justify-center relative p-2 md:p-6  bg-cyan-800">
       
-      {/* <div 
+      <div 
       style={{
         transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-[55] w-full h-fit flex flex-col items-center justify-center bg-slate-100 overflow-y-scroll border-b border-b-black max-h-0", showMobileFilters && "max-h-[50%]")}>
+      className={cn("absolute top-0 z-[55] w-full h-fit flex flex-col items-center justify-center bg-slate-100 overflow-y-scroll border-b border-b-black max-h-0 rounded-xl", showMobileFilters && "max-h-[50%]")}>
 
         <MobileFilterSelect
           setShowMobileFilters={setShowMobileFilters}
         />  
-        </div> */}
+        </div>
        
       {/* TABLE START */}
 
@@ -332,7 +320,9 @@ const AirtableComponent: React.FC = () => {
           record={expandedRecord}
           />
 
-        <div className="flex h-[70%] justify-between gap-x-4">
+        <div 
+       
+        className="flex flex-col md:flex-row gap-y-4 h-full md:h-[70%] justify-between gap-x-4">
               {/* <AlphNav 
               filteredRecords={filteredRecords}
               setExpandedRecord={setExpandedRecord}
@@ -356,7 +346,7 @@ const AirtableComponent: React.FC = () => {
           setExpandedRecord={setExpandedRecord}
           setOpenMarker={setOpenMarker}
           setShowMobileFilters={setShowMobileFilters}
-          currFilters={currFilters}
+          // currFilters={currFilters}
           />
           }
 
@@ -366,6 +356,7 @@ const AirtableComponent: React.FC = () => {
             markerCoords={markerCoords}
             openMarker={openMarker}
             setOpenMarker={setOpenMarker}
+            setShowMobileFilters={setShowMobileFilters}
             />
         </div>
       </div>

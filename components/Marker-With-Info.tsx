@@ -49,9 +49,9 @@ const MarkerWithInfoWindow: React.FC<MarkerAndInfoProps> = ({
           anchor={marker}
           onClose={onClose}
           shouldFocus={false}
-
+          
         >
-          <div className=" flex flex-col items-center justify-center gap-y-1 rounded bg-slate-200 border border-slate-300 pt-2 p-1 pr-2">
+          <div className=" flex flex-col items-center justify-center gap-y-1 rounded-lg bg-slate-200 border border-slate-300 pt-2 p-1 pr-2">
 
             <p className="">{cluster}</p>
             <p>{contact}</p>

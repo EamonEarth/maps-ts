@@ -29,7 +29,7 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
       } = record.fields;
   return (
     <div
-        className="flex flex-col gap-y-1 relative md:h-auto- w-full min-w-[50%] p-4 overflow-x-hidden rounded-xl border border-slate-700 bg-slate-200"
+        className="flex flex-col gap-y-1 relative md:h-auto w-full min-w-[50%] p-4 overflow-x-hidden rounded-xl border border-slate-700 bg-slate-200"
         // style={{
         //   backgroundImage: `url(${bgImageRotated.src})`,
         //   backgroundSize: 'cover',
@@ -47,7 +47,7 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
               </p>
             )} */}
             {StakeholderGroup && (
-                <p className="hidden lg:flex items-center gap-x-1 xl:text-sm rounded border border-slate-800 p-1  max-w-[60%] overflow-scroll">
+                <p className="flex items-center gap-x-1 text-xs lg:text-sm rounded border border-slate-800 p-1  max-w-[60%] overflow-scroll">
                   {StakeholderGroup}
                 </p>
               )}

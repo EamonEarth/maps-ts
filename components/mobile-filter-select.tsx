@@ -1,5 +1,5 @@
 "use client"
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import {
   Select,
@@ -16,6 +16,7 @@ import { stakeholderTypes, regions } from "../lib/data";
 import { debounce } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { useFilterValuesStore } from "@/hooks/use-filter-values";
+import useOutsideClick from "@/hooks/use-outside-click";
 
 
 interface MobileFilterSelectProps {
@@ -26,6 +27,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
   setShowMobileFilters,  
 }) => {
   const [inputValue, setInputValue] = useState<string>(''); // Temporary state for immediate input display
+
 
   const { areaFilter,
     setAreaFilter, 
@@ -62,7 +64,6 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
     setSubclusterFilter("")
     setMemberCheck(false)
     setSocialsCheck(false)
-
   }
 
   const searchParams = useSearchParams();
@@ -105,20 +106,24 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
     }
   }, [clusterFilter]);
 
+ 
+
   return (
     <div 
     style={{
       backgroundImage: `url(${bgImage.src})`,
       backgroundSize: "100%"
     }}
-    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded overflow-hidden ">
+    
+
+    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded-xl overflow-hidden ">
 
       <div className="flex justify-around items-center">
-        <h2 className="font-bold tracking-tight">Filters:</h2>
+        <h2 className="font-bold tracking-tight">Filter Stakeholders by:</h2>
       </div>
 
       <div className="flex gap-x-2 text-xs flex-wrap">
-          {currFilters.map((filter)=>(<p key={filter} className="max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1">{filter}</p>))}
+          {currFilters.map((filter)=>(<p key={filter} className="text-center max-w-[90%] truncate font-extralight opacity-80 border border-black rounded p-1 m-[1px]">{filter}</p>))}
       </div>
       
       <div className="flex flex-col gap-y-2">
@@ -216,7 +221,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
 
           <Button 
           onClick={()=> setShowMobileFilters(false)}
-          className="z-30 bg-red-400 py-2 text-white rounded cursor-pointer text-xs">
+          className="z-30 py-2 text-white rounded cursor-pointer text-xs">
             Close 
           </Button>
         </div>

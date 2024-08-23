@@ -14,6 +14,7 @@ interface MainMapProps {
   setExpandedRecord: Dispatch<SetStateAction<AirtableRecord>>;
   openMarker: string | null;
   setOpenMarker: Dispatch<SetStateAction<string | null>>;
+  setShowMobileFilters: Dispatch<SetStateAction<boolean>>;
 }
 
 const MainMap: React.FC<MainMapProps> = ({
@@ -21,6 +22,7 @@ const MainMap: React.FC<MainMapProps> = ({
   setExpandedRecord, 
   openMarker,
   setOpenMarker,
+  setShowMobileFilters,
 }) => {
 
 
@@ -109,10 +111,11 @@ const MainMap: React.FC<MainMapProps> = ({
 
     return (
       <div 
+      onClick={()=>setShowMobileFilters(false)}
       style={{transition: "max-height 0.5s ease-in-out"}}
-      className="w-[90%] overflow-hidden h-full border-slate-700 border rounded-xl max-h-full relative z-40">
+      className="md:w-[90%] overflow-hidden h-full border-slate-700 border rounded-xl max-h-full relative z-40">
       
-      <div className="absolute top-[10px] right-1 md:right-4  z-50 flex flex-col w-[60px]">
+      {/* <div className="absolute top-[10px] right-1 md:right-4  z-50 flex flex-col w-[60px]">
         
         <Button variant="mapNav" className={cn("map-nav-buttons text-xs border border-white text-black bg-slate-200", showPageNav && "opacity-80")} onClick={()=>setShowPageNav(!showPageNav)}>
           {showPageNav ? "Close" : "Page Nav"}
@@ -128,7 +131,7 @@ const MainMap: React.FC<MainMapProps> = ({
           </Button>
 
         </div>
-      </div>
+      </div> */}
 
 
       <APIProvider apiKey={googleApiKey} libraries={["marker", "places"]}>
