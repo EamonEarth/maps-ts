@@ -78,11 +78,10 @@
   .alph-box::before {
     content: '';
     position: absolute;
-    left: -10px; /* Adjust the value to set how far the hoverable area extends to the left */
+    left: -10px; 
     top: 0;
     height: 100%;
-    width: 10px; /* This should match the left offset */
-    /* background: transparent;  */
-    z-index: -1; /* Ensures it doesn't overlay the actual content */
+    width: 10px;
+    z-index: -1; 
   }
 

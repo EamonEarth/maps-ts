@@ -300,7 +300,7 @@ const AirtableComponent: React.FC = () => {
     //   backgroundImage: `url(${bgImage.src})`,
     //   backgroundSize: "cover"
     // }}
-    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row items-center justify-center relative p-2 md:p-6  bg-cyan-800">
+    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row items-center justify-center relative p-2 md:p-6  bg-cyan-800 bg-gradient-to-br from-[#82BCC4] via-cyan-800 via-30% to-[#073B49]">
       
       <div 
       style={{

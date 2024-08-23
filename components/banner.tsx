@@ -28,6 +28,7 @@ const Banner = () => {
           window.removeEventListener("resize", throttledUpdateImageSize);
         };
       }, []);
+      
     return (
         <div className="w-full h-auto relative">
             <div
