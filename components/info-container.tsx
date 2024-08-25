@@ -39,7 +39,7 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
         <div className="w-full h-full blur-[1px] absolute top-0 left-0" />
         <div className="relative z-10">
           <div className="flex justify-between items-center border-b ">
-            <h1 className="font-light lg:text-lg">{Stakeholder}</h1>
+            <h1 className="font-semibold lg:text-lg">{Stakeholder}</h1>
             {/* {CMCN && (
               <p className="flex items-center gap-x-1 text-sm tracking-tighter py-1">
                 CMCN Member
@@ -47,7 +47,7 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
               </p>
             )} */}
             {StakeholderGroup && (
-                <p className="flex items-center gap-x-1 text-xs lg:text-sm rounded border border-slate-800 p-1  max-w-[60%] overflow-scroll">
+                <p className="flex items-center gap-x-1 text-xs lg:text-sm xl:mr-8 rounded border border-slate-800 p-1  max-w-[60%] overflow-scroll">
                   {StakeholderGroup}
                 </p>
               )}
@@ -92,10 +92,12 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
                 </p>
               )}
               {Email1 && (
-                <p className="flex items-center gap-x-1 text-xs xl:text-sm">
+                <div className="flex items-center gap-x-1 text-xs xl:text-sm ">
                   <Mail className="shrink-0"/>
+                  <p className="truncate">
                   {Email1}
-                </p>
+                  </p>
+                </div>
               )}
               {(Facebook || Instagram) && (
                 <div id="socialsDiv" className="flex items-center gap-x-4 py-1 rounded w-fit ">

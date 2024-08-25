@@ -57,7 +57,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
   return (
     <div
       id="table"
-      className="relative outline-none flex flex-col  gap-y-2 md:gap-y-6 h-[50%] max-h-screen md:h-full overflow-y-auto overflow-x-hidden md:p-2 w-full md:w-[30%] min-w-[250px] rounded-xl bg-slate-200 border border-slate-700 z-40"
+      className="relative outline-none flex flex-col  gap-y-2 md:gap-y-4 h-[50%] max-h-screen md:h-full overflow-y-auto overflow-x-hidden md:p-2 w-full md:w-[30%] min-w-[250px] rounded-xl bg-slate-200 border border-slate-700 z-40"
     >
 
       <div className="sticky md:hidden z-30 text-sm top-0 flex flex-wrap items-center justify-around- overflow-clip w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-slate-900">
@@ -88,11 +88,13 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         </div>
 
       </div>
+      
+      <div className="w-full flex items-center justify-center">
+        <h1 className="text-lg w-[96%] rounded-xl border border-black bg-cyan-100 font-bold text-center md:py-1">
+          Stakeholders
+        </h1>
+      </div>
 
-      <h1 className="text-lg font-bold uppercase text-center md:pt-2">
-        Stakeholders
-      </h1>
-  
       {filteredRecords.map((record, index) => {
         const { Stakeholder, Region, Email1, Website } = record.fields;
   
@@ -106,14 +108,14 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
             key={record.id}
             onClick={() => handleClick(record, index)}
           >
-            <h2 className="font-bold pb-1 md:pb-2 leading-4 text-sm md:text-base text-center w-full break-words">
+            <h2 className="font-bold pb-1 md:pb-2 leading-4 text-sm md:text-base text-center- w-full break-words">
               {Stakeholder}
             </h2>
             <div className="flex flex-col gap-y-2 w-full">
               {Region && (
                 <div className="flex justify-between md:items-center">
                   <div className="text-xs">Region:</div>
-                  <div className="text-xs rounded bg-blue-300 px-1 break-words">
+                  <div className={cn("text-xs rounded  px-1 break-words border", expandedRecord.id === record.id ? "border-slate-700/50" : "bg-slate-300")}>
                     {Region}
                   </div>
                 </div>
