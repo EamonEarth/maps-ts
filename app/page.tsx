@@ -57,14 +57,11 @@ const AirtableComponent: React.FC = () => {
     clusterFilter,
     setClusterFilter,
     subclusterFilter,
-    setSubclusterFilter,
-    relevantSubs,
-    setRelevantSubs,
     memberCheck,
     setMemberCheck,
     socialsCheck,
     setSocialsCheck,
-    getCurrFilters
+    clearAllFilters
   } = useFilterValuesStore()
 
   
@@ -172,13 +169,7 @@ const AirtableComponent: React.FC = () => {
 
   }, [clusterFilter, subclusterFilter, areaFilter, nameFilter, records, memberCheck, socialsCheck]);
 
-  const clearAllFilters = () => {
-    setAreaFilter("")
-    setNameFilter("")
-    setClusterFilter("")
-    setMemberCheck(false)
-    setSocialsCheck(false)
-  }
+
 
   // KEY NAVIGATIONS
   useEffect(() => {

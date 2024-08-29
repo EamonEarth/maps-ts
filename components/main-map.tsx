@@ -115,23 +115,6 @@ const MainMap: React.FC<MainMapProps> = ({
       style={{transition: "max-height 0.5s ease-in-out"}}
       className="md:w-[90%] overflow-hidden h-full border-slate-700 border rounded-xl max-h-full relative z-40">
       
-      {/* <div className="absolute top-[10px] right-1 md:right-4  z-50 flex flex-col w-[60px]">
-        
-        <Button variant="mapNav" className={cn("map-nav-buttons text-xs border border-white text-black bg-slate-200", showPageNav && "opacity-80")} onClick={()=>setShowPageNav(!showPageNav)}>
-          {showPageNav ? "Close" : "Page Nav"}
-        </Button>
-
-        <div style={{transition: "opacity 0.2s ease-in-out, max-height 0.2s ease-in-out"}}
-        id="pageNav" className={cn("flex flex-col z-50 opacity-0 max-h-0", showPageNav && "opacity-100 max-h-[300px]")}>
-          <Button variant="mapNav" size="sm" className="map-nav-buttons text-xs border-white border  text-black bg-slate-200"onClick={()=>window.scrollTo({top: 0, left: 0, behavior: "smooth"})}>
-            Page Top
-          </Button>
-          <Button variant="mapNav" size="sm" className="map-nav-buttons text-xs border-white border  text-black bg-slate-200"onClick={()=>{let table = document.getElementById("table"); table?.scrollIntoView({behavior: "smooth", block: "start"})}}>
-            Center
-          </Button>
-
-        </div>
-      </div> */}
 
 
       <APIProvider apiKey={googleApiKey} libraries={["marker", "places"]}>

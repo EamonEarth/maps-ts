@@ -146,96 +146,102 @@ const MemberList: React.FC<MemberListProps> = ({
         </span>
       }
       
-      {filteredRecords.map((record) => (
-        
-        <div
-        className={cn(
-          "flex flex-col h-auto xl:col-span-1 ",
-        )}
-        id={record.id}
-        key={record.id}
-        >
-          <div className="flex justify-between border-b- py-2 items-center text-center bg-slate-700 text-white px-12 rounded-lg xl:min-h-[225px]">
-            <h2 className="text-lg text-wrap font-bold py-2 leading-6 md:pl-24">
-              {record.fields.Name}
-            </h2>
-            {record.fields.Logo && imageLoaded[record.id] !== false && (
-              <Image
-              
-              className="md:block rounded bg-white p-1"
-                alt="logo"
-                src={record.fields.Logo[0].url}
-                width={200}
-                height={200}
-                onError={() => handleImageError(record.id)}
-                onLoad={() => handleImageLoad(record.id)}
-                />
-              )}
-          </div>
-          <div className="flex flex-col ">
-            {record.fields["Coastal region"] && (
-              <span className="px-12 flex justify-between items-center bg-[#54abdd]/80 p-1 rounded-lg">
-                <p className="text-sm font-semibold">Coastal Regions: </p>
-                <div className="text-sm rounded   flex flex-col gap-y-1 text-end">
-                  {" "}
-                  {record.fields["Coastal region"].map((thing) => (
-                    <p key={`${thing}+coast`}>{thing}</p>
-                  ))}
-                </div>
-              </span>
-            )}
-            {record.fields["Land regions"] && (
-              <span className="rounded-lg px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
-                <p className="text-sm font-semibold">Land Regions: </p>
-                <div className="text-sm rounded  flex flex-col gap-y-1 text-end">
-                  {" "}
-                  {record.fields["Land regions"].map((thing) => (
-                    <p key={`${thing}+land`}>{thing}</p>
-                  ))}{" "}
-                </div>
-              </span>
-            )}
-            {record.fields["Town/City"] && (
-              <span className="rounded-lg px-12 flex justify-between items-center bg-slate-300/80 p-1">
-                <p className="text-sm font-semibold">Town/City: </p>
-                <p className="text-sm rounded ">
-                  {" "}
-                  {record.fields["Town/City"]}{" "}
-                </p>
-              </span>
-            )}
-            {record.fields.Region && (
-              <span className="rounded-lg px-12 flex justify-between items-center bg-purple-200/80 p-1">
-                <p className="text-sm font-semibold">District: </p>
-                <p className="text-sm rounded "> {record.fields.Region} </p>
-              </span>
-            )}
-            {record.fields.Affliations && (
-            <span className="rounded-lg px-12 flex flex-wrap justify-between items-center bg-slate-200/80 p-1">
-              <p className="text-sm font-semibold">Affiliation: </p>
-              <div
-                className="text-sm rounded px-1 text-end ml-auto"
-                style={{
-                  wordBreak: "break-word",
-                  overflowWrap: "break-word",
-                  whiteSpace: "normal", // Ensures that the text wraps normally
-                  lineHeight: "1.5", // Increases line height for better readability
-                }}
-                >
-                {record.fields.Affliations}
-              </div>
-            </span>
-)}
+      {filteredRecords.map((record) => {
+  const {
+    Name,
+    Logo,
+    "Coastal region": coastalRegion,
+    "Land regions": landRegions,
+    "Town/City": townCity,
+    Region,
+    Affliations,
+    Email
+  } = record.fields;
 
-            {record.fields.Email && (
-              <span className="rounded-lg px-12 flex justify-between items-center bg-[#bbdff0]/80 p-1">
-                <p className="text-sm font-semibold">Email: </p>
-                <p className="text-xs text-ellipsis"> {record.fields.Email}</p>
-              </span>
-            )}
-          </div>
-        </div>
-      ))}
+  return (
+    <div
+      className={cn("flex flex-col h-auto xl:col-span-1")}
+      id={record.id}
+      key={record.id}
+    >
+      <div className="flex justify-between border-b- py-2 items-center text-center bg-slate-700 text-white px-12 rounded-lg xl:min-h-[225px]">
+        <h2 className="text-lg text-wrap font-bold py-2 leading-6 md:pl-24">
+          {Name}
+        </h2>
+        {Logo && imageLoaded[record.id] !== false && (
+          <Image
+            className="md:block rounded bg-white p-1"
+            alt="logo"
+            src={Logo[0].url}
+            width={200}
+            height={200}
+            onError={() => handleImageError(record.id)}
+            onLoad={() => handleImageLoad(record.id)}
+          />
+        )}
+      </div>
+      <div className="flex flex-col">
+        {coastalRegion && (
+          <span className="px-12 flex justify-between items-center bg-[#55abdd]/90 p-1 rounded-lg">
+            <p className="text-sm font-semibold">Coastal Regions: </p>
+            <div className="text-sm rounded flex flex-col gap-y-1 text-end">
+              {coastalRegion.map((thing) => (
+                <p key={`${thing}+coast`}>{thing}</p>
+              ))}
+            </div>
+          </span>
+        )}
+        {landRegions && (
+          <span className="rounded-lg px-12 flex justify-between items-center bg-[#7db7e4]/80 p-1">
+            <p className="text-sm font-semibold">Land Regions: </p>
+            <div className="text-sm rounded flex flex-col gap-y-1 text-end">
+              {landRegions.map((thing) => (
+                <p key={`${thing}+land`}>{thing}</p>
+              ))}
+            </div>
+          </span>
+        )}
+        {townCity && (
+          <span className="rounded-lg px-12 flex justify-between items-center bg-[#9dc3ea]/80 p-1">
+            <p className="text-sm font-semibold">Town/City: </p>
+            <p className="text-sm rounded">{townCity}</p>
+          </span>
+        )}
+        {Region && (
+          <span className="rounded-lg px-12 flex justify-between items-center bg-[#bad1ef]/80 p-1">
+            <p className="text-sm font-semibold">District: </p>
+            <p className="text-sm rounded">{Region}</p>
+          </span>
+        )}
+        {Affliations && (
+          <span className="rounded-lg px-12 flex flex-wrap justify-between items-center bg-[#d3def3]/80 p-1">
+            <p className="text-sm font-semibold">Affiliation: </p>
+            <div
+              className="text-sm rounded px-1 text-end ml-auto"
+              style={{
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+                whiteSpace: "normal", // Ensures that the text wraps normally
+                lineHeight: "1.5", // Increases line height for better readability
+              }}
+            >
+              {Affliations}
+            </div>
+          </span>
+        )}
+        {Email && (
+          <span className="rounded-lg px-12 flex justify-between items-center bg-[#e9edf7]/80 p-1">
+            <p className="text-sm font-semibold">Email: </p>
+            <a href={`mailto:${Email}`} className="text-sm text-ellipsis">
+              {Email}
+            </a>
+          </span>
+        )}
+      </div>
+    </div>
+  );
+})}
+
     </div>
   );
 };

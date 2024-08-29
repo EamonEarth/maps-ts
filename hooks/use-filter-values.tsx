@@ -35,9 +35,16 @@ export const useFilterValuesStore = create<FilterValuesStore>((set, get) => ({
   setAreaFilter: (filter) => set({ areaFilter: filter }),
   setNameFilter: (filter) => set({ nameFilter: filter }),
   setClusterFilter: (filter) => {
+
+    
     set({ clusterFilter: filter });
-    const relevants = relevantSubsMap[filter as keyof typeof relevantSubsMap] || [];
-    set({ relevantSubs: relevants });
+
+    if (filter) {
+      const relevants = relevantSubsMap[filter as keyof typeof relevantSubsMap] || [];
+      set({ relevantSubs: relevants });
+    } else {
+      set({ relevantSubs: subclusterTypes });
+    }
     set({ subclusterFilter: "" });
   },
   setSubclusterFilter: (filter) => set({ subclusterFilter: filter }),

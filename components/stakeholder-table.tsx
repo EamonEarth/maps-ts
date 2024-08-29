@@ -64,12 +64,12 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
 
         <div 
         style={{transition: "max-height 0.5s ease-in-out, opacity 0.5s ease-in-out"}}
-        className={cn("flex gap-x-2 text-xs max-h-0 opacity-0 pb-1", showCurrFilters && "max-h-14 opacity-100")}
+        className={cn("flex gap-x-2 text-xs max-h-0 opacity-0 pb-1 px-1", showCurrFilters && "max-h-14 opacity-100")}
         >
           {currFilters.map((filter)=>(<p key={filter} className="font-light opacity-80 border border-slate-500 rounded p-1 max-w-[50%]- break-words">{filter}</p>))}
         </div>
 
-        <div className={cn("px-2 flex w-full gap-x-1  text-slate-800  cursor-pointer z-10", currFilters.length > 0 ? "justify-between" : "justify-end")}>
+        <div className={cn("px-1 flex w-full gap-x-1  text-slate-800  cursor-pointer z-10", currFilters.length > 0 ? "justify-between" : "justify-end")}>
           {currFilters.length > 0 && 
           <>
             <div className="rounded border border-slate-800 px-1" onClick={()=>{console.log("clicked"); setShowCurrFilters(!showCurrFilters)}}>
@@ -90,7 +90,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
       </div>
       
       <div className="w-full flex items-center justify-center">
-        <h1 className="text-lg w-[96%] rounded-xl border border-black bg-cyan-100 font-bold text-center md:py-1">
+        <h1 className="text-lg w-full rounded-xl border border-black  font-bold text-center md:py-1">
           Stakeholders
         </h1>
       </div>
@@ -115,7 +115,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
               {Region && (
                 <div className="flex justify-between md:items-center">
                   <div className="text-xs">Region:</div>
-                  <div className={cn("text-xs rounded  px-1 break-words border", expandedRecord.id === record.id ? "border-slate-700/50" : "bg-slate-300")}>
+                  <div className={cn("text-xs rounded  px-1 break-words", expandedRecord.id === record.id ? "" : "bg-slate-300")}>
                     {Region}
                   </div>
                 </div>

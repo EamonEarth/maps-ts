@@ -106,14 +106,14 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
     )}>
       <div className=" flex flex-col md:flex-row gap-y-2 justify-between gap-x-6 p-2">
         <div className="flex flex-col gap-y-2 items-center">
-          <div className="flex gap-x-1 items-center w-[280px] justify-end">
+          <div className="flex gap-x-1 items-center w-[350px] md:w-[320px] justify-end">
             <div className="text-xs opacity-70 mr-auto">Land Region:</div>
 
             <Select
               onValueChange={(value) => setLandRegionFilter(value)}
               value={landRegionFilter}
             >
-              <SelectTrigger className="w-44 shrink-0">
+              <SelectTrigger className="w-52 shrink-0">
                 <SelectValue
                   className="placeholder-opacity-50"
                   placeholder="-"
@@ -135,7 +135,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               onClick={() => setLandRegionFilter("")}
             />
           </div>
-          <div className="flex gap-x-1 items-center w-[280px] justify-end ">
+          <div className="flex gap-x-1 items-center w-[350px] md:w-[320px] justify-end ">
             <div className="text-xs opacity-70 mr-auto">Coastal Region:</div>
 
             <Select
@@ -143,7 +143,7 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               onValueChange={(value) => setCoastRegionFilter(value)}
               value={coastRegionFilter}
             >
-              <SelectTrigger  className="w-44 shrink-0">
+              <SelectTrigger  className="w-52 shrink-0">
                 <SelectValue
                   className="placeholder-opacity-50"
                   placeholder="-"
@@ -167,11 +167,11 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
         </div>{" "}
         {/* COLUMN TWO!COLUMN TWO!COLUMN TWO!COLUMN TWO! */}
         <div className="flex flex-col gap-y-2 items-center">
-          <div className="flex gap-x-1 items-center w-[280px] justify-end ">
+          <div className="flex gap-x-1 items-center w-[350px] md:w-[320px] justify-end ">
             <div className="text-xs opacity-70 mr-auto">Name:</div>
 
             <Input
-              className="w-44 shrink-0"
+              className="w-52 shrink-0"
               onChange={(event) => setNameFilter(event.currentTarget.value)}
               value={nameFilter}
             />
@@ -181,13 +181,13 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               onClick={() => setNameFilter("")}
             />
           </div>
-          <div className="flex gap-x-1 items-center w-[280px] justify-end ">
+          <div className="flex gap-x-1 items-center w-[350px] md:w-[320px] justify-end ">
             <div className="text-xs opacity-70 mr-auto">Town/City:</div>
             <Select
               onValueChange={(value) => setCityFilter(value)}
               value={cityFilter}
             >
-              <SelectTrigger className="w-44 shrink-0">
+              <SelectTrigger className="w-52 shrink-0">
                 <SelectValue placeholder="-" />
               </SelectTrigger>
               <SelectContent>
@@ -203,14 +203,14 @@ const MemberFilters: React.FC<MemberFiltersProps> = ({
               onClick={() => setCityFilter("")}
             />
           </div>
-          {/* <div className="flex gap-x-1 items-center w-[280px] justify-end ">
+          {/* <div className="flex gap-x-1 items-center w-[350px] md:w-[320px] justify-end ">
             <div className="text-xs opacity-70 mr-auto">District:</div>
 
             <Select
               onValueChange={(value) => setDistrictFilter(value)}
               value={districtFilter}
             >
-              <SelectTrigger className="w-44 shrink-0">
+              <SelectTrigger className="w-52 shrink-0">
                 <SelectValue placeholder="-" />
               </SelectTrigger>
               <SelectContent>

@@ -193,7 +193,7 @@ const MemberPage: React.FC = () => {
       backgroundSize: '100%', // Adjust as needed
       // backgroundPosition: 'center', // Adjust as needed
     }}
-    className="w-full flex flex-col md:flex-row- items-center justify-center relative bg-slate-200">
+    className="w-full flex flex-col md:flex-row- items-center justify-center relative bg-slate-200 bottom-blur">
       
       <h1 
       className="text-4xl font-bold uppercase text-center pt-4 w-full">

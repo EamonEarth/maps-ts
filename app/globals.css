@@ -101,3 +101,5 @@
     z-index: 100; /* Ensure it sits on top of other elements */
     pointer-events: none; /* Ensure it doesn't interfere with clicks */
   }
+
+  

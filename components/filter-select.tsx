@@ -190,14 +190,16 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
             <Select
               onValueChange={(value) => setSubclusterFilter(value)}
               value={subclusterFilter}
-              disabled={clusterFilter === ""}
             >
               <SelectTrigger className="border border-slate-800 text-muted-foreground text-xs ">
                 <SelectValue className="" placeholder="Stakeholder Subcluster" />
               </SelectTrigger>
               <SelectContent>
-                {relevantSubs.map((type)=>(
-                  <SelectItem key={`sub+${type}`} value={type}>{type}</SelectItem>
+                {relevantSubs.length > 0 ? relevantSubs.map((type)=>(
+                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
+                )) : 
+                subclusterTypes.map((type)=>(
+                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

@@ -80,24 +80,23 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
                 </p>
               )} */}
               {Website && (
-                <p className="flex items-center gap-x-1 text-xs xl:text-sm">
-                  <Info className="shrink-0" />
                   <a
                     target="_blank"
-                    className="truncate"
+                    className="truncate flex items-center gap-x-1 text-xs xl:text-sm"
                     href={Website}
                   >
+                  <Info className="shrink-0" />
                     {Website}
                   </a>
-                </p>
               )}
               {Email1 && (
-                <div className="flex items-center gap-x-1 text-xs xl:text-sm ">
+                <a 
+                  href={`mailto:${Email1}`} 
+                  className="truncate flex items-center gap-x-1 text-xs xl:text-sm "
+                >
                   <Mail className="shrink-0"/>
-                  <p className="truncate">
                   {Email1}
-                  </p>
-                </div>
+                </a>
               )}
               {(Facebook || Instagram) && (
                 <div id="socialsDiv" className="flex items-center gap-x-4 py-1 rounded w-fit ">

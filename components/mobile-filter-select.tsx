@@ -11,7 +11,7 @@ import {
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import bgImage from "/public/header-opac3.png"
-import { stakeholderTypes, regions } from "../lib/data";
+import { stakeholderTypes, regions, subclusterTypes } from "../lib/data";
 import { debounce } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { useFilterValuesStore } from "@/hooks/use-filter-values";
@@ -114,7 +114,7 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
     }}
     
 
-    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded-xl overflow-hidden ">
+    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded-xl overflow-hidden z-[100]">
 
       <div className="flex justify-around items-center">
         <h2 className="font-bold tracking-tight">Filter Stakeholders by:</h2>
@@ -163,13 +163,16 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
             <Select
               onValueChange={(value) => setSubclusterFilter(value)}
               value={subclusterFilter}
-              disabled={clusterFilter==""}
+              // disabled={clusterFilter==""}
             >
               <SelectTrigger className="text-muted-foreground">
                 <SelectValue className="" placeholder="Subcluster" />
               </SelectTrigger>
               <SelectContent>
-                {relevantSubs.map((type)=>(
+                {relevantSubs.length > 0 ? relevantSubs.map((type)=>(
+                  <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
+                )) : 
+                subclusterTypes.map((type)=>(
                   <SelectItem key={`type+${type}`} value={type}>{type}</SelectItem>
                 ))}
               </SelectContent>
