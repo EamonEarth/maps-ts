@@ -56,6 +56,7 @@ const MobileSidebar: React.FC = () => {
               </div>
             </Link>
           ))}
+          
         </nav>
       </div>
     </>

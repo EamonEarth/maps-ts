@@ -110,11 +110,12 @@ const MobileFilterSelect: React.FC<MobileFilterSelectProps> = ({
     <div 
     style={{
       backgroundImage: `url(${bgImage.src})`,
-      backgroundSize: "100%"
+      backgroundSize: "100%",
+      WebkitTransform: "translate3d(0,0,0)"
     }}
     
 
-    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded-xl overflow-hidden z-[100]">
+    className="h-full w-full flex flex-col px-4 py-2 gap-y-2 rounded-xl overflow-hidden z-[9999] ">
 
       <div className="flex justify-around items-center">
         <h2 className="font-bold tracking-tight">Filter Stakeholders by:</h2>

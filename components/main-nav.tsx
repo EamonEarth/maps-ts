@@ -28,7 +28,7 @@ export const routes = [
 
 const MainNav = () => {
 
-  const [imageSize, setImageSize] = useState({ width: 200, height: 80 });
+  const [imageSize, setImageSize] = useState({ width: 130, height: 50 });
   const { isOpen, toggleSidebar } = useMobileSidebar();
   useEffect(() => {
 
@@ -36,7 +36,7 @@ const MainNav = () => {
       if (window.innerWidth > 768) {
         setImageSize({ width: 200, height: 80 });
       } else {
-        setImageSize({ width: 150, height: 50 });
+        setImageSize({ width: 130, height: 50 });
       }
     }
 

@@ -102,6 +102,50 @@ const AirtableComponent: React.FC = () => {
       fetchData();
     }, []);
 
+    // useEffect(() => {
+    //   const fetchData = async () => {
+    //     try {
+    //       const cacheKey = 'airtableRecordsCache';
+    //       const cachedData = sessionStorage.getItem(cacheKey);
+    
+    //       if (cachedData) {
+    //         // If cached data exists, parse it and set the state
+    //         const fullRecords: AirtableRecord[] = JSON.parse(cachedData);
+    //         setRecords(fullRecords);
+    //         setFilteredRecords(fullRecords);
+    //         setExpandedRecord(fullRecords[0]);
+    //         setLoading(false);
+    //       } else {
+    //         // If no cached data, fetch from the API
+    //         const response = await fetch('/api/fetchAirtableRecords');
+    //         if (!response.ok) {
+    //           throw new Error(`Error: ${response.statusText}`);
+    //         }
+    
+    //         const fullRecords: AirtableRecord[] = await response.json();
+    
+    //         // Store the fetched data in localStorage
+    //         sessionStorage.setItem(cacheKey, JSON.stringify(fullRecords));
+    
+    //         setRecords(fullRecords);
+    //         setFilteredRecords(fullRecords);
+    //         setExpandedRecord(fullRecords[0]);
+    //         setLoading(false);
+    //       }
+    //     } catch (error: any) {
+    //       setError(error.message);
+    //       setLoading(false);
+    //     }
+    //   };
+    
+    //   fetchData();
+
+    //   return () => {
+    //     const cacheKey = 'airtableRecordsCache';
+    //     sessionStorage.removeItem(cacheKey)
+    //   }
+    // }, []);
+    
   // FILTERS
   useEffect(() => {
     const filterByRegion = (
@@ -291,13 +335,14 @@ const AirtableComponent: React.FC = () => {
     //   backgroundImage: `url(${bgImage.src})`,
     //   backgroundSize: "cover"
     // }}
-    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row items-center justify-center relative p-2 md:p-6  bg-cyan-800 bg-gradient-to-br from-[#82BCC4] via-cyan-800 via-30% to-[#073B49] bottom-blur">
+    className="w-full h-screen min-w-[100%] flex flex-col md:flex-row items-center justify-center relative z-0 p-2 md:p-6  bg-cyan-800 bg-gradient-to-br from-[#82BCC4] via-cyan-800 via-30% to-[#073B49] bottom-blur">
       
+     
       <div 
       style={{
         transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-[55] w-full h-fit flex flex-col items-center justify-center bg-slate-100 overflow-y-scroll border-b border-b-black max-h-0 rounded-xl", showMobileFilters && "max-h-[50%]")}>
+      className={cn("absolute top-0 z-[55] w-full flex flex-col items-center justify-center bg-slate-100 overflow-y-scroll border-b border-b-black max-h-0 rounded-xl", showMobileFilters && "max-h-[50%]")}>
 
         <MobileFilterSelect
           setShowMobileFilters={setShowMobileFilters}

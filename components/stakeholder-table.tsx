@@ -57,10 +57,12 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
   return (
     <div
       id="table"
-      className="relative outline-none flex flex-col  gap-y-2 md:gap-y-4 h-[50%] max-h-screen md:h-full overflow-y-auto overflow-x-hidden md:p-2 w-full md:w-[30%] min-w-[250px] rounded-xl bg-slate-200 border border-slate-700 z-40"
+      className="relative outline-none flex flex-col items-center gap-y-2 md:gap-y-4 h-[50%] max-h-screen md:h-full overflow-y-auto overflow-x-hidden md:p-2 w-full md:w-[30%] min-w-[250px] rounded-xl bg-slate-200 border border-slate-700 z-50"
     >
+      <div className="sticky top-0 z-50 w-full" style={{position: "-webkit-sticky", top: "0"}}>
 
-      <div className="sticky md:hidden z-30 text-sm top-0 flex flex-wrap items-center justify-around- overflow-clip w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-slate-900">
+      <div id="filterBar" 
+      className="sticky- z-[60] md:hidden  text-sm top-0 flex flex-wrap items-center justify-around- overflow-clip w-full max-w-[100%] bg-amber-300 py-1 px-2 border-b border-slate-900">
 
         <div 
         style={{transition: "max-height 0.5s ease-in-out, opacity 0.5s ease-in-out"}}
@@ -88,9 +90,10 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         </div>
 
       </div>
+          </div>
       
       <div className="w-full flex items-center justify-center">
-        <h1 className="text-lg w-full rounded-xl border border-black  font-bold text-center md:py-1">
+        <h1 className="text-lg w-[98%] md:w-full rounded-xl border border-black  font-bold text-center md:py-1">
           Stakeholders
         </h1>
       </div>
@@ -101,7 +104,7 @@ const StakeholderTable: React.FC<StakeholderTableProps> = ({
         return (
           <div
             className={cn(
-              "flex flex-col items-start justify-center w-full rounded p-2 md:p-4 border border-black backdrop-blur-md",
+              "flex flex-col items-start justify-center w-[98%] md:w-full rounded  -border-sp p-2 md:p-4 border border-black backdrop-blur-md",
               expandedRecord.id === record.id && "bg-cyan-100"
             )}
             id={record.id}

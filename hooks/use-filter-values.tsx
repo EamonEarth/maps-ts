@@ -77,11 +77,11 @@ export const useFilterValuesStore = create<FilterValuesStore>((set, get) => ({
 
     const currFilters: string[] = [];
     if (nameFilter) currFilters.push(`Name: ${nameFilter}`);
-    if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
     if (clusterFilter) currFilters.push(`Stakeholder Group: ${clusterFilter}`);
     if (subclusterFilter) currFilters.push(`Subcluster: ${subclusterFilter}`);
-    // if (memberCheck) currFilters.push(`CMCN Member ✓`);
+    if (areaFilter) currFilters.push(`Area: ${areaFilter}`);
     if (socialsCheck) currFilters.push(`Socials ✓`);
+    // if (memberCheck) currFilters.push(`CMCN Member ✓`);
 
     return currFilters;
   }
