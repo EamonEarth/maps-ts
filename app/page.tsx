@@ -342,7 +342,7 @@ const AirtableComponent: React.FC = () => {
       style={{
         transition: 'max-height 0.5s ease-in-out',
       }}
-      className={cn("absolute top-0 z-[55] w-full flex flex-col items-center justify-center bg-slate-100 overflow-y-scroll border-b border-b-black max-h-0 rounded-xl", showMobileFilters && "max-h-[50%]")}>
+      className={cn("absolute top-0 z-[55] w-full flex flex-col items-center justify-center bg-slate-100 overflow-y-auto border-b border-b-black max-h-0 rounded-xl", showMobileFilters && "max-h-[50%]")}>
 
         <MobileFilterSelect
           setShowMobileFilters={setShowMobileFilters}

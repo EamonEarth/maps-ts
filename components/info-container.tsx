@@ -47,7 +47,7 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
               </p>
             )} */}
             {StakeholderGroup && (
-                <p className="flex items-center gap-x-1 text-xs lg:text-sm xl:mr-8 rounded border border-slate-800 p-1  max-w-[60%] overflow-scroll">
+                <p className="flex items-center gap-x-1 text-xs lg:text-sm xl:mr-8 rounded border border-slate-800 p-1  max-w-[60%] overflow-auto">
                   {StakeholderGroup}
                 </p>
               )}
@@ -75,7 +75,7 @@ const InfoContainer:React.FC<InfoContainerProps> = ({record}) => {
             </div>
             <div className="flex flex-col gap-y-1 w-1/2">
               {/* {StakeholderGroup && (
-                <p className="hidden lg:flex items-center gap-x-1 !text-[10px] xl:text-sm rounded border border-slate-200 p-1 max-w-[60%] overflow-scroll backdrop-blur-lg">
+                <p className="hidden lg:flex items-center gap-x-1 !text-[10px] xl:text-sm rounded border border-slate-200 p-1 max-w-[60%] overflow-auto backdrop-blur-lg">
                   {StakeholderGroup}
                 </p>
               )} */}
